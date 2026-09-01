@@ -648,6 +648,119 @@ body {
   line-height: 1.8;
 }
 
+/* Video Showcase Gallery in eBook Section */
+.ebook-video-showcase {
+  background: var(--bg-2);
+  border: 1.5px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 36px;
+  margin-top: 48px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5), var(--glow);
+}
+.ebook-video-showcase-title {
+  font-family: var(--f-serif);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--primary-light);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ebook-video-showcase-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+.ebook-main-video-card {
+  background: #000;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--primary);
+  overflow: hidden;
+  margin-bottom: 32px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.7), var(--glow);
+}
+.ebook-main-video-wrap {
+  aspect-ratio: 16/9;
+  position: relative;
+  background: #000;
+}
+.ebook-main-video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.ebook-main-video-desc {
+  padding: 20px 24px;
+  background: var(--bg-3);
+  border-top: 1px solid rgba(212,175,55,0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.ebook-main-video-desc h4 {
+  font-size: 16.5px;
+  font-weight: 700;
+  color: var(--text);
+}
+.ebook-main-video-desc span {
+  font-size: 13.5px;
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+.ebook-shorts-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+@media (max-width: 900px) {
+  .ebook-shorts-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  .ebook-shorts-grid { grid-template-columns: 1fr; }
+}
+.ebook-short-card {
+  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.ebook-short-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+  box-shadow: var(--glow);
+}
+.ebook-short-video-wrap {
+  aspect-ratio: 16/9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+  margin-bottom: 12px;
+}
+.ebook-short-video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ebook-short-info h5 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.ebook-short-info p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
 /* YouTube Facades */
 .embeds {
   display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px;
@@ -1539,6 +1652,87 @@ footer {
       </ul>
     </div>
 
+    <!-- 책 스튜디오 공식 영상관 (40초 FHD 종합 마스터 + 10초 숏폼 4종) -->
+    <div class="ebook-video-showcase reveal">
+      <div class="ebook-video-showcase-title">
+        <span>🎬</span> 책 스튜디오 공식 홍보영상 &amp; 숏폼 쇼케이스
+      </div>
+      <p class="ebook-video-showcase-sub">
+        자체 제작한 멀티모달 전자책 솔루션의 역량과 출간 도서의 실제 제작 프로세스를 영상으로 직접 확인해 보세요.
+      </p>
+
+      <!-- 40초 메인 마스터 영상 (1080p FHD) -->
+      <div class="ebook-main-video-card">
+        <div class="ebook-main-video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="clips/bookstudio-promo-main.mp4" type="video/mp4">
+            브라우저가 비디오 재생을 지원하지 않습니다.
+          </video>
+        </div>
+        <div class="ebook-main-video-desc">
+          <h4>🌟 책 스튜디오 공식 마스터 홍보영상 (40초 Full HD)</h4>
+          <span>텍스트-TTS 음성 동기화와 출간 도서 2종의 표준 EPUB3 &amp; 웹북 출판 전 과정 집대성</span>
+        </div>
+      </div>
+
+      <!-- 10초 핵심 숏폼 4종 그리드 -->
+      <div class="ebook-shorts-grid">
+        
+        <!-- Short 1: 오디오 & 비주얼라이저 -->
+        <div class="ebook-short-card">
+          <div class="ebook-short-video-wrap">
+            <video controls playsinline preload="metadata">
+              <source src="clips/bookstudio-promo1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ebook-short-info">
+            <h5>🎵 멀티모달 비주얼라이저 (10초)</h5>
+            <p>음파 파형, 음표, 디지털 타임라인 편집 융합 연출.</p>
+          </div>
+        </div>
+
+        <!-- Short 2: 좌충우돌 할배의 AI 생존기 3D -->
+        <div class="ebook-short-card">
+          <div class="ebook-short-video-wrap">
+            <video controls playsinline preload="metadata">
+              <source src="clips/bookstudio-promo2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ebook-short-info">
+            <h5>📖 《할배 AI 생존기》 3D (10초)</h5>
+            <p>3D 입체 책 회전 모션 및 부크크/대형서점 구매 안내.</p>
+          </div>
+        </div>
+
+        <!-- Short 3: 2종 출간 도서 서가 전시 -->
+        <div class="ebook-short-card">
+          <div class="ebook-short-video-wrap">
+            <video controls playsinline preload="metadata">
+              <source src="clips/bookstudio-promo3.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ebook-short-info">
+            <h5>📚 2종 도서 서가 진열 (10초)</h5>
+            <p>《할배 AI 생존기》 + 《프롬프트 마스터》 서가 나란히 전시.</p>
+          </div>
+        </div>
+
+        <!-- Short 4: 스튜디오 캐릭터 북 모션 -->
+        <div class="ebook-short-card">
+          <div class="ebook-short-video-wrap">
+            <video controls playsinline preload="metadata">
+              <source src="clips/bookstudio-promo4.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ebook-short-info">
+            <h5>🤖 스튜디오 캐릭터 모션 (10초)</h5>
+            <p>AI 사이버 캐릭터가 《할배의 AI 생존기》를 소개하는 비주얼.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- 멀티모달 전자책 적용 추천 분야 -->
     <div class="reveal" style="margin-top: 48px;">
       <h3 style="font-family: var(--f-serif); font-size: 22px; font-weight: 700; margin-bottom: 20px; color: var(--primary-light);">멀티모달 전자책 추천 활용 분야</h3>
@@ -1645,7 +1839,22 @@ footer {
     <!-- 공식 홍보 영상 그리드 -->
     <div class="promo-grid reveal">
       
-      <!-- Video 1: 책 홍보 영상 -->
+      <!-- Video 0: 책 스튜디오 공식 마스터 홍보영상 -->
+      <div class="promo-card">
+        <div class="promo-video-wrap">
+          <span class="promo-badge">🌟 책 스튜디오 공식 영상</span>
+          <video controls playsinline preload="metadata">
+            <source src="clips/bookstudio-promo-main.mp4" type="video/mp4">
+            브라우저가 비디오 재생을 지원하지 않습니다.
+          </video>
+        </div>
+        <div class="promo-info">
+          <h4>책 스튜디오 종합 마스터 홍보영상 (40초 FHD)</h4>
+          <p>멀티모달 전자책 스튜디오 솔루션과 출간 도서 2종의 제작 전 과정을 고화질로 집대성한 공식 마스터 영상.</p>
+        </div>
+      </div>
+
+      <!-- Video 1: 도서 프롬프트마스터 홍보 영상 -->
       <div class="promo-card">
         <div class="promo-video-wrap">
           <span class="promo-badge">📖 도서 공식 홍보영상</span>
@@ -2322,7 +2531,7 @@ function animateCursor() {
 }
 animateCursor();
 
-const hoverables = document.querySelectorAll('a, button, select, input, textarea, .youtube-facade, .accordion-trigger, .app-card, .promo-card, .c-chip');
+const hoverables = document.querySelectorAll('a, button, select, input, textarea, .youtube-facade, .accordion-trigger, .app-card, .promo-card, .c-chip, .ebook-short-card');
 hoverables.forEach(item => {
   item.addEventListener('mouseenter', () => {
     document.body.classList.add('cursor-hover');
