@@ -3,12 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JASON KINGDOM STUDIO | AI Creative Agency</title>
+<title>JASON KINGDOM STUDIO | 도구까지 직접 만들어 쓰는 AI 크리에이티브 스튜디오</title>
+<meta name="description" content="도구까지 직접 만들어 씁니다. 브랜드 페르소나 설계부터 오리지널 음악·음원 판매, 멀티모달 전자책 제작, 시네마틱 영상, AI 실무 강연, 웹 구축까지 소상공인·시니어 대상 AI 종합 크리에이티브 스튜디오">
+
+<!-- Open Graph / Meta -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jasonkingdom-studio.github.io/">
+<meta property="og:title" content="JASON KINGDOM STUDIO | 도구까지 직접 만들어 씁니다">
+<meta property="og:description" content="AI를 쓸 줄은 알지만 쓸 만한 결과물은 못 만드는 소상공인·시니어를 위해, 브랜드 페르소나부터 노래·영상·웹·전자책을 일관되게 실체화하는 AI 크리에이티브 스튜디오">
+<meta property="og:image" content="hero-signage.jpg">
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Geist:wght@100..900&family=Pretendard:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Geist:wght@100..900&family=Pretendard:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 /* ============================================================
@@ -21,24 +29,26 @@
   --surface: rgba(255,255,255,0.03);
   --surface-2: rgba(255,255,255,0.06);
   --text: #F0F2F5;
-  --text-muted: rgba(240,242,245,0.7);
+  --text-muted: rgba(240,242,245,0.74);
   --text-dim: rgba(240,242,245,0.45);
   
   /* Gold & Brass Palette */
   --primary: #D4AF37;
   --primary-light: #F3E5AB;
   --secondary: #E5C158;
-  --grad: linear-gradient(135deg, #F3E5AB, #D4AF37);
+  --gold-dark: #997A15;
+  --grad: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA820A 100%);
   --grad-r: linear-gradient(135deg, #D4AF37, #F3E5AB);
+  --grad-card: linear-gradient(180deg, rgba(20,22,31,0.85) 0%, rgba(10,11,14,0.95) 100%);
   
-  --glass-border: rgba(212,175,55,0.15);
-  --glass-border-hover: rgba(212,175,55,0.45);
-  --glow: 0 0 35px rgba(212,175,55,0.1);
-  --glow-hover: 0 0 50px rgba(212,175,55,0.25);
+  --glass-border: rgba(212,175,55,0.18);
+  --glass-border-hover: rgba(212,175,55,0.55);
+  --glow: 0 0 35px rgba(212,175,55,0.12);
+  --glow-hover: 0 0 50px rgba(212,175,55,0.3);
   
   --f-serif: 'Fraunces', serif;
   --f-sans: 'Geist', 'Pretendard', sans-serif;
-  --wrap: 1140px;
+  --wrap: 1180px;
   --radius: 20px;
   --radius-sm: 12px;
 }
@@ -51,7 +61,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 100px;
+  scroll-padding-top: 90px;
 }
 
 body {
@@ -88,9 +98,8 @@ body {
   z-index: 9999;
   transform: translate(-50%, -50%);
 }
-
 .cursor-hover .cursor-ring {
-  width: 50px; height: 50px;
+  width: 52px; height: 52px;
   background-color: rgba(212, 175, 55, 0.15);
   border-color: var(--primary-light);
 }
@@ -102,10 +111,9 @@ body {
   width: 100vw; height: 100vh;
   z-index: 999;
   pointer-events: none;
-  opacity: 0.04;
+  opacity: 0.035;
 }
 
-/* General Layout & Common Elements */
 .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
 
 .grad-text {
@@ -129,22 +137,25 @@ body {
 .reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.24s; }
+.reveal-delay-3 { transition-delay: 0.36s; }
 
 /* ========== TOPBAR ========== */
 .topbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: rgba(10,11,14,0.75);
+  background: rgba(10,11,14,0.82);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
-  border-bottom: 1px solid rgba(212,175,55,0.08);
+  border-bottom: 1px solid rgba(212,175,55,0.1);
   transition: background 0.4s, border-color 0.4s;
 }
 .topbar.scrolled {
-  background: rgba(10,11,14,0.92);
-  border-color: rgba(212,175,55,0.2);
+  background: rgba(10,11,14,0.96);
+  border-color: rgba(212,175,55,0.25);
 }
 .topbar .wrap {
   display: flex; align-items: center; justify-content: space-between;
@@ -152,40 +163,47 @@ body {
 }
 .brand {
   font-family: var(--f-serif);
-  font-size: 22px;
+  font-size: 21px;
   font-weight: 800;
   letter-spacing: -0.01em;
   background: var(--grad);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
-.topbar nav { display: flex; gap: 36px; }
+.brand span { font-family: var(--f-sans); font-size: 13px; font-weight: 400; opacity: 0.8; }
+.topbar nav { display: flex; gap: 24px; align-items: center; }
 .topbar nav a {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13.5px;
+  font-weight: 600;
   color: var(--text-muted);
+  text-decoration: none;
   position: relative;
   transition: color 0.3s;
   padding: 8px 0;
 }
 .topbar nav a::after {
-  content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1.5px;
+  content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
   background: var(--grad); transition: width 0.3s ease;
 }
 .topbar nav a:hover { color: var(--text); }
 .topbar nav a:hover::after { width: 100%; }
 
 .topbar .cta-call {
-  font-size: 14px; font-weight: 600; padding: 10px 24px;
+  font-size: 13.5px; font-weight: 700; padding: 10px 22px;
   background: var(--grad); color: #0A0B0E; border-radius: 50px;
+  text-decoration: none;
   transition: transform 0.3s, box-shadow 0.3s;
+  white-space: nowrap;
 }
 .topbar .cta-call:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(212,175,55,0.3);
+  box-shadow: 0 8px 25px rgba(212,175,55,0.35);
 }
 
-/* Circular Mobile Menu Button */
 .hamburger {
   display: none; width: 44px; height: 44px; border-radius: 50%;
   background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border);
@@ -201,12 +219,11 @@ body {
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-/* Fullscreen Slide Menu */
 .mobile-menu {
   position: fixed; inset: 0; z-index: 1050;
   background: rgba(10,11,14,0.98);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 36px; pointer-events: none;
+  gap: 26px; pointer-events: none;
   clip-path: circle(0px at 90% 10%);
   transition: clip-path 0.7s cubic-bezier(0.85, 0, 0.15, 1);
 }
@@ -215,12 +232,12 @@ body {
   clip-path: circle(150% at 90% 10%);
 }
 .mobile-menu a {
-  font-family: var(--f-serif); font-size: 32px; font-weight: 700;
-  color: var(--text-muted); transition: color 0.3s, transform 0.3s;
+  font-family: var(--f-serif); font-size: 24px; font-weight: 700;
+  color: var(--text-muted); text-decoration: none; transition: color 0.3s, transform 0.3s;
 }
 .mobile-menu a:hover { color: var(--secondary); transform: scale(1.05); }
 
-@media (max-width: 860px) {
+@media (max-width: 980px) {
   .topbar nav, .topbar .cta-call { display: none; }
   .hamburger { display: flex; }
 }
@@ -228,12 +245,13 @@ body {
 /* ========== HERO SECTION (CINEMATIC) ========== */
 .hero {
   position: relative;
-  min-height: 90vh;
+  min-height: 94vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding-top: 100px;
+  padding-top: 110px;
+  padding-bottom: 60px;
 }
 .hero-video-container {
   position: absolute;
@@ -243,27 +261,50 @@ body {
 }
 .hero-video-container video {
   width: 100%; height: 100%; object-fit: cover;
-  filter: brightness(0.4) contrast(1.1);
+  filter: brightness(0.35) contrast(1.15);
 }
 .hero-video-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(10,11,14,0.4) 0%, rgba(10,11,14,0.7) 60%, rgba(10,11,14,1) 100%);
+  background: linear-gradient(to bottom, rgba(10,11,14,0.45) 0%, rgba(10,11,14,0.75) 65%, rgba(10,11,14,1) 100%);
   z-index: 1;
 }
 .hero .wrap {
   position: relative;
   z-index: 2;
   text-align: center;
-  max-width: 900px;
+  max-width: 960px;
 }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 20px;
+  background: rgba(212,175,55,0.12);
+  border: 1px solid var(--glass-border);
+  border-radius: 50px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-bottom: 20px;
+}
+.hero-badge span.pulse {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--secondary);
+  box-shadow: 0 0 10px var(--secondary);
+  animation: pulseDot 2s infinite;
+}
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
 .hero h1 {
   font-family: var(--f-serif);
-  font-size: clamp(38px, 6vw, 76px);
-  line-height: 1.15;
+  font-size: clamp(34px, 5.2vw, 66px);
+  line-height: 1.22;
   font-weight: 900;
   letter-spacing: -0.03em;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 .hero h1 span.word {
   display: inline-block;
@@ -277,17 +318,49 @@ body {
 }
 
 .hero p.sub {
-  font-size: clamp(16px, 1.8vw, 20px);
+  font-size: clamp(15px, 1.7vw, 19px);
   color: var(--text-muted);
-  max-width: 620px;
-  margin: 0 auto 40px;
+  max-width: 820px;
+  margin: 0 auto 36px;
   line-height: 1.8;
 }
+.hero p.sub strong { color: var(--primary-light); font-weight: 700; }
 
-/* Brand Signage at Top Hero */
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px; border-radius: 50px;
+  background: var(--grad); color: #0A0B0E;
+  font-weight: 800; font-size: 15px; text-decoration: none;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+}
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px; border-radius: 50px;
+  border: 1.5px solid var(--primary);
+  background: rgba(255,255,255,0.03); color: var(--primary-light);
+  font-weight: 700; font-size: 15px; text-decoration: none;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s, background 0.3s;
+}
+.btn-outline:hover {
+  background: rgba(212,175,55,0.12);
+  transform: translateY(-3px);
+}
+
 .brand-signage-wrap {
   max-width: 720px;
-  margin: 0 auto 50px;
+  margin: 0 auto 40px;
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--glass-border);
@@ -299,13 +372,13 @@ body {
   transition: transform 0.8s;
 }
 .brand-signage-wrap:hover img {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 /* Video Showcase Carousel inside Hero */
 .video-showcase-carousel {
-  max-width: 600px;
-  margin: 30px auto 0;
+  max-width: 640px;
+  margin: 20px auto 0;
   border-radius: var(--radius-sm);
   overflow: hidden;
   background: var(--surface);
@@ -326,21 +399,46 @@ body {
 }
 .c-dot {
   width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2);
-  border: none; cursor: pointer; transition: background 0.3s;
+  border: none; cursor: pointer; transition: background 0.3s, transform 0.3s;
 }
-.c-dot.active { background: var(--secondary); }
+.c-dot.active { background: var(--secondary); transform: scale(1.25); }
 
-/* ========== 3대 카테고리 카드 섹션 ========== */
+/* ========== 핵심 차별화 철학 배너 ========== */
+.philosophy-banner {
+  background: var(--bg-2);
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 48px 0;
+}
+.ph-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+@media (max-width: 860px) {
+  .ph-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+.ph-card {
+  border-left: 2px solid var(--primary);
+  padding-left: 20px;
+}
+.ph-card h4 {
+  font-size: 16px; font-weight: 800; color: var(--primary-light); margin-bottom: 6px;
+}
+.ph-card p {
+  font-size: 13.5px; color: var(--text-muted); line-height: 1.6;
+}
+
+/* ========== 5대 핵심 비즈니스 솔루션 그리드 ========== */
 .categories-sec {
-  padding: 120px 0;
+  padding: 110px 0;
   background: #0A0B0E;
 }
 .categories-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  margin-top: 60px;
-  perspective: 1000px;
+  gap: 28px;
+  margin-top: 50px;
 }
 .category-card {
   position: relative;
@@ -348,17 +446,19 @@ body {
   border-radius: var(--radius);
   border: 1px solid var(--glass-border);
   overflow: hidden;
-  height: 480px;
+  height: 420px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 40px;
-  transition: border-color 0.4s, box-shadow 0.4s;
-  transform-style: preserve-3d;
+  padding: 36px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.4s, box-shadow 0.4s, transform 0.4s;
 }
 .category-card:hover {
   border-color: var(--glass-border-hover);
-  box-shadow: var(--glow-hover), 0 15px 40px rgba(0,0,0,0.5);
+  box-shadow: var(--glow-hover), 0 15px 40px rgba(0,0,0,0.6);
+  transform: translateY(-4px);
 }
 .card-bg-img {
   position: absolute;
@@ -366,76 +466,82 @@ body {
   z-index: 1;
   background-size: cover;
   background-position: center;
-  filter: brightness(0.35) saturate(0.8);
+  filter: brightness(0.32) saturate(0.85);
   transition: transform 0.6s ease, filter 0.6s ease;
 }
 .category-card:hover .card-bg-img {
-  transform: scale(1.05);
-  filter: brightness(0.5) saturate(1);
+  transform: scale(1.06);
+  filter: brightness(0.48) saturate(1.05);
 }
 .category-card::after {
   content: ''; position: absolute; inset: 0; z-index: 2;
-  background: linear-gradient(to top, rgba(10,11,14,0.95) 0%, rgba(10,11,14,0.4) 60%, transparent 100%);
+  background: linear-gradient(to top, rgba(10,11,14,0.96) 0%, rgba(10,11,14,0.5) 55%, transparent 100%);
 }
 .card-content {
   position: relative;
   z-index: 3;
-  transform: translateZ(30px);
 }
 .card-tag {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.15em;
   color: var(--secondary);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 .category-card h3 {
   font-family: var(--f-serif);
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 16px;
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 12px;
 }
 .category-card p.copy {
-  font-family: var(--f-serif);
-  font-style: italic;
-  font-size: 18px;
-  line-height: 1.4;
-  color: var(--primary-light);
-  margin-bottom: 24px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 18px;
 }
 .category-card .btn-detail {
   font-size: 13px; font-weight: 700; color: var(--secondary);
   display: inline-flex; align-items: center; gap: 6px;
+  transition: gap 0.3s;
+}
+.category-card:hover .btn-detail { gap: 10px; color: var(--primary-light); }
+
+@media (max-width: 990px) {
+  .categories-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 680px) {
+  .categories-grid { grid-template-columns: 1fr; gap: 20px; }
+  .category-card { height: 360px; padding: 28px; }
 }
 
-@media (max-width: 960px) {
-  .categories-grid { grid-template-columns: 1fr; gap: 24px; }
-  .category-card { height: 400px; }
-}
-
-/* ========== 상세 서비스 본문 섹션 ========== */
+/* ========== 상세 섹션 공통 스타일 ========== */
 .sec {
   padding: 120px 0;
-  border-top: 1px solid rgba(255,255,255,0.02);
+  border-top: 1px solid rgba(255,255,255,0.03);
+  position: relative;
 }
 .sec-head {
-  max-width: 680px;
-  margin-bottom: 60px;
+  max-width: 760px;
+  margin-bottom: 50px;
 }
 .sec-head h2 {
   font-family: var(--f-serif);
-  font-size: clamp(28px, 4vw, 44px);
+  font-size: clamp(28px, 3.8vw, 44px);
   line-height: 1.25;
-  margin-bottom: 20px;
+  font-weight: 800;
+  margin-bottom: 18px;
 }
 .sec-head p {
   color: var(--text-muted);
   font-size: 16px;
+  line-height: 1.8;
 }
 
-/* Embedded Facade Facet for YouTube (Performance) */
+/* YouTube Facades */
 .embeds {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px;
 }
 @media (max-width: 760px) { .embeds { grid-template-columns: 1fr; } }
 .youtube-facade {
@@ -454,16 +560,16 @@ body {
 .youtube-facade:hover img { transform: scale(1.03); }
 .youtube-facade .play-btn {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 64px; height: 64px; border-radius: 50%; background: rgba(10,11,14,0.85);
-  border: 1px solid var(--primary); display: flex; align-items: center; justify-content: center;
+  width: 60px; height: 60px; border-radius: 50%; background: rgba(10,11,14,0.85);
+  border: 1.5px solid var(--primary); display: flex; align-items: center; justify-content: center;
   transition: background 0.3s, transform 0.3s;
   z-index: 2;
 }
 .youtube-facade:hover .play-btn { background: var(--grad); transform: translate(-50%, -50%) scale(1.08); }
-.youtube-facade .play-btn svg { width: 24px; height: 24px; fill: var(--primary-light); transition: fill 0.3s; }
+.youtube-facade .play-btn svg { width: 22px; height: 22px; fill: var(--primary-light); transition: fill 0.3s; }
 .youtube-facade:hover .play-btn svg { fill: #0a0b0e; }
 
-/* Custom Layout grids */
+/* Grid Features Boxes */
 .jg-box {
   background: var(--bg-2);
   border: 1px solid var(--glass-border);
@@ -472,21 +578,22 @@ body {
   margin-bottom: 40px;
 }
 .jg-avatar {
-  display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
+  display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
 }
 .jg-avatar img {
   width: 60px; height: 60px; border-radius: 50%; border: 1.5px solid var(--primary);
+  object-fit: cover;
 }
 .jg-list {
-  list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
 }
 @media (max-width: 760px) { .jg-list { grid-template-columns: 1fr; } }
 .jg-list li {
-  display: flex; gap: 20px;
+  display: flex; gap: 18px;
 }
 .jg-list li em {
-  font-family: var(--f-serif); font-size: 28px; font-weight: 800; font-style: normal;
-  color: var(--secondary);
+  font-family: var(--f-serif); font-size: 26px; font-weight: 800; font-style: normal;
+  color: var(--secondary); flex-shrink: 0;
 }
 
 .brand-gallery {
@@ -500,11 +607,91 @@ body {
 
 .prep {
   background: rgba(255,255,255,0.02); border-left: 3px solid var(--primary);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 24px 32px; margin-bottom: 48px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 24px 32px; margin-bottom: 30px;
 }
-.prep ul { margin-top: 12px; margin-left: 20px; }
+.prep ul { margin-top: 10px; margin-left: 20px; color: var(--text-muted); }
 
-/* Website Showcase Grid */
+/* Promo Video Grid */
+.promo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  margin-top: 40px;
+}
+.promo-card {
+  background: var(--bg-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.promo-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--glow);
+}
+.promo-video-wrap {
+  position: relative;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #000;
+  aspect-ratio: 16/9;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+.promo-video-wrap video {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.promo-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: rgba(10,11,14,0.85); backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border); border-radius: 4px;
+  font-size: 11px; font-weight: 700; color: var(--secondary);
+  padding: 4px 10px;
+}
+.promo-info { margin-top: 16px; flex: 1; display: flex; flex-direction: column; }
+.promo-info h4 { font-family: var(--f-sans); font-size: 16.5px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.promo-info p { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
+
+/* Lecture Items */
+.lec {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 30px;
+}
+@media (max-width: 860px) { .lec { grid-template-columns: 1fr; } }
+.lec-item {
+  background: var(--bg-2); border: 1px solid var(--glass-border); border-radius: var(--radius);
+  padding: 30px; display: flex; flex-direction: column; gap: 12px;
+}
+.lec-item b { font-size: 18px; color: var(--primary-light); font-weight: 700; }
+.lec-item span { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+/* Channel Grid */
+.channel-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px;
+}
+@media (max-width: 900px) { .channel-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 500px) { .channel-grid { grid-template-columns: 1fr; } }
+.channel-card {
+  background: var(--surface); border: 1px solid var(--glass-border); border-radius: var(--radius-sm);
+  padding: 20px; text-decoration: none; color: var(--text); text-align: center;
+  transition: transform 0.3s, border-color 0.3s, background 0.3s;
+  display: flex; flex-direction: column; align-items: center;
+}
+.channel-card:hover {
+  transform: translateY(-4px); border-color: var(--primary);
+  background: rgba(212,175,55,0.06);
+}
+.channel-icon {
+  width: 48px; height: 48px; border-radius: 50%; background: rgba(255,0,0,0.15);
+  border: 1px solid rgba(255,0,0,0.4); display: flex; align-items: center; justify-content: center;
+  margin-bottom: 12px;
+}
+.channel-icon svg { width: 24px; height: 24px; fill: #ff4444; }
+.channel-card h5 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.channel-card span { font-size: 12px; color: var(--text-dim); }
+
+/* Web Mockup Grid */
 .mock-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 40px;
 }
@@ -529,7 +716,7 @@ body {
 /* Business Plan standard layout */
 .toc-card {
   background: var(--bg-2); border: 1px solid var(--glass-border); border-radius: var(--radius);
-  padding: 40px; max-width: 580px; margin: 0 auto;
+  padding: 40px; max-width: 640px; margin: 0 auto;
 }
 .toc-head { font-family: var(--f-serif); font-size: 20px; font-weight: 700; color: var(--primary); margin-bottom: 24px; }
 .toc-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
@@ -550,12 +737,316 @@ body {
 .bnd-c b.red { color: #f87171; }
 .bb-footer { margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 13px; color: var(--text-dim); line-height: 1.7; }
 
-.book-img-wrap img {
-  width: 100% !important;
-  height: auto !important;
-  max-height: none !important;
-  display: block !important;
-  object-fit: contain !important;
+/* ============================================================
+   Creations & Software Section (출간 도서 2종 & 소프트웨어)
+   ============================================================ */
+.creations-sec {
+  padding: 120px 0;
+  background: var(--bg-3);
+  border-top: 1px solid rgba(255,255,255,0.03);
+}
+
+/* Books Showcase Grid (2종 도서) */
+.books-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 70px;
+}
+@media (max-width: 880px) {
+  .books-container { grid-template-columns: 1fr; gap: 36px; }
+}
+.book-card {
+  background: var(--bg-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 36px;
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.book-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--glow);
+  transform: translateY(-4px);
+}
+@media (max-width: 580px) {
+  .book-card { flex-direction: column; align-items: center; text-align: center; }
+}
+.book-cover-wrap {
+  width: 180px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.7), var(--glow);
+  border: 1px solid rgba(212,175,55,0.2);
+}
+.book-cover-wrap img {
+  width: 100%; height: auto; display: block; object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.book-card:hover .book-cover-wrap img {
+  transform: scale(1.04);
+}
+.book-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.book-badges {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;
+}
+.book-badge {
+  font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 4px;
+  background: rgba(212,175,55,0.12); color: var(--secondary); border: 1px solid var(--glass-border);
+}
+.book-badge.paper {
+  background: rgba(255,255,255,0.06); color: #fff; border-color: rgba(255,255,255,0.15);
+}
+.book-body h3 {
+  font-family: var(--f-serif); font-size: 23px; font-weight: 800;
+  color: var(--text); line-height: 1.3; margin-bottom: 6px;
+}
+.book-body p.sub-title {
+  font-size: 13.5px; color: var(--primary-light); font-weight: 600; margin-bottom: 14px;
+}
+.book-body p.author {
+  font-size: 13px; color: var(--text-dim); margin-bottom: 14px;
+}
+.book-body p.desc {
+  font-size: 14px; color: var(--text-muted); line-height: 1.7;
+}
+
+/* Software Grid */
+.apps-header {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 24px; border-bottom: 1.5px solid rgba(212,175,55,0.15);
+  padding-bottom: 12px;
+}
+.apps-title {
+  font-family: var(--f-serif); font-size: 26px; font-weight: 800; color: var(--secondary);
+}
+.apps-note { font-size: 13.5px; color: var(--text-dim); }
+.apps-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+.app-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: pointer;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s, background 0.3s;
+}
+.app-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--glass-border-hover);
+  background: rgba(212,175,55,0.04);
+  box-shadow: var(--glow);
+}
+.app-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  background: rgba(212,175,55,0.1);
+  border: 1.5px solid var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.app-icon svg { width: 22px; height: 22px; fill: var(--secondary); }
+.app-card h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+.app-card p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* FAQ Accordion */
+.faq-accordion-sec {
+  padding: 120px 0;
+  background: #0A0B0E;
+}
+.accordion-wrapper {
+  max-width: 800px;
+  margin: 50px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.faq-group-title {
+  font-family: var(--f-serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-light);
+  margin-top: 24px;
+  margin-bottom: 8px;
+  border-left: 3px solid var(--primary);
+  padding-left: 12px;
+}
+.accordion-item {
+  background: var(--bg-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.accordion-item.active { border-color: var(--primary); }
+.accordion-trigger {
+  width: 100%;
+  padding: 20px 24px;
+  background: transparent;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--f-sans);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.accordion-trigger:hover { color: var(--secondary); }
+.accordion-icon {
+  width: 14px; height: 14px;
+  border-right: 2px solid var(--secondary);
+  border-bottom: 2px solid var(--secondary);
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+.accordion-item.active .accordion-icon {
+  transform: rotate(-135deg);
+}
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  background: rgba(10,11,14,0.4);
+}
+.accordion-item.active .accordion-content {
+  max-height: 300px;
+}
+.accordion-inner {
+  padding: 20px 24px;
+  font-size: 14.5px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Director / Founder */
+.owner {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  background: var(--bg-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 40px;
+}
+@media (max-width: 760px) {
+  .owner { flex-direction: column; text-align: center; }
+}
+.owner-photo {
+  width: 160px; height: 160px; border-radius: 50%;
+  overflow: hidden; border: 2px solid var(--primary);
+  flex-shrink: 0; box-shadow: var(--glow);
+}
+.owner-photo img { width: 100%; height: 100%; object-fit: cover; }
+.owner-info h3 { font-family: var(--f-serif); font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+.owner-info p.title { font-size: 15px; color: var(--secondary); font-weight: 700; margin-bottom: 16px; }
+.owner-info p.bio { font-size: 14.5px; color: var(--text-muted); line-height: 1.8; }
+
+/* Contact Section */
+.contact-sec {
+  padding: 120px 0;
+  background: var(--bg-3);
+  border-top: 1px solid rgba(255,255,255,0.03);
+}
+.cgrid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 50px;
+}
+@media (max-width: 860px) { .cgrid { grid-template-columns: 1fr; } }
+.cbig {
+  display: block;
+  background: var(--bg-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 32px;
+  text-decoration: none;
+  color: var(--text);
+  margin-bottom: 24px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.cbig:hover {
+  border-color: var(--primary); transform: translateY(-3px);
+}
+.cbig small { font-size: 12px; color: var(--secondary); text-transform: uppercase; font-weight: 800; display: block; margin-bottom: 4px; }
+.cbig b { font-size: 28px; font-family: var(--f-sans); font-weight: 800; color: var(--primary-light); }
+.cinfo {
+  background: var(--bg-2); border: 1px solid var(--glass-border); border-radius: var(--radius);
+  padding: 32px; display: grid; grid-template-columns: 90px 1fr; gap: 16px; font-size: 14px;
+}
+.cinfo dt { color: var(--text-dim); font-weight: 600; }
+.cinfo dd { color: var(--text); word-break: break-all; }
+.cinfo dd a { color: var(--secondary); text-decoration: none; }
+
+form#jkform {
+  background: var(--bg-2); border: 1px solid var(--glass-border); border-radius: var(--radius);
+  padding: 40px; display: flex; flex-direction: column; gap: 20px;
+}
+.f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 600px) { .f2 { grid-template-columns: 1fr; } }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field label { font-size: 13.5px; font-weight: 700; color: var(--text-muted); }
+.field input, .field select, .field textarea {
+  background: rgba(10,11,14,0.6); border: 1px solid rgba(212,175,55,0.2); border-radius: 8px;
+  padding: 12px 16px; color: var(--text); font-family: var(--f-sans); font-size: 14.5px;
+  outline: none; transition: border-color 0.3s;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 12px rgba(212,175,55,0.2);
+}
+.field textarea { height: 110px; resize: vertical; }
+.submit {
+  padding: 16px; border-radius: 8px; border: none; background: var(--grad);
+  color: #0A0B0E; font-size: 16px; font-weight: 800; cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.submit:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212,175,55,0.35); }
+.privacy { font-size: 12px; color: var(--text-dim); text-align: center; margin-top: 4px; }
+
+/* Footer */
+footer {
+  padding: 60px 0 40px;
+  background: #060709;
+  border-top: 1px solid rgba(212,175,55,0.1);
+  font-size: 14px;
+  color: var(--text-dim);
+}
+.fgrid {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 32px; flex-wrap: wrap; gap: 20px;
+}
+.fnote {
+  border-top: 1px solid rgba(255,255,255,0.05); padding-top: 24px;
+  font-size: 12.5px; line-height: 1.8; color: rgba(240,242,245,0.35);
 }
 
 /* App Detail Modal */
@@ -569,7 +1060,7 @@ body {
 .app-modal.open { opacity: 1; pointer-events: auto; }
 .app-modal-content {
   background: var(--bg-2); border: 2px solid var(--glass-border);
-  border-radius: var(--radius); padding: 40px; max-width: 500px; width: 90%;
+  border-radius: var(--radius); padding: 40px; max-width: 520px; width: 90%;
   position: relative; text-align: center; box-shadow: var(--glow-hover);
   transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -593,7 +1084,6 @@ body {
   cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;
 }
 .app-modal-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212,175,55,0.3); }
-
 .app-modal-live {
   width: 100%; padding: 14px; border: 1.5px solid var(--primary); border-radius: 8px;
   background: transparent; color: var(--secondary); font-weight: 700; font-size: 15px;
@@ -601,138 +1091,6 @@ body {
   font-family: var(--f-sans); margin-bottom: 12px;
 }
 .app-modal-live:hover { background: rgba(212,175,55,0.1); transform: translateY(-2px); }
-
-/* ============================================================
-   Creations & Software Section Styles
-   ============================================================ */
-.creations-sec {
-  padding: 120px 0;
-  background: var(--bg-3);
-  border-top: 1px solid rgba(255,255,255,0.02);
-}
-.creations-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 60px;
-  align-items: start;
-}
-@media (max-width: 900px) {
-  .creations-grid {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-}
-.book-showcase {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius);
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  text-align: center;
-  transition: border-color 0.3s;
-}
-.book-showcase:hover {
-  border-color: var(--primary);
-}
-.book-img-wrap {
-  width: 240px;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.6), var(--glow);
-  transition: transform 0.5s;
-}
-.book-showcase:hover .book-img-wrap {
-  transform: translateY(-8px) scale(1.03);
-}
-.book-info h3 {
-  font-family: var(--f-serif);
-  font-size: 24px;
-  font-weight: 800;
-  margin-bottom: 8px;
-  color: var(--text);
-}
-.book-info p.book-sub {
-  font-size: 14px;
-  color: var(--secondary);
-  margin-bottom: 16px;
-}
-.book-desc {
-  font-size: 14.5px;
-  color: var(--text-muted);
-  line-height: 1.8;
-  text-align: left;
-  background: rgba(10,11,14,0.4);
-  padding: 20px;
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(255,255,255,0.03);
-}
-
-.apps-showcase {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-.apps-title {
-  font-family: var(--f-serif);
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--secondary);
-  margin-bottom: 12px;
-  border-bottom: 1.5px solid rgba(212,175,55,0.15);
-  padding-bottom: 10px;
-}
-.apps-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-@media (max-width: 600px) {
-  .apps-list {
-    grid-template-columns: 1fr;
-  }
-}
-.app-card {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-sm);
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-}
-.app-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--glass-border-hover);
-  box-shadow: var(--glow);
-}
-.app-icon {
-  width: 40px; height: 40px;
-  border-radius: 8px;
-  background: rgba(212,175,55,0.1);
-  border: 1.5px solid var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.app-icon svg {
-  width: 20px; height: 20px;
-  fill: var(--secondary);
-}
-.app-card h4 {
-  font-family: var(--f-sans);
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--text);
-}
-.app-card p {
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
 </style>
 </head>
 <body class="cursor-hover-active">
@@ -755,11 +1113,12 @@ body {
   <div class="wrap">
     <a href="#hero" class="brand">JASON KINGDOM <span>STUDIO</span></a>
     <nav>
-      <a href="#music">노래 제작</a>
-      <a href="#video">영상·광고</a>
+      <a href="#music">음악·음원 판매</a>
+      <a href="#ebook">멀티모달 전자책</a>
+      <a href="#video">영상·홍보관</a>
       <a href="#lecture">AI 강연</a>
       <a href="#web">웹·비즈니스</a>
-      <a href="#creations">저서·프로그램</a>
+      <a href="#creations">출간 저서·앱</a>
       <a href="#contact">문의</a>
     </nav>
     <a class="cta-call" href="#contact">상담 문의</a>
@@ -770,11 +1129,12 @@ body {
 </header>
 
 <div class="mobile-menu" id="mobile-menu">
-  <a href="#music" class="mobile-link">노래 제작</a>
-  <a href="#video" class="mobile-link">영상·광고</a>
+  <a href="#music" class="mobile-link">음악·음원 판매</a>
+  <a href="#ebook" class="mobile-link">멀티모달 전자책</a>
+  <a href="#video" class="mobile-link">영상·홍보관</a>
   <a href="#lecture" class="mobile-link">AI 강연</a>
   <a href="#web" class="mobile-link">웹·비즈니스</a>
-  <a href="#creations" class="mobile-link">저서·프로그램</a>
+  <a href="#creations" class="mobile-link">출간 저서·앱</a>
   <a href="#contact" class="mobile-link" style="color:var(--secondary)">상담 문의</a>
 </div>
 
@@ -788,7 +1148,11 @@ body {
   <div class="hero-video-overlay"></div>
   
   <div class="wrap">
-    <span class="sec-tag">AI Creative Agency</span>
+    <div class="hero-badge reveal">
+      <span class="pulse"></span>
+      도구까지 직접 만들어 씁니다 · AI 기반 종합 크리에이티브 스튜디오
+    </div>
+    
     <h1 id="heroHeadline">
       <span class="word">상상을</span> 
       <span class="word">실체로,</span> 
@@ -796,8 +1160,18 @@ body {
       <span class="word">함께</span> 
       <span class="word">나아갑니다</span>
     </h1>
-    <p class="sub">로고송, 홍보영상, 홈페이지, 그리고 실무 AI 임직원 특강까지.<br>당신의 비즈니스를 전면으로 가시화하는 **AI 기반 종합 에이전시**입니다.</p>
     
+    <p class="sub">
+      <strong>"AI를 쓸 줄은 알지만 쓸 만한 결과물은 못 만드는"</strong> 소상공인·시니어·기관을 위해,<br>
+      브랜드에 <strong>인격(페르소나)</strong>을 부여하고 <strong>노래·영상·광고·웹사이트·전자책</strong>을 일관되게 만들어 확산시킵니다.<br>
+      고객이 비용을 지불하는 진짜 가치는 단순 '생성'이 아니라 <strong>'1만 번의 경험에서 나오는 선별과 완성'</strong>입니다.
+    </p>
+    
+    <div class="hero-actions reveal">
+      <a href="#creations" class="btn-primary">출간 저서 &amp; 솔루션 보기 →</a>
+      <a href="#video" class="btn-outline">홍보 영상 감상하기</a>
+    </div>
+
     <!-- 브랜드 간판 비주얼 -->
     <div class="brand-signage-wrap reveal">
       <img src="hero-signage.jpg" alt="JASON KINGDOM STUDIO SIGNAGE">
@@ -821,51 +1195,103 @@ body {
         <button class="c-dot" data-index="7" aria-label="8번 영상"></button>
         <button class="c-dot" data-index="8" aria-label="9번 영상"></button>
         <button class="c-dot" data-index="9" aria-label="10번 영상"></button>
-        <button class="c-dot" data-index="10" aria-label="11번 영상"></button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ========== 3대 카테고리 카드 섹션 ========== -->
+<!-- ========== 핵심 차별화 철학 배너 ========== -->
+<section class="philosophy-banner">
+  <div class="wrap">
+    <div class="ph-grid">
+      <div class="ph-card reveal">
+        <h4>01 · 브랜드 페르소나 마케팅</h4>
+        <p>로고를 기억하는 사람은 없지만 말을 건네는 인격은 기억합니다. 브랜드의 말투, 서사, 톤을 먼저 설계해 모든 콘텐츠를 일관되게 확산시킵니다.</p>
+      </div>
+      <div class="ph-card reveal reveal-delay-1">
+        <h4>02 · '만드는 능력'보다 '고르는 눈'</h4>
+        <p>1만 곡 이상의 AI 생성과 폐기 과정에서 축적된 상업적 완성도 판별 기준. 외주비와 저작권 비용 0원으로 최상의 품질만 선별합니다.</p>
+      </div>
+      <div class="ph-card reveal reveal-delay-2">
+        <h4>03 · 도구까지 직접 만들어 쓰는 기술력</h4>
+        <p>시중 툴의 단순 사용자를 넘어 23종의 AI 응용 소프트웨어를 직접 개발·구축하여 로컬 통합 제작 파이프라인으로 공정을 자동화했습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 5대 핵심 비즈니스 솔루션 그리드 ========== -->
 <section class="categories-sec">
   <div class="wrap">
     <div style="text-align: center;">
-      <span class="sec-tag">Service Overview</span>
-      <h2 style="font-family: var(--f-serif); font-size: clamp(28px, 4vw, 44px); font-weight: 800;">3대 핵심 서비스 솔루션</h2>
-      <p style="color: var(--text-muted); margin-top: 12px; font-size: 15px;">아이콘과 카드를 선택하시면 상세 설명 영역으로 즉시 스크롤됩니다.</p>
+      <span class="sec-tag">Business Core Pillars</span>
+      <h2 style="font-family: var(--f-serif); font-size: clamp(28px, 4vw, 44px); font-weight: 800;">5대 핵심 비즈니스 솔루션</h2>
+      <p style="color: var(--text-muted); margin-top: 12px; font-size: 15px;">아이콘과 카드를 선택하시면 각 사업 영역의 상세 설명으로 즉시 이동합니다.</p>
     </div>
 
     <div class="categories-grid">
-      <!-- CARD 1 -->
+      <!-- CARD 1: MUSIC & SOUND ASSET SALES -->
       <a href="#music" class="category-card reveal">
         <div class="card-bg-img" style="background-image: url('card-music.jpg');"></div>
         <div class="card-content">
-          <div class="card-tag">MUSIC / VIDEO / ADS</div>
-          <h3>콘텐츠 &amp; 캠페인</h3>
-          <p class="copy">“압도적 사운드. 시네마틱 영상.”</p>
+          <div class="card-tag">01 · MUSIC &amp; SOUND ASSETS</div>
+          <h3>음악 제작 &amp; 음원 판매</h3>
+          <p class="copy">“1만 곡의 생성과 선별. 저작권료 걱정 없는 매장 BGM USB 패키지 및 오리지널 CM송.”</p>
+          <span class="btn-detail">자세히 보기 →</span>
+        </div>
+      </a>
+
+      <!-- CARD 2: MULTIMODAL E-BOOK STUDIO (NEW) -->
+      <a href="#ebook" class="category-card reveal reveal-delay-1">
+        <div class="card-bg-img" style="background-image: url('card-brand.jpg');"></div>
+        <div class="card-content">
+          <div class="card-tag">02 · MULTIMODAL E-BOOK</div>
+          <h3>멀티모달 전자책 제작</h3>
+          <p class="copy">“음악·영상·출판이 하나로 수렴. 텍스트+TTS 음성 동기화+영상 결합, EPUB3 &amp; 웹북 출판.”</p>
           <span class="btn-detail">자세히 보기 →</span>
         </div>
       </a>
       
-      <!-- CARD 2 -->
+      <!-- CARD 3: VIDEO & CINEMATIC PROMO -->
+      <a href="#video" class="category-card reveal reveal-delay-2">
+        <div class="card-bg-img" style="background-image: url('card-video.jpg');"></div>
+        <div class="card-content">
+          <div class="card-tag">03 · CINEMATIC VIDEO &amp; ADS</div>
+          <h3>시네마틱 영상 &amp; 광고</h3>
+          <p class="copy">“사운드-영상 원라인 내부 제작. 광고용 사운드트랙과 시네마틱 영상의 완벽한 밀착.”</p>
+          <span class="btn-detail">자세히 보기 →</span>
+        </div>
+      </a>
+
+      <!-- CARD 4: AI LECTURE & INSIGHT -->
+      <a href="#lecture" class="category-card reveal">
+        <div class="card-bg-img" style="background-image: url('card-lecture.jpg');"></div>
+        <div class="card-content">
+          <div class="card-tag">04 · AI INSIGHTS &amp; WORKSHOP</div>
+          <h3>실전 AI 강연 &amp; 교육</h3>
+          <p class="copy">“10,000번의 생성, 단 하나의 인사이트. 2권의 저서 기반 실습형 기업·기관 특강.”</p>
+          <span class="btn-detail">자세히 보기 →</span>
+        </div>
+      </a>
+      
+      <!-- CARD 5: WEB & BRANDING REALIZATION -->
       <a href="#web" class="category-card reveal reveal-delay-1">
         <div class="card-bg-img" style="background-image: url('card-web.jpg');"></div>
         <div class="card-content">
-          <div class="card-tag">WEB / BRANDING / PLAN</div>
-          <h3>비즈니스 실체화</h3>
-          <p class="copy">“상상을 실체로. 비즈니스의 완성.”</p>
+          <div class="card-tag">05 · WEB &amp; BUSINESS STRATEGY</div>
+          <h3>웹 구축 &amp; 비즈니스 실체화</h3>
+          <p class="copy">“설계 선행의 건축적 접근. 브랜드 페르소나와 반응형 웹·사업계획서의 완벽한 일치.”</p>
           <span class="btn-detail">자세히 보기 →</span>
         </div>
       </a>
-      
-      <!-- CARD 3 -->
-      <a href="#lecture" class="category-card reveal reveal-delay-2">
-        <div class="card-bg-img" style="background-image: url('card-lecture.jpg');"></div>
+
+      <!-- CARD 6: PUBLICATIONS & CUSTOM APPS -->
+      <a href="#creations" class="category-card reveal reveal-delay-2">
+        <div class="card-bg-img" style="background-image: url('card-fusion-concept.jpg');"></div>
         <div class="card-content">
-          <div class="card-tag">AI LECTURE &amp; WORKSHOP</div>
-          <h3>실전 AI 인사이트</h3>
-          <p class="copy">“10,000번의 생성, 단 하나의 인사이트.”</p>
+          <div class="card-tag">06 · BOOKS &amp; SOFTWARE</div>
+          <h3>출간 저서 2종 &amp; 자체 솔루션</h3>
+          <p class="copy">“《할배 AI 생존기》, 《프롬프트 마스터》(전자책·종이책) 및 자체 개발 23종 소프트웨어.”</p>
           <span class="btn-detail">자세히 보기 →</span>
         </div>
       </a>
@@ -873,13 +1299,16 @@ body {
   </div>
 </section>
 
-<!-- ============ 01. 노래 제작 섹션 ============ -->
+<!-- ============ 01. 노래 제작 & 음원 판매 섹션 ============ -->
 <section class="sec" id="music">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="sec-tag">01 · Original Music</span>
-      <h2>오리지널 노래 제작</h2>
-      <p>말이나 글보다 강력한 브랜드의 청각적 시그니처. 1만 곡 이상의 AI 트랙 메이킹 경험을 바탕으로, 귀에 남는 최상의 오리지널 사운드를 맞춤 설계해 드립니다.</p>
+      <span class="sec-tag">01 · Original Music &amp; Sound Assets</span>
+      <h2>오리지널 노래 제작 &amp; 음원 판매 사업</h2>
+      <p>
+        말이나 글보다 강력한 브랜드의 청각적 시그니처. <strong>누적 1만 곡 이상의 AI 트랙 생성 및 선별 경험</strong>을 바탕으로,
+        외주비와 저작권 분쟁 걱정 없는 오리지널 사운드 맞춤 제작 및 <strong>자산형 매장 BGM 음원 패키지 판매 사업</strong>을 전개합니다.
+      </p>
     </div>
 
     <!-- YouTube Facades -->
@@ -902,22 +1331,26 @@ body {
       <div class="jg-box">
         <div class="jg-avatar">
           <img src="assets/jason-avatar-1.jpg" alt="제이슨 장르 브랜드 캐릭터" loading="lazy">
-          <span>제이슨 장르 · 브랜드 캐릭터</span>
+          <span>제이슨 장르(Jason Genre) · 독자적 사운드 정체성</span>
         </div>
-        <b class="grad-text" style="font-size:20px; display:block; margin-bottom:12px;">오리지널리티, 제이슨 장르</b>
-        <p>남들이 구축해 놓은 공장형 스타일을 그대로 흉내 내는 것은 생명력이 짧습니다. 한국적인 감정선과 현대적인 사운드를 유기적으로 직조한 독자적인 정체성, 우리는 이것을 **제이슨 장르**라고 정의합니다. 브랜드가 요구하는 느낌을 소리로 시각화합니다.</p>
+        <b class="grad-text" style="font-size:21px; display:block; margin-bottom:12px;">수주형에서 자산형으로 — 음원 상품화 비즈니스</b>
+        <p>
+          수요가 있을 때만 제작하는 수주형을 넘어, 이미 1만 곡 이상 축적된 고품질 트랙을 자체 개발 마스터링 도구(SoundBoost Studio Pro)로 다듬어
+          <strong>매장 분위기별 BGM USB 패키지(카페·식당·미용실 등), 기념일 맞춤곡, 영상 라이선스 음원</strong>으로 즉시 공급합니다.
+          공연권료 단속이나 월정액 사용료 부담 없이 우리 가게만의 유니크한 사운드를 영구 소유하실 수 있습니다.
+        </p>
       </div>
       <ul class="jg-list">
-        <li><em class="grad-text">01</em><div><b>광범위한 장르 스펙트럼</b><br><span style="color:var(--text-muted);font-size:14px">락, 팝, 트로트, 국악 퓨전, EDM, 앰비언트 등 감각적인 조율이 가능합니다.</span></div></li>
-        <li><em class="grad-text">02</em><div><b>맞춤형 가사 기획</b><br><span style="color:var(--text-muted);font-size:14px">기업의 슬로건, 지역 이름, 목적을 리듬에 유려하게 안착시킵니다.</span></div></li>
-        <li><em class="grad-text">03</em><div><b>엄선된 시안 필터링</b><br><span style="color:var(--text-muted);font-size:14px">수십 개의 창작물 중 정제된 최상의 2~3개 시안만을 추려 전달합니다.</span></div></li>
-        <li><em class="grad-text">04</em><div><b>상업적 권리 완벽 정리</b><br><span style="color:var(--text-muted);font-size:14px">광고에 쓰시든 매장에 트시든 문제없게 서면으로 정리합니다.</span></div></li>
+        <li><em class="grad-text">01</em><div><b>저작권료 걱정 없는 매장 BGM USB 패키지</b><br><span style="color:var(--text-muted);font-size:14px">카페, 베이커리, 식당, 미용실 분위기별 BGM 모음을 USB 패키지로 판매하여 외부 음원 비용 0원 실현.</span></div></li>
+        <li><em class="grad-text">02</em><div><b>기업·소상공인 맞춤 로고송 &amp; CM송</b><br><span style="color:var(--text-muted);font-size:14px">기업의 슬로건, 지역 이름, 목적을 기억하기 쉬운 멜로디에 안착시키는 오리지널 시그니처 사운드.</span></div></li>
+        <li><em class="grad-text">03</em><div><b>기념일·축가·선물용 맞춤곡 패키지</b><br><span style="color:var(--text-muted);font-size:14px">개인 소장, 결혼 축가, 칠순/회갑, 단체 행사 주제가 등 스토리 기반의 세상에 단 하나뿐인 맞춤곡.</span></div></li>
+        <li><em class="grad-text">04</em><div><b>상업적 권리 완벽 양도</b><br><span style="color:var(--text-muted);font-size:14px">광고 방송, 유튜브, 매장 송출에 문제없도록 계약서에 독점/비독점 사용권 범위를 명확히 정리.</span></div></li>
       </ul>
     </div>
 
     <!-- 이미지 갤러리 -->
     <div class="reveal" style="margin-top: 60px;">
-      <span class="mock-note" style="display:block; text-align:center; margin-bottom:16px;">제이슨 장르 브랜드 이미지 — AI로 만든 컨셉 아트입니다</span>
+      <span class="mock-note" style="display:block; text-align:center; margin-bottom:16px;">제이슨 장르 브랜드 이미지 — 스튜디오 컨셉 아트</span>
       <div class="brand-gallery">
         <div class="brand-shot"><img src="card-neon-sign.jpg" alt="JASON'S STUDIO 네온사인 컨셉" loading="lazy"></div>
         <div class="brand-shot"><img src="card-fusion-concept.jpg" alt="제이슨 장르 — 작업실 컨셉 아트" loading="lazy"></div>
@@ -925,113 +1358,292 @@ body {
     </div>
 
     <div class="prep reveal">
-      <b>음악 제작 요청 시 확인사항</b>
+      <b>음악 제작 &amp; 음원 구매 시 안내사항</b>
       <ul>
-        <li>지향하는 무드와 메시지 (예: 파워풀한, 편안한, 서정적인)</li>
-        <li>용도성 (매장 BGM, 로고송, 행사 주제가, 유튜브 오프닝)</li>
-        <li>꼭 포함되어야 할 필수 키워드나 문장</li>
+        <li>지향하는 무드와 템포 (예: 파워풀한, 편안한 칠아웃, 서정적인 어쿠스틱, 신나는 팝/락, 국악퓨전)</li>
+        <li>용도 (매장 상시 BGM, 광고 CM송, 유튜브 인트로, 행사 주제가, 선물용 맞춤곡)</li>
+        <li>기존 라이브러리 즉시 구매 또는 맞춤 기획 제작 중 선택 가능</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- ============ 02. 영상·광고 섹션 ============ -->
-<section class="sec" id="video">
+<!-- ============ 02. 멀티모달 전자책 제작 솔루션 섹션 (NEW) ============ -->
+<section class="sec" id="ebook" style="background: rgba(20,22,31,0.5);">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="sec-tag">02 · Cinematic Video</span>
-      <h2>AI 홍보영상 &amp; 숏폼</h2>
-      <p>음악과 비주얼을 동시에 내부에서 제어하므로 복잡한 외주 구조에서 발생하는 마진을 줄였습니다. 광고용 사운드트랙과 고화질 영상미를 유기적으로 밀착시킨 통합 제작 서비스를 경험해 보세요.</p>
+      <span class="sec-tag">02 · Multimodal eBook Studio</span>
+      <h2>멀티모달 전자책 제작 &amp; 출판 솔루션</h2>
+      <p>
+        단순히 글자만 읽는 전자책의 시대를 넘어섰습니다. 
+        <strong>음악을 만들 줄 알고, 영상을 만들 줄 알고, 직접 2권의 책을 출간해 보았기에</strong> 
+        세 가지 요소를 하나의 파일로 엮는 자체 개발 도구 <strong>「멀티모달 전자책 스튜디오(Multimodal eBook Studio)」</strong>를 완성했습니다.
+      </p>
     </div>
 
-    <div class="embeds reveal">
-      <!-- 1번 홍보 영상 (34초) -->
-      <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 16px; text-align: center;">
-        <video controls playsinline style="width: 100%; border-radius: 12px; aspect-ratio: 16/9; background: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-          <source src="https://jasonkingdom-studio.github.io/clips/promo1.mp4" type="video/mp4">
-          브라우저가 비디오 재생을 지원하지 않습니다.
-        </video>
-        <h4 style="margin-top: 14px; font-size: 16px; font-weight: 600; color: var(--gold);">브랜드 홍보 영상 (34초)</h4>
-        <p style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">JASON KINGDOM STUDIO의 하이테크 미래 지향적 핵심 가치 소개.</p>
+    <div class="jg reveal">
+      <div class="jg-box" style="border-color: rgba(212,175,55,0.35);">
+        <b class="grad-text" style="font-size:22px; display:block; margin-bottom:12px;">음악·영상·출판 세 축이 하나의 결과물로 수렴하는 차세대 출판</b>
+        <p>
+          텍스트에 <strong>자연스러운 AI TTS 음성 실시간 동기화(Media Overlays / SMIL)</strong>, 챕터별 고화질 일러스트 및 시네마틱 영상, 
+          인터랙티브 스크립트를 통합하여 '읽으면서 듣고 보는' 가장 진보된 형태의 전자책을 원스톱으로 제작하고 
+          교보문고, 예스24, Apple Books 등 주요 서점에 정식 유통합니다.
+        </p>
       </div>
 
-      <!-- 2번 홍보 영상 (32초) -->
-      <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 16px; text-align: center;">
-        <video controls playsinline style="width: 100%; border-radius: 12px; aspect-ratio: 16/9; background: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-          <source src="https://jasonkingdom-studio.github.io/clips/promo2.mp4" type="video/mp4">
-          브라우저가 비디오 재생을 지원하지 않습니다.
-        </video>
-        <h4 style="margin-top: 14px; font-size: 16px; font-weight: 600; color: var(--gold);">솔루션 쇼케이스 영상 (32초)</h4>
-        <p style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">캐릭터 변신기, AI 사주 등 주요 AI 유틸리티 앱의 실시간 홍보.</p>
-      </div>
+      <ul class="jg-list">
+        <li>
+          <em class="grad-text">01</em>
+          <div>
+            <b>오디오-텍스트 실시간 동기화 (Media Overlays / SMIL)</b><br>
+            <span style="color:var(--text-muted);font-size:14px">자연스러운 AI 보이스(TTS)와 녹음 음성을 본문 문장 단위로 하이라이트 싱크 처리하여 몰입감 극대화.</span>
+          </div>
+        </li>
+        <li>
+          <em class="grad-text">02</em>
+          <div>
+            <b>국제 표준 EPUB3 &amp; 독립형 웹북(PWA) 동시 출력</b><br>
+            <span style="color:var(--text-muted);font-size:14px">교보문고·예스24·Apple Books 정식 유통용 EPUB3와 브라우저/오프라인에서 즉시 실행되는 웹북 동시 빌드.</span>
+          </div>
+        </li>
+        <li>
+          <em class="grad-text">03</em>
+          <div>
+            <b>시네마틱 영상 &amp; 인터랙티브 요소 내장</b><br>
+            <span style="color:var(--text-muted);font-size:14px">챕터별 설명 영상, 오디오 플레이어, 퀴즈, 애니메이션을 본문 내에 유기적으로 삽입.</span>
+          </div>
+        </li>
+        <li>
+          <em class="grad-text">04</em>
+          <div>
+            <b>전자책 + 종이책 동시 출간 원스톱 파이프라인</b><br>
+            <span style="color:var(--text-muted);font-size:14px">원고 집필·교정, 표지 디자인, ISBN 발급, 유페이퍼/부크크 등 주요 유통 플랫폼 입점까지 전 과정 대행.</span>
+          </div>
+        </li>
+      </ul>
     </div>
 
-    <div class="lec reveal">
-      <div class="lec-item"><b>사운드-영상 일체형</b><span>CM송과 자막, 고품질 시각 에셋이 엇박자 없이 단일 제작 라인업으로 도출됩니다.</span></div>
-      <div class="lec-item"><b>놀라운 제작 딜리버리</b><span>기획 픽스 후 숏폼은 단 2~3일, 메인 홍보 영상은 7일 내외로 고품질 초안을 제공합니다.</span></div>
-      <div class="lec-item"><b>명확한 피드백 규정</b><span>계약 단계에서 수정 횟수(기본 2회)를 투명하게 약속하여 불필요한 마찰을 예방합니다.</span></div>
+    <!-- 멀티모달 전자책 적용 추천 분야 -->
+    <div class="reveal" style="margin-top: 48px;">
+      <h3 style="font-family: var(--f-serif); font-size: 22px; font-weight: 700; margin-bottom: 20px; color: var(--primary-light);">멀티모달 전자책 추천 활용 분야</h3>
+      <div class="lec" style="margin-top: 0;">
+        <div class="lec-item">
+          <b>기업·소상공인 브랜드북</b>
+          <span>브랜드의 창업 스토리, 인터뷰 영상, 대표 로고송을 한 권의 살아있는 디지털 책으로 구성하여 고객에게 전달.</span>
+        </div>
+        <div class="lec-item">
+          <b>시니어·초보자 교육 교재</b>
+          <span>글씨 읽기가 부담스러운 학습자를 위해 음성 나레이션과 따라 하기 숏폼 영상이 결합된 눈높이 실습 교재 제작.</span>
+        </div>
+        <div class="lec-item">
+          <b>지자체·공공기관 정책 홍보서</b>
+          <span>지역 문화재, 관광 안내, 정책 백서를 오디오 가이드와 인터랙티브 지도가 포함된 첨단 디지털 북으로 발간.</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ 03. AI 강연 섹션 ============ -->
+<!-- ============ 03. 영상·광고 & 홍보영상 쇼케이스 섹션 ============ -->
+<section class="sec" id="video">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-tag">03 · Cinematic Video &amp; Promo Showcase</span>
+      <h2>AI 시네마틱 홍보영상 &amp; 공식 영상관</h2>
+      <p>
+        음악과 비주얼을 동시에 내부에서 제어하므로 복잡한 외주 마진을 줄였습니다. 
+        자체 개발 비트 동기화 도구(Music Video Sync)와 시네마틱 영상미를 결합한 통합 제작 서비스와 
+        <strong>스튜디오에서 직접 제작한 공식 홍보영상 라인업</strong>을 감상해 보세요.
+      </p>
+    </div>
+
+    <!-- 공식 홍보 영상 그리드 -->
+    <div class="promo-grid reveal">
+      
+      <!-- Video 1: 책 홍보 영상 -->
+      <div class="promo-card">
+        <div class="promo-video-wrap">
+          <span class="promo-badge">📖 도서 공식 홍보영상</span>
+          <video controls playsinline preload="metadata">
+            <source src="clips/promo-book-promptmaster.mp4" type="video/mp4">
+            브라우저가 비디오 재생을 지원하지 않습니다.
+          </video>
+        </div>
+        <div class="promo-info">
+          <h4>프롬프트 마스터클래스 : 텍스트에서 배포까지</h4>
+          <p>출간 도서 《프롬프트 마스터》의 핵심 프레임워크와 AI 도구별 프롬프트 설계법을 압축 소개하는 공식 홍보영상.</p>
+        </div>
+      </div>
+
+      <!-- Video 2: 웹사이트 제작 홍보 영상 -->
+      <div class="promo-card">
+        <div class="promo-video-wrap">
+          <span class="promo-badge">💻 웹 구축 마스터클래스</span>
+          <video controls playsinline preload="metadata">
+            <source src="clips/promo-web-masterclass.mp4" type="video/mp4">
+            브라우저가 비디오 재생을 지원하지 않습니다.
+          </video>
+        </div>
+        <div class="promo-info">
+          <h4>AI 웹사이트 제작 마스터클래스</h4>
+          <p>반응형 원페이지 웹부터 풀스택 웹앱까지, 현대적 디자인과 비즈니스 실체화를 완성하는 웹 빌드 프로세스.</p>
+        </div>
+      </div>
+
+      <!-- Video 3: 음원 제작 홍보 영상 -->
+      <div class="promo-card">
+        <div class="promo-video-wrap">
+          <span class="promo-badge">🎵 음원 제작 &amp; 발매</span>
+          <video controls playsinline preload="metadata">
+            <source src="clips/promo-music-release.mp4" type="video/mp4">
+            브라우저가 비디오 재생을 지원하지 않습니다.
+          </video>
+        </div>
+        <div class="promo-info">
+          <h4>수노 AI 음악 발매 퀄리티로 만들기</h4>
+          <p>누적 1만 곡 생성 노하우를 바탕으로 상업용 음원 및 매장 BGM의 발매 퀄리티 마스터링을 실현하는 기법 소개.</p>
+        </div>
+      </div>
+
+      <!-- Video 4: 브랜드 홍보 영상 1 -->
+      <div class="promo-card">
+        <div class="promo-video-wrap">
+          <span class="promo-badge">✨ 브랜드 필름</span>
+          <video controls playsinline preload="metadata">
+            <source src="clips/promo1.mp4" type="video/mp4">
+            브라우저가 비디오 재생을 지원하지 않습니다.
+          </video>
+        </div>
+        <div class="promo-info">
+          <h4>JASON KINGDOM STUDIO 브랜드 필름 (34초)</h4>
+          <p>상상을 현실의 비즈니스로 전면 실체화하는 스튜디오의 하이테크 미래 지향적 핵심 비전과 철학 소개.</p>
+        </div>
+      </div>
+
+      <!-- Video 5: 솔루션 쇼케이스 영상 2 -->
+      <div class="promo-card">
+        <div class="promo-video-wrap">
+          <span class="promo-badge">⚙️ 솔루션 쇼케이스</span>
+          <video controls playsinline preload="metadata">
+            <source src="clips/promo2.mp4" type="video/mp4">
+            브라우저가 비디오 재생을 지원하지 않습니다.
+          </video>
+        </div>
+        <div class="promo-info">
+          <h4>자체 개발 AI 유틸리티 쇼케이스 (32초)</h4>
+          <p>캐릭터 변신기, AI 사주, 음악 비주얼라이저 등 자체 개발한 AI 응용 웹앱과 데스크톱 도구들의 실시간 기능 시연.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="lec reveal" style="margin-top: 50px;">
+      <div class="lec-item"><b>사운드-영상 일체형 파이프라인</b><span>CM송과 자막, 고품질 시네마틱 영상 에셋이 단일 내부 라인업으로 제작되어 완성도가 극대화됩니다.</span></div>
+      <div class="lec-item"><b>신속하고 정확한 딜리버리</b><span>기획 확정 후 숏폼은 단 2~3일, 메인 홍보영상은 7일 내외로 고품질 완성본을 제공합니다.</span></div>
+      <div class="lec-item"><b>투명한 검수 및 피드백</b><span>계약 단계에서 수정 횟수(기본 2회 무상)와 요구사항을 명문화하여 깔끔하고 신뢰할 수 있는 협업을 보장합니다.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04. AI 강연 & 교육 섹션 ============ -->
 <section class="sec" id="lecture">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="sec-tag">03 · AI Insights</span>
-      <h2>실무 중심 AI 강연</h2>
-      <p>단순한 도구 소개나 이론 설명에 머물지 않습니다. 1만 트랙 이상의 음원 생성 및 다채널 유튜브 운영 경험에 기초한 날것 그대로의 실전 인사이트를 제공합니다.</p>
+      <span class="sec-tag">04 · AI Insights &amp; Education</span>
+      <h2>실무 중심 AI 강연 &amp; 워크숍</h2>
+      <p>
+        단순한 도구 소개나 이론 설명에 머물지 않습니다. 
+        <strong>1만 트랙 이상의 음원 생성, 23종 프로그램 자체 개발, 2권의 저서 집필</strong> 경험에 기초한 
+        날것 그대로의 실전 인사이트와 실습형 교육을 제공합니다.
+      </p>
     </div>
 
     <div class="lec reveal">
-      <div class="lec-item"><b>기업 임직원 실무 특강</b><span>마케팅, 기획, 홍보 조직이 바로 현업에 복사해 쓸 수 있는 핵심 실용 툴 중심으로 교육합니다.</span></div>
-      <div class="lec-item"><b>기관 및 공공 단체 교육</b><span>주민센터, 도서관, 지자체 포럼 등 수강 타겟의 이해 수준에 딱 맞춘 눈높이 강의를 진행합니다.</span></div>
-      <div class="lec-item"><b>창작 지향 집중 워크숍</b><span>강연 시간 내에 수강자 전원이 최소 1개의 고품질 AI 음원 혹은 카드뉴스를 직접 기획하고 제작해 갑니다.</span></div>
+      <div class="lec-item">
+        <b>기업 임직원 실무 특강</b>
+        <span>마케팅, 기획, 홍보 조직이 현업에 즉시 복사해 쓸 수 있는 프롬프트 엔지니어링 및 업무 자동화 툴 중심 교육. (《프롬프트 마스터》 기반)</span>
+      </div>
+      <div class="lec-item">
+        <b>기관 및 공공 단체 눈높이 교육</b>
+        <span>주민센터, 도서관, 복지관, 시니어센터 등 수강 타겟의 디지털 수용 수준에 딱 맞춘 친절한 실습 강의. (《할배 AI 생존기》 기반)</span>
+      </div>
+      <div class="lec-item">
+        <b>창작 지향 1인 집중 워크숍</b>
+        <span>강연 시간 내에 수강자 전원이 최소 1개의 고품질 AI 음원 혹은 카드뉴스/숏폼을 직접 완성해 가는 결과물 도출형.</span>
+      </div>
     </div>
 
     <!-- 강연 유튜브 동영상 임베드 그리드 -->
     <div class="reveal" style="margin-top: 40px;">
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
-        <!-- 강연 1: qdM5r4lqmlc -->
-        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 16px; overflow: hidden;">
-          <div class="youtube-facade" data-video-id="qdM5r4lqmlc" data-title="AI 실무 실전 활용 강연" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: #000; cursor: pointer;">
-            <img src="https://img.youtube.com/vi/qdM5r4lqmlc/maxresdefault.jpg" alt="YouTube Video Thumb" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+        <div style="background: var(--bg-2); border: 1px solid var(--glass-border); border-radius: 16px; padding: 18px; overflow: hidden;">
+          <div class="youtube-facade" data-video-id="qdM5r4lqmlc" data-title="AI 실무 실전 활용 강연">
+            <img src="https://img.youtube.com/vi/qdM5r4lqmlc/maxresdefault.jpg" alt="YouTube Video Thumb" loading="lazy">
             <div class="play-btn">
               <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             </div>
           </div>
-          <h4 style="margin-top: 14px; font-size: 16px; font-weight: 600; color: var(--gold);">AI 실무 실전 활용 강연</h4>
-          <p style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">생성형 AI 기술을 비즈니스 현업과 콘텐츠 제작에 즉시 적용하는 노하우와 실전 비법.</p>
+          <h4 style="margin-top: 14px; font-size: 16px; font-weight: 700; color: var(--primary-light);">AI 실무 실전 활용 강연</h4>
+          <p style="font-size: 13.5px; color: var(--text-muted); margin-top: 6px;">생성형 AI 기술을 비즈니스 현업과 콘텐츠 제작에 즉시 적용하는 노하우와 실전 비법.</p>
         </div>
 
-        <!-- 강연 2: KpXbgvLlJZM -->
-        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 16px; overflow: hidden;">
-          <div class="youtube-facade" data-video-id="KpXbgvLlJZM" data-title="창작자를 위한 인공지능 워크숍" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: #000; cursor: pointer;">
-            <img src="https://img.youtube.com/vi/KpXbgvLlJZM/maxresdefault.jpg" alt="YouTube Video Thumb" loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+        <div style="background: var(--bg-2); border: 1px solid var(--glass-border); border-radius: 16px; padding: 18px; overflow: hidden;">
+          <div class="youtube-facade" data-video-id="KpXbgvLlJZM" data-title="창작자를 위한 인공지능 워크숍">
+            <img src="https://img.youtube.com/vi/KpXbgvLlJZM/maxresdefault.jpg" alt="YouTube Video Thumb" loading="lazy">
             <div class="play-btn">
               <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             </div>
           </div>
-          <h4 style="margin-top: 14px; font-size: 16px; font-weight: 600; color: var(--gold);">창작자를 위한 인공지능 워크숍</h4>
-          <p style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">음원 생성부터 영상 기획까지, 1인 창작자가 즉시 생산성을 극대화할 수 있는 교육 특강.</p>
+          <h4 style="margin-top: 14px; font-size: 16px; font-weight: 700; color: var(--primary-light);">창작자를 위한 인공지능 워크숍</h4>
+          <p style="font-size: 13.5px; color: var(--text-muted); margin-top: 6px;">음원 생성부터 영상 기획까지, 1인 창작자가 즉시 생산성을 극대화할 수 있는 교육 특강.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4개 유튜브 채널 바로가기 -->
+    <div class="reveal" style="margin-top: 50px;">
+      <h4 style="font-family: var(--f-serif); font-size: 20px; font-weight: 700; color: var(--secondary); margin-bottom: 16px; text-align: center;">직접 운영 중인 유튜브 4대 채널 포트폴리오</h4>
+      <div class="channel-grid">
+        <a href="https://www.youtube.com/@lifeintunes-gandharva" target="_blank" class="channel-card">
+          <div class="channel-icon"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></div>
+          <h5>Life in Tunes by Gandharva</h5>
+          <span>블루스·포크·클래식 음악 (구독자 2,888명)</span>
+        </a>
+        <a href="https://www.youtube.com/@gandharva-58" target="_blank" class="channel-card">
+          <div class="channel-icon"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></div>
+          <h5>Gandharva</h5>
+          <span>제이슨 장르 음악 실험 채널</span>
+        </a>
+        <a href="https://www.youtube.com/@silverwings-58" target="_blank" class="channel-card">
+          <div class="channel-icon"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></div>
+          <h5>Silver Wings 실버윙스</h5>
+          <span>영상 에세이 &amp; 시네마틱 숏폼</span>
+        </a>
+        <div class="channel-card">
+          <div class="channel-icon"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></div>
+          <h5>좌충우돌 할배 AI 입문기</h5>
+          <span>시니어 맞춤 AI 입문 교육 채널</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ 04. 홈페이지 & 비즈니스 패키지 섹션 ============ -->
+<!-- ============ 05. 웹 & 비즈니스 실체화 섹션 ============ -->
 <section class="sec" id="web">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="sec-tag">04 · Web &amp; Business Strategy</span>
-      <h2>비즈니스 실체화</h2>
-      <p>지금 방문 중이신 이 웹사이트의 정제된 레이아웃과 반응형 뼈대, JASON KINGDOM STUDIO가 직접 기획하고 구현했습니다. 모바일과 데스크톱 어디서든 끊김 없는 최상의 디지털 경험을 제작합니다.</p>
+      <span class="sec-tag">05 · Web &amp; Business Strategy</span>
+      <h2>웹 구축 &amp; 비즈니스 실체화</h2>
+      <p>
+        지금 방문 중이신 이 웹사이트의 정제된 레이아웃과 반응형 뼈대, JASON KINGDOM STUDIO가 직접 기획하고 구현했습니다. 
+        <strong>건축적 '설계 선행' 원칙</strong>을 적용하여 브랜드 기준을 먼저 세우고, 모바일과 데스크톱 어디서든 끊김 없는 최상의 경험을 제작합니다.
+      </p>
     </div>
 
     <!-- 웹사이트 쇼케이스 목업 -->
     <div class="reveal">
-      <span class="mock-note" style="display:block; text-align:center;">웹 디자인 빌드 샘플 (모바일/데스크톱 최적화 레이아웃 예시)</span>
+      <span class="mock-note" style="display:block; text-align:center;">웹 디자인 빌드 샘플 (모바일/데스크톱 최적화 반응형 레이아웃)</span>
       <div class="mock-grid">
         <div class="mock-card">
           <div class="mock-frame">
@@ -1042,7 +1654,7 @@ body {
             </div>
             <div class="mock-fake-btn">미리보기</div>
           </div>
-          <div class="mock-label"><b>브랜드 홍보형 랜딩</b><span>가장 직관적인 정보 전달과 높은 모바일 인터랙션을 제공하는 구조</span></div>
+          <div class="mock-label"><b>브랜드 홍보형 랜딩 (단발 50만 원~)</b><span>가장 직관적인 정보 전달과 높은 모바일 인터랙션을 제공하는 반응형 구조</span></div>
         </div>
         
         <div class="mock-card">
@@ -1050,11 +1662,11 @@ body {
             <div class="mock-fake-nav"><span></span><span></span></div>
             <div class="mock-fake-row">
               <div class="mock-fake-card">Music</div>
+              <div class="mock-fake-card">eBook</div>
               <div class="mock-fake-card">Video</div>
-              <div class="mock-fake-card">Plan</div>
             </div>
           </div>
-          <div class="mock-label"><b>서비스 나열 그리드</b><span>다양한 카테고리를 체계적이고 깔끔한 격자형 카드로 시각화하는 구조</span></div>
+          <div class="mock-label"><b>다기능 종합 회사 소개형 (150만 원~)</b><span>다양한 카테고리와 미디어를 체계적으로 시각화하고 지속적인 유지보수(월 10만 원) 연계</span></div>
         </div>
       </div>
     </div>
@@ -1076,7 +1688,7 @@ body {
       </div>
 
       <div class="boundary-box" style="margin-top: 48px;">
-        <div class="bb-title">서로 신뢰할 수 있는 비즈니스의 범위</div>
+        <div class="bb-title">서로 신뢰할 수 있는 비즈니스의 범위 (윤리적 원칙)</div>
         <div class="bnd">
           <div class="bnd-c">
             <b class="green">○ 함께 집중하는 일</b>
@@ -1084,6 +1696,7 @@ body {
               <li>· 비즈니스 모델(BM)의 뼈대와 기획 조율</li>
               <li>· 설득력을 더하는 공신력 있는 근거 자료 리서치</li>
               <li>· 깔끔한 시각 다이어그램 및 프레젠테이션 디자인</li>
+              <li>· 실물 증빙(웹·영상·음원) 연계 제작</li>
             </ul>
           </div>
           <div class="bnd-c">
@@ -1096,143 +1709,186 @@ body {
           </div>
         </div>
         <div class="bb-footer">
-          * 지원 서류의 주체 및 최종 검증 책임은 신청 기업에 귀속됩니다. 당사는 신뢰할 수 있는 파트너로서 기획의 설득력을 높이고 디자인 에셋을 제공하는 조력자 역할을 성실히 수행합니다.
+          * 지원 서류의 주체 및 최종 검증 책임은 신청 기업에 귀속되며, 당사는 기획·제작 파트너로서의 역할 범위를 명확히 준수합니다.
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ CREATIONS & SOFTWARE (저서 및 프로그램) ============ -->
+<!-- ============ 06. 출간 저서 & 자체 개발 소프트웨어 ============ -->
 <section class="creations-sec" id="creations">
   <div class="wrap">
-    <div style="text-align: center; margin-bottom: 60px;">
-      <span class="sec-tag">Creations &amp; Software</span>
-      <h2 style="font-family: var(--f-serif); font-size: clamp(28px, 4vw, 44px); font-weight: 800;">대표 저서 및 자체 개발 솔루션</h2>
-      <p style="color: var(--text-muted); margin-top: 12px; font-size: 15px;">AI 에이전시의 본질은 기술력입니다. 직접 기획하고 코딩하여 출시한 대표 저서와 소프트웨어 라인업을 소개합니다.</p>
+    <div style="text-align: center; margin-bottom: 60px;" class="reveal">
+      <span class="sec-tag">06 · Creations &amp; Publications</span>
+      <h2 style="font-family: var(--f-serif); font-size: clamp(28px, 4vw, 44px); font-weight: 800;">대표 출간 도서 &amp; 자체 개발 솔루션</h2>
+      <p style="color: var(--text-muted); margin-top: 12px; font-size: 15px;">
+        AI 크리에이티브 스튜디오의 본질은 기술력과 실행력입니다. 
+        직접 집필하여 출간한 2종의 책(전자책·종이책)과 <strong>자체 제작 파이프라인에 실제 사용하는 23종의 AI 소프트웨어 라인업</strong>을 공개합니다.
+      </p>
     </div>
 
-    <div class="creations-grid">
-      <!-- Left: Book Showcase -->
-      <div class="book-showcase reveal">
-        <div class="book-img-wrap">
+    <!-- 2종 출간 도서 쇼케이스 (좌충우돌 할배의 AI 생존기 + 프롬프트 마스터) -->
+    <div class="books-container reveal">
+      
+      <!-- 도서 1: 좌충우돌 할배의 AI 생존기 -->
+      <div class="book-card">
+        <div class="book-cover-wrap">
           <img src="book-cover.jpg" alt="좌충우돌 할배의 AI 생존기 책 표지" loading="lazy">
         </div>
-        <div class="book-info">
-          <h3>좌충우돌 할배의 AI 생존기</h3>
-          <p class="book-sub">챗GPT부터 노래·홈페이지·앱 만들기까지</p>
-          <div class="book-desc">
-            <p><strong>저자: 김재성</strong></p>
-            <p style="margin-top: 8px;">예순의 나이에 AI를 처음 접하고, 1만 곡이 넘는 음악 제작과 웹서비스 빌딩에 이르기까지의 실제 생존 기록을 담았습니다. 복잡하고 어려운 코딩 이론 대신, 챗GPT를 도구 삼아 아이디어를 현실에 곧바로 적용하는 법을 차근차근 안내합니다. 시니어를 포함한 창작 지향 비즈니스인들에게 실질적인 AI 실용 나침반이 되어 드립니다.</p>
+        <div class="book-body">
+          <div class="book-badges">
+            <span class="book-badge">전자책 (유페이퍼)</span>
+            <span class="book-badge paper">종이책 (부크크)</span>
           </div>
+          <h3>좌충우돌 할배의 AI 생존기</h3>
+          <p class="sub-title">챗GPT부터 노래·홈페이지·앱 만들기까지</p>
+          <p class="author">저자: 김재성 지음 (4개 서점 유통 및 실판매 진행 중)</p>
+          <p class="desc">
+            예순의 나이에 AI를 처음 접하고, 1만 곡이 넘는 음악 제작과 웹서비스 빌딩, 1인 AI 스튜디오 창업에 이르기까지의 실제 생존 기록. 
+            시니어와 초보자 학습자의 실제 시행착오를 담아낸 입문서이자 시니어 대상 강연의 핵심 실전 교재입니다.
+          </p>
         </div>
       </div>
 
-      <!-- Right: Desktop & Web Apps Showcase -->
-      <div class="apps-showcase reveal reveal-delay-1">
-        <h3 class="apps-title">자체 개발 소프트웨어 라인업</h3>
-        <div class="apps-list">
-          
-          <!-- App 1: JASONKINGDOM STUDIO 7 -->
-          <div class="app-card" style="cursor: pointer;" onclick="openAppModal(this)" data-service-type="오리지널 노래 제작 (CM송·주제가)">
-            <div class="app-icon">
-              <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-            </div>
-            <h4>JASONKINGDOM STUDIO 7</h4>
-            <p>Suno 음원 AI 엔진 연동 및 멜로디 트랙 관리, 믹싱 작업을 한 곳에서 원스톱으로 처리하는 자체 개발 음악 통합 솔루션. (클릭 시 상세 정보 및 연동 상담)</p>
-          </div>
-
-          <!-- App 2: HALBAE STUDIO v2 -->
-          <div class="app-card" style="cursor: pointer;" onclick="openAppModal(this)" data-service-type="오리지널 노래 제작 (CM송·주제가)">
-            <div class="app-icon">
-              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7l7 5z"/></svg>
-            </div>
-            <h4>HALBAE STUDIO v2</h4>
-            <p>복잡한 보컬 합성 및 오디오 믹스다운 절차를 시니어 창작자의 관점에 맞춰 단순화·자동화한 보조 사운드 마스터링 툴. (클릭 시 상세 정보 및 연동 상담)</p>
-          </div>
-
-          <!-- App 3: MelodyCanvas v25 PRO -->
-          <div class="app-card" style="cursor: pointer;" onclick="openAppModal(this)" data-service-type="오리지널 노래 제작 (CM송·주제가)">
-            <div class="app-icon">
-              <svg viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
-            </div>
-            <h4>MelodyCanvas v25 PRO</h4>
-            <p>음원 데이터의 파형을 모니터링하고 가사와 사운드 매칭 정확도를 고도화하기 위해 완성한 전용 시각화 소프트웨어. (클릭 시 상세 정보 및 연동 상담)</p>
-          </div>
-
-          <!-- App 4: 할배 도사 AI 사주 상담소 (Live Web App) -->
-          <div class="app-card" style="cursor: pointer;" onclick="openAppModal(this)" data-service-type="AI 실무 강연 및 교육 요청" data-live-url="https://lastdosa-pwp6zrt7oymscwvdtshgrt.streamlit.app">
-            <div class="app-icon">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-            </div>
-            <h4>할배 도사 AI 사주 상담소</h4>
-            <p>인공지능 사주 분석 및 점괘 풀이를 즉석에서 받아보는 streamlit 기반 맞춤형 도사 웹앱 서비스. (클릭 시 상세 정보 및 테스트)</p>
-          </div>
-
-          <!-- App 5: 자체 개발 AI 모델 GEMMA 엔진 데모 (Live Web App) -->
-          <div class="app-card" style="cursor: pointer;" onclick="openAppModal(this)" data-service-type="반응형 홈페이지 빌드" data-live-url="https://aria-69.netlify.app">
-            <div class="app-icon">
-              <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-            </div>
-            <h4>자체 개발 AI 모델 GEMMA</h4>
-            <p>비즈니스 자동화와 프롬프트 제어를 위해 맞춤 튜닝한 구글 GEMMA 엔진 기반의 고효율 프레임워크 데모. (클릭 시 상세 정보 및 테스트)</p>
-          </div>
-
-          <!-- App 6: 실시간 이미지 캐릭터 변신기 (Live Web App) -->
-          <div class="app-card" style="cursor: pointer;" onclick="openAppModal(this)" data-service-type="AI 영상 및 광고 세트" data-live-url="https://6a7f7509a3bffe43bbe1200c--jason-character-transformer.netlify.app">
-            <div class="app-icon">
-              <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-            </div>
-            <h4>실시간 이미지 캐릭터 변신기</h4>
-            <p>인물 사진이나 임의의 이미지를 입력받아 카툰/웹툰풍의 고유 캐릭터로 즉석 렌더링해 주는 웹앱. (클릭 시 상세 정보 및 테스트)</p>
-          </div>
-
-          <!-- App 7: 할배의 굿모닝 아침인사 (Live Web App) -->
-          <div class="app-card" style="cursor: pointer;" onclick="openAppModal(this)" data-service-type="반응형 홈페이지 빌드" data-live-url="https://mellow-sherbet-54a365.netlify.app/">
-            <div class="app-icon">
-              <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-            </div>
-            <h4>할배의 굿모닝 아침인사</h4>
-            <p>지인들에게 매일 아침 전하기 좋은 맞춤형 덕담 및 인사말과 예쁜 배경카드를 AI 기반으로 자동 생성해 주는 서비스. (클릭 시 상세 정보 및 테스트)</p>
-          </div>
-
-          <!-- App 8: AI 복권번호 추출기 (Live Web App) -->
-          <div class="app-card" style="cursor: pointer;" onclick="openAppModal(this)" data-service-type="반응형 홈페이지 빌드" data-live-url="https://bokkwon.netlify.app/">
-            <div class="app-icon">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-            </div>
-            <h4>AI 복권번호 추출기</h4>
-            <p>확률 메트릭 및 AI 가중치 필터를 분석해 매주 나눔로또 복권 추천 번호를 추출하고 매칭해 주는 실물 유틸리티 웹앱. (클릭 시 상세 정보 및 테스트)</p>
-          </div>
-
-          <!-- App 9: 한영 실시간 번역기 (Live Web App) -->
-          <div class="app-card" style="cursor: pointer;" onclick="openAppModal(this)" data-service-type="반응형 홈페이지 빌드" data-live-url="https://my-translator-1691.netlify.app/">
-            <div class="app-icon">
-              <svg viewBox="0 0 24 24"><path d="M5 8h14M5 12h14M5 16h14"/></svg>
-            </div>
-            <h4>한영 실시간 번역기</h4>
-            <p>음성 및 텍스트 입력을 한글과 영어로 고속 자동 번역 및 싱크 처리해 주는 가벼운 비즈니스 전용 번역 유틸리티. (클릭 시 상세 정보 및 테스트)</p>
-          </div>
-
-          <!-- App 10: Tube Radar (Desktop App) -->
-          <div class="app-card" style="cursor: pointer;" onclick="openAppModal(this)" data-service-type="유튜브 마케팅 및 데이터 분석">
-            <div class="app-icon">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10M12 6a6 6 0 0 1 6 6"/></svg>
-            </div>
-            <h4>Tube Radar (유튜브 분석)</h4>
-            <p>유튜브 인기 및 떡상 채널 데이터를 고속 분석하여 최적의 마케팅 키워드와 성장 인사이트를 도출해 주는 자체 개발 데스크톱 소프트웨어. (클릭 시 상세 정보)</p>
-          </div>
-
-          <!-- App 11: Tube Factory (Desktop App) -->
-          <div class="app-card" style="cursor: pointer;" onclick="openAppModal(this)" data-service-type="AI 콘텐츠 제작 및 프롬프트 엔지니어링">
-            <div class="app-icon">
-              <svg viewBox="0 0 24 24"><path d="M23 7v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h18a2 2 0 0 1 2 2z"/><path d="M8 5v14M16 5v14M3 12h18"/></svg>
-            </div>
-            <h4>Tube Factory (대본 프롬프트 빌더)</h4>
-            <p>시나리오 대본을 추출하고 AI 이미지 및 영상 제작에 필요한 핵심 프롬프트를 원클릭으로 자동 생성해 주는 콘텐츠 고속 생산 데스크톱 소프트웨어. (클릭 시 상세 정보)</p>
-          </div>
-
+      <!-- 도서 2: 프롬프트 마스터 PROMPT MASTER -->
+      <div class="book-card">
+        <div class="book-cover-wrap">
+          <img src="book-cover-promptmaster.jpg" alt="프롬프트 마스터 책 표지" loading="lazy">
         </div>
+        <div class="book-body">
+          <div class="book-badges">
+            <span class="book-badge">전자책 (유페이퍼)</span>
+            <span class="book-badge paper">종이책 (부크크)</span>
+          </div>
+          <h3>프롬프트 마스터 (PROMPT MASTER)</h3>
+          <p class="sub-title">AI라는 거대한 문을 여는 단 하나의 열쇠 | 도구별 필수 프롬프트 백과사전</p>
+          <p class="author">저자: 김재성 지음 (4개 서점 유통 및 실판매 진행 중)</p>
+          <p class="desc">
+            3대 AI 비서(ChatGPT, Gemini, Claude)부터 이미지·웹툰 캐릭터 일관성 제어, 쇼츠 영상 AI, Suno 4절 작곡 공식, NotebookLM, 2026 바이브 코딩(Cursor, Claude Code)까지 한 권에 담은 기업 임직원 특강 커리큘럼 기반의 실전 백과사전입니다.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 자체 개발 소프트웨어 라인업 (23종 중 주요 12종) -->
+    <div class="apps-showcase reveal">
+      <div class="apps-header">
+        <h3 class="apps-title">자체 개발 소프트웨어 라인업 (23종 중 주요 솔루션)</h3>
+        <span class="apps-note">카드를 클릭하시면 상세 정보 및 라이브 데모를 확인하실 수 있습니다.</span>
+      </div>
+
+      <div class="apps-list">
+        
+        <!-- App 1: 멀티모달 전자책 스튜디오 (NEW) -->
+        <div class="app-card" onclick="openAppModal(this)" data-service-type="멀티모달 전자책 제작 및 출판">
+          <div class="app-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 6v6l4-2"/></svg>
+          </div>
+          <h4>멀티모달 전자책 스튜디오</h4>
+          <p>텍스트에 실시간 TTS 음성 동기화, 이미지·영상을 결합하여 표준 EPUB3 및 독립형 웹북(PWA)으로 동시 빌드하는 전자책 제작 도구. (클릭 시 상세 정보 및 연동 상담)</p>
+        </div>
+
+        <!-- App 2: AI 뮤직 비주얼라이저 (Live Web App) (NEW) -->
+        <div class="app-card" onclick="openAppModal(this)" data-service-type="오리지널 음원 판매 및 BGM 라이선스" data-live-url="https://music-app0520.netlify.app">
+          <div class="app-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          </div>
+          <h4>AI 뮤직 비주얼라이저</h4>
+          <p>음원과 이미지를 업로드하면 분위기를 AI가 정밀 분석해 16:9 유튜브 썸네일과 배경 이미지 6장을 즉석 자동 렌더링하는 웹앱. (클릭 시 상세 정보 및 테스트)</p>
+        </div>
+
+        <!-- App 3: JASONKINGDOM STUDIO 7 -->
+        <div class="app-card" onclick="openAppModal(this)" data-service-type="오리지널 맞춤 노래 제작 (CM송·주제가)">
+          <div class="app-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          </div>
+          <h4>JASONKINGDOM STUDIO 7</h4>
+          <p>Suno 음원 AI 엔진 연동 및 멜로디 트랙 관리, 믹싱 작업을 한 곳에서 원스톱으로 처리하는 자체 개발 음악 통합 솔루션. (클릭 시 상세 정보 및 연동 상담)</p>
+        </div>
+
+        <!-- App 4: HALBAE STUDIO v2 -->
+        <div class="app-card" onclick="openAppModal(this)" data-service-type="오리지널 맞춤 노래 제작 (CM송·주제가)">
+          <div class="app-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7l7 5z"/></svg>
+          </div>
+          <h4>HALBAE STUDIO v2</h4>
+          <p>복잡한 보컬 합성 및 오디오 믹스다운 절차를 시니어 창작자의 관점에 맞춰 단순화·자동화한 보조 사운드 마스터링 툴. (클릭 시 상세 정보 및 연동 상담)</p>
+        </div>
+
+        <!-- App 5: MelodyCanvas v25 PRO -->
+        <div class="app-card" onclick="openAppModal(this)" data-service-type="오리지널 맞춤 노래 제작 (CM송·주제가)">
+          <div class="app-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h4>MelodyCanvas v25 PRO</h4>
+          <p>음원 데이터의 파형을 모니터링하고 가사와 사운드 매칭 정확도를 고도화하기 위해 완성한 전용 시각화 소프트웨어. (클릭 시 상세 정보 및 연동 상담)</p>
+        </div>
+
+        <!-- App 6: Music Video Sync (Desktop/Local SW) -->
+        <div class="app-card" onclick="openAppModal(this)" data-service-type="AI 시네마틱 영상 및 광고 제작">
+          <div class="app-icon">
+            <svg viewBox="0 0 24 24"><path d="M23 7v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h18a2 2 0 0 1 2 2z"/><path d="M8 5v14M16 5v14M3 12h18"/></svg>
+          </div>
+          <h4>Music Video Sync</h4>
+          <p>librosa 비트 분석으로 연주 클립과 음원을 자동 합성하고 전환효과·조명 효과를 비트에 스냅하는 영상 생성기. (클릭 시 상세 정보)</p>
+        </div>
+
+        <!-- App 7: 할배 도사 AI 사주 상담소 (Live Web App) -->
+        <div class="app-card" onclick="openAppModal(this)" data-service-type="AI 실무 강연 및 맞춤 워크숍" data-live-url="https://lastdosa-pwp6zrt7oymscwvdtshgrt.streamlit.app">
+          <div class="app-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+          </div>
+          <h4>할배 도사 AI 사주 상담소</h4>
+          <p>인공지능 사주 분석 및 점괘 풀이를 즉석에서 받아보는 streamlit 기반 맞춤형 도사 웹앱 서비스. (클릭 시 상세 정보 및 테스트)</p>
+        </div>
+
+        <!-- App 8: 실시간 이미지 캐릭터 변신기 (Live Web App) -->
+        <div class="app-card" onclick="openAppModal(this)" data-service-type="AI 시네마틱 영상 및 광고 제작" data-live-url="https://6a7f7509a3bffe43bbe1200c--jason-character-transformer.netlify.app">
+          <div class="app-icon">
+            <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </div>
+          <h4>실시간 이미지 캐릭터 변신기</h4>
+          <p>인물 사진이나 임의의 이미지를 입력받아 카툰/웹툰풍의 고유 캐릭터로 즉석 렌더링해 주는 웹앱. (클릭 시 상세 정보 및 테스트)</p>
+        </div>
+
+        <!-- App 9: 할배의 굿모닝 아침인사 (Live Web App) -->
+        <div class="app-card" onclick="openAppModal(this)" data-service-type="반응형 홈페이지 빌드 및 비즈니스 실체화" data-live-url="https://mellow-sherbet-54a365.netlify.app/">
+          <div class="app-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <h4>할배의 굿모닝 아침인사</h4>
+          <p>지인들에게 매일 아침 전하기 좋은 맞춤형 덕담 및 인사말과 예쁜 배경카드를 AI 기반으로 자동 생성해 주는 서비스. (클릭 시 상세 정보 및 테스트)</p>
+        </div>
+
+        <!-- App 10: FLUXUS 런처 (사운드 생성 도구) -->
+        <div class="app-card" onclick="openAppModal(this)" data-service-type="오리지널 음원 판매 및 BGM 라이선스">
+          <div class="app-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10M12 6a6 6 0 0 1 6 6"/></svg>
+          </div>
+          <h4>FLUXUS 런처</h4>
+          <p>자연음 및 앰비언트 사운드를 자동 생성하여 매장 BGM과 영상 배경음의 원소스로 활용하는 전용 사운드 도구. (클릭 시 상세 정보)</p>
+        </div>
+
+        <!-- App 11: 자체 개발 AI 모델 GEMMA (Live Web App) -->
+        <div class="app-card" onclick="openAppModal(this)" data-service-type="반응형 홈페이지 빌드 및 비즈니스 실체화" data-live-url="https://aria-69.netlify.app">
+          <div class="app-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <h4>자체 개발 AI 모델 GEMMA</h4>
+          <p>비즈니스 자동화와 프롬프트 제어를 위해 맞춤 튜닝한 구글 GEMMA 엔진 기반의 고효율 프레임워크 데모. (클릭 시 상세 정보 및 테스트)</p>
+        </div>
+
+        <!-- App 12: Tube Radar & Factory (Desktop App) -->
+        <div class="app-card" onclick="openAppModal(this)" data-service-type="AI 시네마틱 영상 및 광고 제작">
+          <div class="app-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10M12 6a6 6 0 0 1 6 6"/></svg>
+          </div>
+          <h4>Tube Radar &amp; Factory</h4>
+          <p>유튜브 인기 채널 분석, 마케팅 키워드 도출 및 쇼츠 대본·영상 프롬프트를 자동 생성하는 올인원 데스크톱 소프트웨어. (클릭 시 상세 정보)</p>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1241,67 +1897,91 @@ body {
 <!-- ========== 통합 FAQ 섹션 (아코디언 방식) ========== -->
 <section class="faq-accordion-sec" id="faq">
   <div class="wrap">
-    <div style="text-align: center;">
+    <div style="text-align: center;" class="reveal">
       <span class="sec-tag">FAQ &amp; Guide</span>
       <h2 style="font-family: var(--f-serif); font-size: clamp(28px, 4vw, 44px); font-weight: 800;">통합 질문 &amp; 제작 가이드</h2>
-      <p style="color: var(--text-muted); margin-top: 12px; font-size: 15px;">궁금하신 카테고리를 선택하시면 부드럽게 질문 아코디언이 열립니다.</p>
+      <p style="color: var(--text-muted); margin-top: 12px; font-size: 15px;">궁금하신 카테고리를 선택하시면 질문과 답변이 부드럽게 열립니다.</p>
     </div>
 
-    <div class="accordion-wrapper">
+    <div class="accordion-wrapper reveal">
       
       <!-- GROUP 1 -->
-      <div class="faq-group-title">음악 &amp; 사운드 제작 관련</div>
+      <div class="faq-group-title">음악 &amp; 음원 판매 관련</div>
       
       <div class="accordion-item">
         <button class="accordion-trigger">
-          <span>Q. 제작된 음원의 상업적 사용 권한은 어떻게 되나요?</span>
+          <span>Q. 매장용 BGM 음원 패키지는 저작권 문제가 전혀 없나요?</span>
           <div class="accordion-icon"></div>
         </button>
         <div class="accordion-content">
           <div class="accordion-inner">
-            제작된 모든 오리지널 음원은 의뢰하신 목적에 맞게 상업적 및 영리적 목적(유튜브, 매장 BGM, 광고 방송 등)으로 자유롭게 사용하실 수 있도록 독점적 혹은 비독점적 사용권을 완벽하게 조율하여 양도해 드립니다.
+            네, 전혀 없습니다. 모든 음원은 신청인이 상업적 이용이 허용된 유료 라이선스를 통해 직접 생성하고 마스터링한 자체 제작 음원으로, 외부 저작권 단체(음실련, 음저협 등)의 공연권료 징수 대상이 아니며 저작권 분쟁 소지가 원천 차단되어 있습니다.
           </div>
         </div>
       </div>
       
       <div class="accordion-item">
         <button class="accordion-trigger">
-          <span>Q. 원하는 보컬의 목소리나 분위기 톤을 맞출 수 있나요?</span>
+          <span>Q. 맞춤 로고송 제작 시 원하는 보컬 톤과 가사를 지정할 수 있나요?</span>
           <div class="accordion-icon"></div>
         </button>
         <div class="accordion-content">
           <div class="accordion-inner">
-            네, 가능합니다. 남성/여성 보컬의 느낌, 연령대, 음색(맑은, 허스키한, 힘찬) 및 추구하시는 팝, 락, 트로트 등 특정 장르 톤을 사전에 협의하여 완벽히 맞추어 기획해 드립니다.
+            네, 가능합니다. 남성/여성 보컬의 음색(맑은, 허스키한, 힘찬 느낌) 및 추구하시는 팝, 락, 트로트 등 특정 장르 톤을 사전에 협의하여 완벽히 맞추어 기획해 드립니다.
           </div>
         </div>
       </div>
 
       <!-- GROUP 2 -->
-      <div class="faq-group-title">영상 및 광고 제작 관련</div>
+      <div class="faq-group-title">멀티모달 전자책 &amp; 출판 관련</div>
       
       <div class="accordion-item">
         <button class="accordion-trigger">
-          <span>Q. 제작 기간과 수정 범위는 어떻게 설정되나요?</span>
+          <span>Q. 멀티모달 전자책은 시중 서점(교보, 예스24)에도 유통 가능한가요?</span>
           <div class="accordion-icon"></div>
         </button>
         <div class="accordion-content">
           <div class="accordion-inner">
-            일반적인 숏폼의 경우 초안 2~3일, 메인 홍보 영상은 약 7일 내외의 기한이 소요됩니다. 기본적으로 무드 조율 단계 후 완성 단계에서 자막, 미세 자르고 붙이기 등의 2회 무상 수정을 약속해 드립니다.
+            네, 가능합니다. 당사의 솔루션은 국제 표준 EPUB3 (Media Overlays / SMIL 규격)을 완벽 준수하여 교보문고, 예스24, 알라딘, Apple Books 등 주요 서점에 정식 유통 및 판매가 가능하며, 웹상에서 자유롭게 작동하는 독립형 PWA 웹북으로도 함께 빌드해 드립니다.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>Q. 원고만 있어도 종이책과 전자책 동시 출간이 가능한가요?</span>
+          <div class="accordion-icon"></div>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            네, 원고 텍스트만 전달해 주시면 표지 디자인, 본문 레이아웃 조판, TTS 오디오 싱크 작업, ISBN 발급 지원, 유페이퍼/부크크 등 유통 플랫폼 등록까지 원스톱으로 지원해 드립니다.
           </div>
         </div>
       </div>
 
       <!-- GROUP 3 -->
-      <div class="faq-group-title">웹 구축 &amp; 비즈니스 문서 관련</div>
+      <div class="faq-group-title">영상 및 웹 구축 관련</div>
       
       <div class="accordion-item">
         <button class="accordion-trigger">
-          <span>Q. 도메인 연결 및 서버 호스팅 등 추후 유지관리는 어떻게 하나요?</span>
+          <span>Q. 영상 제작 기간과 수정 횟수는 어떻게 되나요?</span>
           <div class="accordion-icon"></div>
         </button>
         <div class="accordion-content">
           <div class="accordion-inner">
-            도메인 구매 대행 및 최적의 무료/유료 호스팅 서버 연결 서비스를 원스톱으로 지원해 드립니다. 텍스트 변경이나 간편 수정 가이드를 무상 제공하며, 요청 시 매월 고정적인 유지보수 파트너십을 맺으실 수도 있습니다.
+            일반적인 숏폼의 경우 초안 2~3일, 메인 홍보 영상은 약 7일 내외의 기한이 소요됩니다. 무드 조율 후 완성 단계에서 자막, 컷 싱크 등의 2회 무상 수정을 약속해 드립니다.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>Q. 도메인 연결 및 웹 유지관리는 어떻게 이루어지나요?</span>
+          <div class="accordion-icon"></div>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            도메인 구매 대행 및 최적의 호스팅 서버 연결 서비스를 원스톱으로 지원해 드립니다. 구축 후 텍스트/이미지 변경 가이드를 무상 제공하며, 월 10만 원의 유지보수 파트너십을 통해 상시 업데이트 관리를 받으실 수 있습니다.
           </div>
         </div>
       </div>
@@ -1314,17 +1994,23 @@ body {
 <section class="sec">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="sec-tag">DIRECTOR</span>
+      <span class="sec-tag">DIRECTOR &amp; FOUNDER</span>
       <h2>기준은 대표가 직접 세웁니다</h2>
     </div>
     <div class="owner reveal">
       <div class="owner-photo">
         <img src="assets/jason-rep.jpg" alt="김재성 대표" onerror="this.style.display='none'">
       </div>
-      <div>
-        <p style="font-size:18px; color:var(--secondary); font-weight:600; margin-bottom:16px;">Suno로 누적 1만 트랙 이상 음악 제작 경험</p>
-        <p>AI를 활용한다는 사실을 숨기지 않습니다. 더 중요한 것은 **"수많은 선택지 중 무엇을 골라내고 다듬는가"**입니다. 1만 번 이상의 음악 및 영상 에셋을 만들고 분석하며, 대중들이 지루해하지 않고 매력을 느끼는 사운드의 흐름, 영상 컷의 배치 기술을 축적해 왔습니다.</p>
-        <p>기획 설계부터 최종 퀄리티 디렉팅까지 김재성 대표가 한 단계 한 단계 손끝으로 직접 검수하고 확인합니다. 규모를 키우더라도 결과물의 완성도와 고유한 브랜드 가치(제이슨 장르)는 결코 타협하지 않습니다.</p>
+      <div class="owner-info">
+        <h3>김재성 (Jason Kim)</h3>
+        <p class="title">CEO &amp; AI Creative Director · 건축기사 · 2종 저서 출간 작가</p>
+        <p class="bio">
+          건축엔지니어링 부회장과 드론 기업 고문을 역임하며 평생 동안 <strong>'도면이 없으면 시공하지 않는 설계 선행의 원칙'</strong>과 철저한 준공 검수 체계를 훈련해 왔습니다. 
+          60대에 AI 창작 분야로 이종 전환하여 누적 1만 트랙 이상의 음악 생성, 23종의 자체 AI 도구 개발, 2권의 도서 출간을 이뤄냈습니다.
+        </p>
+        <p class="bio" style="margin-top: 10px;">
+          "만드는 능력 자체는 AI 도구로 누구나 할 수 있게 되었습니다. <strong>고객이 비용을 지불하는 진짜 가치는 '수천 개의 결과물 중 무엇이 진짜 상업적으로 쓸 만한지 골라내는 선별의 눈과 완성도'</strong>입니다. 기획부터 최종 디렉팅까지 대표가 손끝으로 직접 검수합니다."
+        </p>
       </div>
     </div>
   </div>
@@ -1334,19 +2020,20 @@ body {
 <section class="contact-sec" id="contact">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="sec-tag">INQUIRY</span>
-      <h2>가장 편안한 통화 상담</h2>
-      <p>텍스트로 모두 전하기 어려운 기획 의도와 비즈니스 성격, 단 5분의 친절한 상담 통화로 빠르게 파악해 드리겠습니다.</p>
+      <span class="sec-tag">INQUIRY &amp; CONSULTING</span>
+      <h2>가장 편안하고 신속한 상담</h2>
+      <p>기획 중이신 사업 아이디어나 필요한 콘텐츠, 단 5분의 친절한 상담 통화로 명확한 솔루션을 제안해 드립니다.</p>
     </div>
     <div class="cgrid">
       <div class="reveal">
         <a class="cbig" href="tel:01034071691">
-          <small>바로 연결하기</small>
+          <small>대표 직통 유선 상담</small>
           <b>010-3407-1691</b>
         </a>
         <dl class="cinfo">
+          <dt>보조 번호</dt><dd>010-6534-1691</dd>
           <dt>이메일</dt><dd><a href="mailto:ilsimsung49@gmail.com">ilsimsung49@gmail.com</a></dd>
-          <dt>사무실</dt><dd>인천광역시 연수구 인권로9번길 51-2</dd>
+          <dt>스튜디오</dt><dd>인천광역시 연수구 인권로9번길 51-2</dd>
           <dt>상담 시간</dt><dd>평일 09:00 – 19:00 (이외 시간은 문자 남기시면 신속 회신)</dd>
         </dl>
       </div>
@@ -1366,21 +2053,23 @@ body {
           <label for="type">필요하신 솔루션</label>
           <select id="type" name="문의종류" required>
             <option value="">원하시는 서비스를 선택하세요</option>
-            <option>오리지널 노래 제작 (CM송·주제가)</option>
-            <option>AI 영상 및 광고 세트</option>
-            <option>AI 실무 강연 및 교육 요청</option>
-            <option>반응형 홈페이지 빌드</option>
+            <option>오리지널 음원 판매 및 BGM 라이선스</option>
+            <option>멀티모달 전자책 제작 및 출판</option>
+            <option>오리지널 맞춤 노래 제작 (CM송·주제가)</option>
+            <option>AI 시네마틱 영상 및 광고 제작</option>
+            <option>AI 실무 강연 및 맞춤 워크숍</option>
+            <option>반응형 홈페이지 빌드 및 비즈니스 실체화</option>
             <option>사업계획서 문서 및 시각 디자인 연동</option>
-            <option>전체 브랜딩 방향성 통합 문의</option>
+            <option>브랜드 페르소나 설계 및 전체 통합 컨설팅</option>
           </select>
         </div>
         <div class="field">
           <label for="msg">상세 요청 정보</label>
-          <textarea id="msg" name="내용" required placeholder="기획 중이신 사업 영역이나 지향하는 테마 등을 가볍게 기술해 주세요."></textarea>
+          <textarea id="msg" name="내용" required placeholder="기획 중이신 사업 영역이나 원하시는 콘텐츠 형식, 지향하는 분위기 등을 자유롭게 적어주세요."></textarea>
         </div>
-        <button class="submit" type="submit">문의 제출하기</button>
+        <button class="submit" type="submit">상담 문의 제출하기</button>
         <div id="jkmsg" role="status" style="display:none;margin-top:6px;padding:16px 18px;border-radius:10px;font-size:14px;line-height:1.8"></div>
-        <p class="privacy">보내주신 성함·연락처·문의 내용은 상담 회신 목적으로만 사용하며, 상담이 끝나면 파기합니다.</p>
+        <p class="privacy">보내주신 정보는 상담 회신 목적으로만 사용하며 상담 완료 후 안전하게 파기됩니다.</p>
       </form>
     </div>
   </div>
@@ -1392,7 +2081,7 @@ body {
     <div class="fgrid">
       <div>
         <div class="brand">JASON KINGDOM <span>STUDIO</span></div>
-        <p>AI Creative Agency — Sound, Video and Web Solution</p>
+        <p style="margin-top:6px; font-size:13.5px; color:var(--text-muted);">AI Creative Studio — 도구까지 직접 만들어 씁니다</p>
       </div>
       <div>
         <p style="text-align: right; line-height: 1.8;">인천광역시 연수구 인권로9번길 51-2<br>010-3407-1691 · ilsimsung49@gmail.com</p>
@@ -1430,30 +2119,24 @@ const ring = document.getElementById('cursor-ring');
 const dot = document.getElementById('cursor-dot');
 let mouseX = 0, mouseY = 0;
 let ringX = 0, ringY = 0;
-let isMoving = false;
 
 window.addEventListener('mousemove', (e) => {
   mouseX = e.clientX;
   mouseY = e.clientY;
   dot.style.left = mouseX + 'px';
   dot.style.top = mouseY + 'px';
-  isMoving = true;
 });
 
 function animateCursor() {
-  // Lerp 공식으로 링이 마우스를 부드럽게 지연 추적
   ringX += (mouseX - ringX) * 0.12;
   ringY += (mouseY - ringY) * 0.12;
-  
   ring.style.left = ringX + 'px';
   ring.style.top = ringY + 'px';
-  
   requestAnimationFrame(animateCursor);
 }
 animateCursor();
 
-// 링크 호버 시 링의 크기 확장 클래스 토글
-const hoverables = document.querySelectorAll('a, button, select, input, textarea, .youtube-facade, .accordion-trigger');
+const hoverables = document.querySelectorAll('a, button, select, input, textarea, .youtube-facade, .accordion-trigger, .app-card, .promo-card');
 hoverables.forEach(item => {
   item.addEventListener('mouseenter', () => {
     document.body.classList.add('cursor-hover');
@@ -1467,14 +2150,13 @@ hoverables.forEach(item => {
 const heroVideo = document.getElementById('heroVideoContainer');
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
-  if (scrollY < window.innerHeight) {
-    // 스크롤 시 비디오가 살짝 커지며 뒤로 밀려나고 투명도가 어두워짐
+  if (scrollY < window.innerHeight && heroVideo) {
     heroVideo.style.transform = `translate3d(0, ${scrollY * 0.35}px, 0) scale(${1 + scrollY * 0.0004})`;
-    heroVideo.style.filter = `brightness(${0.4 - scrollY * 0.0006}) blur(${scrollY * 0.01}px)`;
+    heroVideo.style.filter = `brightness(${0.35 - scrollY * 0.0006}) blur(${scrollY * 0.01}px)`;
   }
 });
 
-// 3. Hero Text Rise-up Animation (단어별 순차 애니메이션)
+// 3. Hero Text Rise-up Animation
 document.addEventListener('DOMContentLoaded', () => {
   const words = document.querySelectorAll('#heroHeadline .word');
   words.forEach((word, idx) => {
@@ -1491,19 +2173,14 @@ cards.forEach(card => {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
-    // 중앙 기준의 상대 비율 계산
     const xc = rect.width / 2;
     const yc = rect.height / 2;
-    const angleX = (yc - y) / 16; // 회전 임계치 조율
-    const angleY = (x - xc) / 16;
-    
-    card.style.transform = `rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+    const angleX = (yc - y) / 18;
+    const angleY = (x - xc) / 18;
+    card.style.transform = `rotateX(${angleX}deg) rotateY(${angleY}deg) translateY(-4px)`;
   });
-  
   card.addEventListener('mouseleave', () => {
-    // 복원
-    card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+    card.style.transform = `rotateX(0deg) rotateY(0deg) translateY(0)`;
   });
 });
 
@@ -1515,8 +2192,7 @@ const observer = new IntersectionObserver((entries) => {
       entry.target.classList.add('visible');
     }
   });
-}, { threshold: 0.1 });
-
+}, { threshold: 0.08 });
 revealElems.forEach(el => observer.observe(el));
 
 // 6. Hamburger Menu Logic
@@ -1528,7 +2204,6 @@ hamburger.addEventListener('click', () => {
   hamburger.classList.toggle('open');
   mobileMenu.classList.toggle('open');
 });
-
 mobileLinks.forEach(link => {
   link.addEventListener('click', () => {
     hamburger.classList.remove('open');
@@ -1542,24 +2217,20 @@ accordionItems.forEach(item => {
   const trigger = item.querySelector('.accordion-trigger');
   trigger.addEventListener('click', () => {
     const isActive = item.classList.contains('active');
-    
-    // 아코디언 다른 항목 접기
     accordionItems.forEach(i => i.classList.remove('active'));
-    
     if (!isActive) {
       item.classList.add('active');
     }
   });
 });
 
-// 8. YouTube Video Facade click load (영상 로딩 최적화 및 로컬 오류 153 방지 우회)
+// 8. YouTube Video Facade click load
 const facades = document.querySelectorAll('.youtube-facade');
 facades.forEach(facade => {
   facade.addEventListener('click', () => {
     const videoId = facade.dataset.videoId;
     const title = facade.dataset.title;
     
-    // 만약 로컬 file:// 주소 체계인 경우, 오류 153 차단을 위해 즉시 유튜브 새창 재생
     if (window.location.protocol === 'file:') {
       window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
       return;
@@ -1585,50 +2256,48 @@ facades.forEach(facade => {
 
 // 9. Hero Carousel (짤영상 순환 플레이어) Logic
 const clips = [
-  'https://jasonkingdom-studio.github.io/clips/clip1.mp4',
-  'https://jasonkingdom-studio.github.io/clips/clip2.mp4',
-  'https://jasonkingdom-studio.github.io/clips/clip3.mp4',
-  'https://jasonkingdom-studio.github.io/clips/clip4.mp4',
-  'https://jasonkingdom-studio.github.io/clips/clip5.mp4',
-  'https://jasonkingdom-studio.github.io/clips/clip6.mp4',
-  'https://jasonkingdom-studio.github.io/clips/clip7.mp4',
-  'https://jasonkingdom-studio.github.io/clips/clip8.mp4',
-  'https://jasonkingdom-studio.github.io/clips/clip9.mp4',
-  'https://jasonkingdom-studio.github.io/clips/clip10.mp4'
+  'clips/clip1.mp4',
+  'clips/clip2.mp4',
+  'clips/clip3.mp4',
+  'clips/clip4.mp4',
+  'clips/clip5.mp4',
+  'clips/clip6.mp4',
+  'clips/clip7.mp4',
+  'clips/clip8.mp4',
+  'clips/clip9.mp4',
+  'clips/clip10.mp4'
 ];
 let currentClipIndex = 0;
 const slideVideo = document.getElementById('heroSlideVideo');
 const dots = document.querySelectorAll('.c-dot');
 
 function playClip(idx) {
-  if (idx < 0 || idx >= clips.length) return;
+  if (idx < 0 || idx >= clips.length || !slideVideo) return;
   currentClipIndex = idx;
-  
-  // 닷 활성화 토글
   dots.forEach((dot, i) => {
     dot.classList.toggle('active', i === currentClipIndex);
   });
-  
   slideVideo.src = clips[currentClipIndex];
   slideVideo.play().catch(() => {});
 }
 
-// 닷 클릭 이벤트 위임
 const dotsContainer = document.getElementById('carouselDots');
-dotsContainer.addEventListener('click', (e) => {
-  if (e.target.classList.contains('c-dot')) {
-    const index = parseInt(e.target.dataset.index);
-    playClip(index);
-  }
-});
+if (dotsContainer) {
+  dotsContainer.addEventListener('click', (e) => {
+    if (e.target.classList.contains('c-dot')) {
+      const index = parseInt(e.target.dataset.index);
+      playClip(index);
+    }
+  });
+}
+if (slideVideo) {
+  slideVideo.addEventListener('ended', () => {
+    const nextIndex = (currentClipIndex + 1) % clips.length;
+    playClip(nextIndex);
+  });
+}
 
-// 비디오 자동 재생 완료 시 루프 순환
-slideVideo.addEventListener('ended', () => {
-  const nextIndex = (currentClipIndex + 1) % clips.length;
-  playClip(nextIndex);
-});
-
-// 10. AJAX Netlify Form Submit
+// 10. Netlify Form AJAX Submit
 const form = document.getElementById('jkform');
 const msgBox = document.getElementById('jkmsg');
 if (form) {
@@ -1651,7 +2320,7 @@ if (form) {
       msgBox.style.background = 'rgba(212, 175, 55, 0.1)';
       msgBox.style.border = '1px solid var(--primary)';
       msgBox.style.color = 'var(--primary-light)';
-      msgBox.textContent = '문의 접수가 성공적으로 이루어졌습니다. 빠른 시일 내에 연락드리겠습니다.';
+      msgBox.textContent = '문의 접수가 성공적으로 완료되었습니다. 빠른 시일 내에 연락드리겠습니다.';
     })
     .catch(() => {
       msgBox.style.display = 'block';
@@ -1682,7 +2351,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// 12. App Detail Modal Logic (자체 개발 앱 클릭 제어)
+// 12. App Detail Modal Logic
 const appModal = document.getElementById('appModal');
 const appModalClose = document.getElementById('appModalClose');
 const appModalCta = document.getElementById('appModalCta');
@@ -1691,7 +2360,6 @@ let selectedServiceType = '';
 let selectedLiveUrl = '';
 
 function openAppModal(cardEl) {
-  // 자식 요소(텍스트/아이콘) 클릭 시에도 부모 카드를 정상 참조하도록 보정
   const card = cardEl.closest('.app-card') || cardEl;
   const iconHtml = card.querySelector('.app-icon').innerHTML;
   const title = card.querySelector('h4').textContent;
@@ -1704,7 +2372,6 @@ function openAppModal(cardEl) {
   document.getElementById('appModalTitle').textContent = title;
   document.getElementById('appModalDesc').textContent = desc;
 
-  // 라이브 테스트 URL이 있을 때만 버튼 노출
   if (selectedLiveUrl) {
     appModalLiveBtn.style.display = 'block';
     appModalLiveBtn.onclick = () => {
@@ -1728,11 +2395,8 @@ appModal.addEventListener('click', (e) => {
 
 appModalCta.addEventListener('click', () => {
   closeAppModal();
-  
-  // 문의 양식의 솔루션 드롭다운 자동 매핑
   const typeSelect = document.getElementById('type');
   if (typeSelect && selectedServiceType) {
-    // 옵션 순회 매칭
     for (let i = 0; i < typeSelect.options.length; i++) {
       if (typeSelect.options[i].text.includes(selectedServiceType) || typeSelect.options[i].value === selectedServiceType) {
         typeSelect.selectedIndex = i;
@@ -1740,15 +2404,11 @@ appModalCta.addEventListener('click', () => {
       }
     }
   }
-  
-  // 문의 폼으로 부드러운 점프 스크롤
   const contactSec = document.getElementById('contact');
   if (contactSec) {
     const headerOffset = 80;
     const top = contactSec.getBoundingClientRect().top + window.pageYOffset - headerOffset;
     window.scrollTo({ top: top, behavior: 'smooth' });
-    
-    // 문의 작성란 자동 포커스
     setTimeout(() => {
       document.getElementById('msg').focus();
     }, 600);
@@ -1758,6 +2418,3 @@ appModalCta.addEventListener('click', () => {
 
 </body>
 </html>
- 
- 
- 
