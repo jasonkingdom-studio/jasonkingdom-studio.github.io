@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JASON KINGDOM STUDIO | 도구까지 직접 만들어 쓰는 AI 크리에이티브 스튜디오</title>
-<meta name="description" content="도구까지 직접 만들어 씁니다. 브랜드 페르소나 설계부터 오리지널 음악·음원 판매, 멀티모달 전자책 제작, 시네마틱 영상, AI 실무 강연, 웹 구축까지 소상공인·시니어 대상 AI 종합 크리에이티브 스튜디오">
+<meta name="description" content="도구까지 직접 만들어 씁니다. 멀티모달 전자책 제작·출판 솔루션, 오리지널 음악·음원 판매, 시네마틱 영상, AI 실무 강연, 웹 구축까지 소상공인·시니어·기업 대상 AI 종합 크리에이티브 스튜디오">
 
 <!-- Open Graph / Meta -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jasonkingdom-studio.github.io/">
-<meta property="og:title" content="JASON KINGDOM STUDIO | 도구까지 직접 만들어 씁니다">
-<meta property="og:description" content="AI를 쓸 줄은 알지만 쓸 만한 결과물은 못 만드는 소상공인·시니어를 위해, 브랜드 페르소나부터 노래·영상·웹·전자책을 일관되게 실체화하는 AI 크리에이티브 스튜디오">
+<meta property="og:title" content="JASON KINGDOM STUDIO | 멀티모달 전자책 &amp; AI 크리에이티브 스튜디오">
+<meta property="og:description" content="도구까지 직접 만들어 씁니다. 텍스트+TTS 음성 동기화 멀티모달 전자책, 오리지널 음원 판매, 시네마틱 영상, 웹 구축 솔루션">
 <meta property="og:image" content="hero-signage.jpg">
 
 <!-- Fonts -->
@@ -29,7 +29,7 @@
   --surface: rgba(255,255,255,0.03);
   --surface-2: rgba(255,255,255,0.06);
   --text: #F0F2F5;
-  --text-muted: rgba(240,242,245,0.74);
+  --text-muted: rgba(240,242,245,0.76);
   --text-dim: rgba(240,242,245,0.45);
   
   /* Gold & Brass Palette */
@@ -42,9 +42,9 @@
   --grad-card: linear-gradient(180deg, rgba(20,22,31,0.85) 0%, rgba(10,11,14,0.95) 100%);
   
   --glass-border: rgba(212,175,55,0.18);
-  --glass-border-hover: rgba(212,175,55,0.55);
-  --glow: 0 0 35px rgba(212,175,55,0.12);
-  --glow-hover: 0 0 50px rgba(212,175,55,0.3);
+  --glass-border-hover: rgba(212,175,55,0.6);
+  --glow: 0 0 35px rgba(212,175,55,0.14);
+  --glow-hover: 0 0 50px rgba(212,175,55,0.32);
   
   --f-serif: 'Fraunces', serif;
   --f-sans: 'Geist', 'Pretendard', sans-serif;
@@ -175,7 +175,7 @@ body {
   gap: 8px;
 }
 .brand span { font-family: var(--f-sans); font-size: 13px; font-weight: 400; opacity: 0.8; }
-.topbar nav { display: flex; gap: 24px; align-items: center; }
+.topbar nav { display: flex; gap: 22px; align-items: center; }
 .topbar nav a {
   font-size: 13.5px;
   font-weight: 600;
@@ -184,6 +184,10 @@ body {
   position: relative;
   transition: color 0.3s;
   padding: 8px 0;
+}
+.topbar nav a.nav-highlight {
+  color: var(--primary-light);
+  font-weight: 800;
 }
 .topbar nav a::after {
   content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
@@ -321,7 +325,7 @@ body {
   font-size: clamp(15px, 1.7vw, 19px);
   color: var(--text-muted);
   max-width: 820px;
-  margin: 0 auto 36px;
+  margin: 0 auto 32px;
   line-height: 1.8;
 }
 .hero p.sub strong { color: var(--primary-light); font-weight: 700; }
@@ -331,7 +335,7 @@ body {
   gap: 16px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 40px;
+  margin-bottom: 36px;
 }
 .btn-primary {
   display: inline-flex; align-items: center; gap: 8px;
@@ -356,6 +360,80 @@ body {
 .btn-outline:hover {
   background: rgba(212,175,55,0.12);
   transform: translateY(-3px);
+}
+
+/* ========== 첫 화면 핵심 섹션 빠른 분류 선택창 (Quick Classifier) ========== */
+.hero-classifier-bar {
+  background: rgba(20,22,31,0.85);
+  border: 1.5px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin: 0 auto 36px;
+  max-width: 860px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5), var(--glow);
+  text-align: center;
+}
+.classifier-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--secondary);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 14px;
+}
+.classifier-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.c-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 50px;
+  color: var(--text);
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.c-chip:hover {
+  background: rgba(212,175,55,0.15);
+  border-color: var(--primary);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212,175,55,0.25);
+}
+.c-chip.featured {
+  background: linear-gradient(135deg, rgba(212,175,55,0.22) 0%, rgba(20,22,31,0.9) 100%);
+  border: 1.5px solid var(--primary);
+  color: var(--primary-light);
+  font-weight: 800;
+  box-shadow: 0 0 15px rgba(212,175,55,0.2);
+}
+.c-chip.featured:hover {
+  background: var(--grad);
+  color: #0A0B0E;
+  border-color: var(--primary-light);
+}
+.c-chip-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: var(--grad);
+  color: #0A0B0E;
+  letter-spacing: -0.02em;
+}
+.c-chip.featured:hover .c-chip-badge {
+  background: #0A0B0E;
+  color: var(--primary-light);
 }
 
 .brand-signage-wrap {
@@ -446,7 +524,7 @@ body {
   border-radius: var(--radius);
   border: 1px solid var(--glass-border);
   overflow: hidden;
-  height: 420px;
+  height: 440px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -460,6 +538,15 @@ body {
   box-shadow: var(--glow-hover), 0 15px 40px rgba(0,0,0,0.6);
   transform: translateY(-4px);
 }
+.category-card.featured-card {
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 30px rgba(212,175,55,0.25);
+}
+.category-card.featured-card:hover {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 50px rgba(212,175,55,0.45);
+}
+
 .card-bg-img {
   position: absolute;
   inset: 0;
@@ -481,25 +568,47 @@ body {
   position: relative;
   z-index: 3;
 }
+.card-badge-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 50px;
+  background: var(--grad);
+  color: #0A0B0E;
+  margin-bottom: 8px;
+}
 .card-tag {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.15em;
   color: var(--secondary);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .category-card h3 {
   font-family: var(--f-serif);
-  font-size: 25px;
+  font-size: 24px;
   font-weight: 800;
   line-height: 1.3;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 .category-card p.copy {
-  font-size: 14px;
+  font-size: 13.5px;
   line-height: 1.6;
   color: var(--text-muted);
-  margin-bottom: 18px;
+  margin-bottom: 14px;
+}
+.card-bullets {
+  list-style: none;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.card-bullets li {
+  font-size: 12.5px;
+  color: var(--primary-light);
+  line-height: 1.4;
 }
 .category-card .btn-detail {
   font-size: 13px; font-weight: 700; color: var(--secondary);
@@ -513,7 +622,7 @@ body {
 }
 @media (max-width: 680px) {
   .categories-grid { grid-template-columns: 1fr; gap: 20px; }
-  .category-card { height: 360px; padding: 28px; }
+  .category-card { height: 380px; padding: 28px; }
 }
 
 /* ========== 상세 섹션 공통 스타일 ========== */
@@ -842,6 +951,7 @@ body {
   flex-direction: column;
   gap: 12px;
   cursor: pointer;
+  position: relative;
   transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s, background 0.3s;
 }
 .app-card:hover {
@@ -850,6 +960,27 @@ body {
   background: rgba(212,175,55,0.04);
   box-shadow: var(--glow);
 }
+.app-card.featured-app {
+  border: 2px solid var(--primary);
+  background: linear-gradient(180deg, rgba(212,175,55,0.08) 0%, rgba(20,22,31,0.95) 100%);
+  box-shadow: 0 0 25px rgba(212,175,55,0.18);
+}
+.app-card.featured-app:hover {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 40px rgba(212,175,55,0.35);
+}
+.app-badge-featured {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--grad);
+  color: #0A0B0E;
+  margin-bottom: 2px;
+}
+
 .app-icon {
   width: 42px; height: 42px;
   border-radius: 10px;
@@ -1113,12 +1244,12 @@ footer {
   <div class="wrap">
     <a href="#hero" class="brand">JASON KINGDOM <span>STUDIO</span></a>
     <nav>
-      <a href="#music">음악·음원 판매</a>
-      <a href="#ebook">멀티모달 전자책</a>
-      <a href="#video">영상·홍보관</a>
-      <a href="#lecture">AI 강연</a>
-      <a href="#web">웹·비즈니스</a>
-      <a href="#creations">출간 저서·앱</a>
+      <a href="#ebook" class="nav-highlight">📖 멀티모달 전자책</a>
+      <a href="#music">🎵 음악·음원 판매</a>
+      <a href="#video">🎬 영상·홍보관</a>
+      <a href="#lecture">🎓 AI 강연</a>
+      <a href="#web">💻 웹·비즈니스</a>
+      <a href="#creations">📚 출간 저서·앱</a>
       <a href="#contact">문의</a>
     </nav>
     <a class="cta-call" href="#contact">상담 문의</a>
@@ -1129,12 +1260,12 @@ footer {
 </header>
 
 <div class="mobile-menu" id="mobile-menu">
-  <a href="#music" class="mobile-link">음악·음원 판매</a>
-  <a href="#ebook" class="mobile-link">멀티모달 전자책</a>
-  <a href="#video" class="mobile-link">영상·홍보관</a>
-  <a href="#lecture" class="mobile-link">AI 강연</a>
-  <a href="#web" class="mobile-link">웹·비즈니스</a>
-  <a href="#creations" class="mobile-link">출간 저서·앱</a>
+  <a href="#ebook" class="mobile-link" style="color:var(--primary-light)">📖 멀티모달 전자책 (핵심)</a>
+  <a href="#music" class="mobile-link">🎵 음악·음원 판매</a>
+  <a href="#video" class="mobile-link">🎬 영상·홍보관</a>
+  <a href="#lecture" class="mobile-link">🎓 AI 강연</a>
+  <a href="#web" class="mobile-link">💻 웹·비즈니스</a>
+  <a href="#creations" class="mobile-link">📚 출간 저서·앱</a>
   <a href="#contact" class="mobile-link" style="color:var(--secondary)">상담 문의</a>
 </div>
 
@@ -1163,13 +1294,39 @@ footer {
     
     <p class="sub">
       <strong>"AI를 쓸 줄은 알지만 쓸 만한 결과물은 못 만드는"</strong> 소상공인·시니어·기관을 위해,<br>
-      브랜드에 <strong>인격(페르소나)</strong>을 부여하고 <strong>노래·영상·광고·웹사이트·전자책</strong>을 일관되게 만들어 확산시킵니다.<br>
+      브랜드에 <strong>인격(페르소나)</strong>을 부여하고 <strong>멀티모달 전자책·오리지널 음악·영상·웹</strong>을 일관되게 만들어 확산시킵니다.<br>
       고객이 비용을 지불하는 진짜 가치는 단순 '생성'이 아니라 <strong>'1만 번의 경험에서 나오는 선별과 완성'</strong>입니다.
     </p>
     
     <div class="hero-actions reveal">
-      <a href="#creations" class="btn-primary">출간 저서 &amp; 솔루션 보기 →</a>
+      <a href="#ebook" class="btn-primary">📖 멀티모달 전자책 솔루션 보기 →</a>
       <a href="#video" class="btn-outline">홍보 영상 감상하기</a>
+    </div>
+
+    <!-- 첫 화면 핵심 비즈니스 분류창 (Quick Classifier Bar) -->
+    <div class="hero-classifier-bar reveal">
+      <span class="classifier-title">스튜디오 핵심 비즈니스 영역 빠른 바로가기</span>
+      <div class="classifier-chips">
+        <a href="#ebook" class="c-chip featured">
+          <span>📖</span> <strong>멀티모달 전자책 제작</strong>
+          <span class="c-chip-badge">핵심 주력</span>
+        </a>
+        <a href="#music" class="c-chip">
+          <span>🎵</span> 음악 &amp; 음원 판매
+        </a>
+        <a href="#video" class="c-chip">
+          <span>🎬</span> 시네마틱 영상 &amp; 광고
+        </a>
+        <a href="#lecture" class="c-chip">
+          <span>🎓</span> 실전 AI 강연 &amp; 교육
+        </a>
+        <a href="#web" class="c-chip">
+          <span>💻</span> 반응형 웹 구축
+        </a>
+        <a href="#creations" class="c-chip">
+          <span>📚</span> 2종 저서 &amp; 23종 소프트웨어
+        </a>
+      </div>
     </div>
 
     <!-- 브랜드 간판 비주얼 -->
@@ -1225,29 +1382,40 @@ footer {
   <div class="wrap">
     <div style="text-align: center;">
       <span class="sec-tag">Business Core Pillars</span>
-      <h2 style="font-family: var(--f-serif); font-size: clamp(28px, 4vw, 44px); font-weight: 800;">5대 핵심 비즈니스 솔루션</h2>
+      <h2 style="font-family: var(--f-serif); font-size: clamp(28px, 4vw, 44px); font-weight: 800;">스튜디오 핵심 비즈니스 솔루션</h2>
       <p style="color: var(--text-muted); margin-top: 12px; font-size: 15px;">아이콘과 카드를 선택하시면 각 사업 영역의 상세 설명으로 즉시 이동합니다.</p>
     </div>
 
     <div class="categories-grid">
-      <!-- CARD 1: MUSIC & SOUND ASSET SALES -->
-      <a href="#music" class="category-card reveal">
-        <div class="card-bg-img" style="background-image: url('card-music.jpg');"></div>
+      
+      <!-- CARD 1: MULTIMODAL E-BOOK STUDIO (FEATURED CORE PILLAR) -->
+      <a href="#ebook" class="category-card featured-card reveal">
+        <div class="card-bg-img" style="background-image: url('card-brand.jpg');"></div>
         <div class="card-content">
-          <div class="card-tag">01 · MUSIC &amp; SOUND ASSETS</div>
-          <h3>음악 제작 &amp; 음원 판매</h3>
-          <p class="copy">“1만 곡의 생성과 선별. 저작권료 걱정 없는 매장 BGM USB 패키지 및 오리지널 CM송.”</p>
-          <span class="btn-detail">자세히 보기 →</span>
+          <span class="card-badge-pill">★ 핵심 주력 비즈니스</span>
+          <div class="card-tag">01 · MULTIMODAL E-BOOK STUDIO</div>
+          <h3>멀티모달 전자책 제작 &amp; 출판</h3>
+          <p class="copy">“음악·영상·출판이 하나로 수렴. 텍스트+TTS 음성 동기화+영상 결합, 표준 EPUB3 및 독립형 PWA 웹북 원스톱 출판 솔루션.”</p>
+          <ul class="card-bullets">
+            <li>· 오디오-텍스트 실시간 하이라이트 싱크 (SMIL)</li>
+            <li>· 교보·예스24 유통 EPUB3 &amp; 독립형 웹북 동시 빌드</li>
+            <li>· 기업 브랜드북 · 시니어 교재 · 기관 정책 홍보서</li>
+          </ul>
+          <span class="btn-detail">전자책 솔루션 자세히 보기 →</span>
         </div>
       </a>
 
-      <!-- CARD 2: MULTIMODAL E-BOOK STUDIO (NEW) -->
-      <a href="#ebook" class="category-card reveal reveal-delay-1">
-        <div class="card-bg-img" style="background-image: url('card-brand.jpg');"></div>
+      <!-- CARD 2: MUSIC & SOUND ASSET SALES -->
+      <a href="#music" class="category-card reveal reveal-delay-1">
+        <div class="card-bg-img" style="background-image: url('card-music.jpg');"></div>
         <div class="card-content">
-          <div class="card-tag">02 · MULTIMODAL E-BOOK</div>
-          <h3>멀티모달 전자책 제작</h3>
-          <p class="copy">“음악·영상·출판이 하나로 수렴. 텍스트+TTS 음성 동기화+영상 결합, EPUB3 &amp; 웹북 출판.”</p>
+          <div class="card-tag">02 · MUSIC &amp; SOUND ASSETS</div>
+          <h3>음악 제작 &amp; 음원 판매</h3>
+          <p class="copy">“1만 곡의 생성과 선별. 저작권료 걱정 없는 매장 BGM USB 패키지 및 오리지널 CM송.”</p>
+          <ul class="card-bullets">
+            <li>· 매장 분위기별 BGM USB 라이선스 판매</li>
+            <li>· 기업·소상공인 오리지널 맞춤 CM송</li>
+          </ul>
           <span class="btn-detail">자세히 보기 →</span>
         </div>
       </a>
@@ -1259,6 +1427,10 @@ footer {
           <div class="card-tag">03 · CINEMATIC VIDEO &amp; ADS</div>
           <h3>시네마틱 영상 &amp; 광고</h3>
           <p class="copy">“사운드-영상 원라인 내부 제작. 광고용 사운드트랙과 시네마틱 영상의 완벽한 밀착.”</p>
+          <ul class="card-bullets">
+            <li>· 비트 동기화 자동 합성 (Music Video Sync)</li>
+            <li>· 브랜드 홍보영상 &amp; 쇼츠 제작</li>
+          </ul>
           <span class="btn-detail">자세히 보기 →</span>
         </div>
       </a>
@@ -1270,6 +1442,10 @@ footer {
           <div class="card-tag">04 · AI INSIGHTS &amp; WORKSHOP</div>
           <h3>실전 AI 강연 &amp; 교육</h3>
           <p class="copy">“10,000번의 생성, 단 하나의 인사이트. 2권의 저서 기반 실습형 기업·기관 특강.”</p>
+          <ul class="card-bullets">
+            <li>· 《프롬프트 마스터》 기업 임직원 특강</li>
+            <li>· 《할배 AI 생존기》 시니어 눈높이 교육</li>
+          </ul>
           <span class="btn-detail">자세히 보기 →</span>
         </div>
       </a>
@@ -1281,6 +1457,10 @@ footer {
           <div class="card-tag">05 · WEB &amp; BUSINESS STRATEGY</div>
           <h3>웹 구축 &amp; 비즈니스 실체화</h3>
           <p class="copy">“설계 선행의 건축적 접근. 브랜드 페르소나와 반응형 웹·사업계획서의 완벽한 일치.”</p>
+          <ul class="card-bullets">
+            <li>· 브랜드 홍보형 랜딩페이지 구축</li>
+            <li>· 사업계획서 + 실물 증빙 원스톱 연계</li>
+          </ul>
           <span class="btn-detail">자세히 보기 →</span>
         </div>
       </a>
@@ -1292,18 +1472,99 @@ footer {
           <div class="card-tag">06 · BOOKS &amp; SOFTWARE</div>
           <h3>출간 저서 2종 &amp; 자체 솔루션</h3>
           <p class="copy">“《할배 AI 생존기》, 《프롬프트 마스터》(전자책·종이책) 및 자체 개발 23종 소프트웨어.”</p>
+          <ul class="card-bullets">
+            <li>· 유페이퍼/부크크 4개 서점 실판매 중</li>
+            <li>· 23종 자체 개발 AI 응용 유틸리티</li>
+          </ul>
           <span class="btn-detail">자세히 보기 →</span>
         </div>
       </a>
+
     </div>
   </div>
 </section>
 
-<!-- ============ 01. 노래 제작 & 음원 판매 섹션 ============ -->
+<!-- ============ 01. 멀티모달 전자책 제작 솔루션 섹션 (핵심 주력) ============ -->
+<section class="sec" id="ebook" style="background: rgba(20,22,31,0.6); border-top: 2px solid rgba(212,175,55,0.3);">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-tag">01 · Multimodal eBook Studio (핵심 주력 사업)</span>
+      <h2>멀티모달 전자책 제작 &amp; 출판 솔루션</h2>
+      <p>
+        단순히 글자만 읽는 전자책의 시대를 넘어섰습니다. 
+        <strong>음악을 만들 줄 알고, 영상을 만들 줄 알고, 직접 2권의 책을 출간해 보았기에</strong> 
+        세 가지 요소를 하나의 파일로 엮는 자체 개발 도구 <strong>「멀티모달 전자책 스튜디오(Multimodal eBook Studio PRO)」</strong>를 완성했습니다.
+      </p>
+    </div>
+
+    <div class="jg reveal">
+      <div class="jg-box" style="border-color: rgba(212,175,55,0.4); box-shadow: var(--glow);">
+        <b class="grad-text" style="font-size:22px; display:block; margin-bottom:12px;">음악·영상·출판 세 축이 하나의 결과물로 수렴하는 차세대 디지털 출판</b>
+        <p>
+          텍스트에 <strong>자연스러운 AI TTS 음성 실시간 동기화(Media Overlays / SMIL)</strong>, 챕터별 고화질 일러스트 및 시네마틱 영상, 
+          인터랙티브 스크립트를 통합하여 '읽으면서 듣고 보는' 가장 진보된 형태의 전자책을 원스톱으로 제작하고 
+          교보문고, 예스24, Apple Books 등 주요 서점에 정식 유통합니다.
+        </p>
+      </div>
+
+      <ul class="jg-list">
+        <li>
+          <em class="grad-text">01</em>
+          <div>
+            <b>오디오-텍스트 실시간 동기화 (Media Overlays / SMIL)</b><br>
+            <span style="color:var(--text-muted);font-size:14px">자연스러운 AI 보이스(TTS)와 녹음 음성을 본문 문장 단위로 하이라이트 싱크 처리하여 몰입감 극대화.</span>
+          </div>
+        </li>
+        <li>
+          <em class="grad-text">02</em>
+          <div>
+            <b>국제 표준 EPUB3 &amp; 독립형 웹북(PWA) 동시 출력</b><br>
+            <span style="color:var(--text-muted);font-size:14px">교보문고·예스24·Apple Books 정식 유통용 EPUB3와 브라우저/오프라인에서 즉시 실행되는 웹북 동시 빌드.</span>
+          </div>
+        </li>
+        <li>
+          <em class="grad-text">03</em>
+          <div>
+            <b>시네마틱 영상 &amp; 인터랙티브 요소 내장</b><br>
+            <span style="color:var(--text-muted);font-size:14px">챕터별 설명 영상, 오디오 플레이어, 퀴즈, 애니메이션을 본문 내에 유기적으로 삽입.</span>
+          </div>
+        </li>
+        <li>
+          <em class="grad-text">04</em>
+          <div>
+            <b>전자책 + 종이책 동시 출간 원스톱 파이프라인</b><br>
+            <span style="color:var(--text-muted);font-size:14px">원고 집필·교정, 표지 디자인, ISBN 발급, 유페이퍼/부크크 등 주요 유통 플랫폼 입점까지 전 과정 대행.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 멀티모달 전자책 적용 추천 분야 -->
+    <div class="reveal" style="margin-top: 48px;">
+      <h3 style="font-family: var(--f-serif); font-size: 22px; font-weight: 700; margin-bottom: 20px; color: var(--primary-light);">멀티모달 전자책 추천 활용 분야</h3>
+      <div class="lec" style="margin-top: 0;">
+        <div class="lec-item">
+          <b>기업·소상공인 브랜드북</b>
+          <span>브랜드의 창업 스토리, 인터뷰 영상, 대표 로고송을 한 권의 살아있는 디지털 책으로 구성하여 고객에게 전달.</span>
+        </div>
+        <div class="lec-item">
+          <b>시니어·초보자 교육 교재</b>
+          <span>글씨 읽기가 부담스러운 학습자를 위해 음성 나레이션과 따라 하기 숏폼 영상이 결합된 눈높이 실습 교재 제작.</span>
+        </div>
+        <div class="lec-item">
+          <b>지자체·공공기관 정책 홍보서</b>
+          <span>지역 문화재, 관광 안내, 정책 백서를 오디오 가이드와 인터랙티브 지도가 포함된 첨단 디지털 북으로 발간.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02. 노래 제작 & 음원 판매 섹션 ============ -->
 <section class="sec" id="music">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="sec-tag">01 · Original Music &amp; Sound Assets</span>
+      <span class="sec-tag">02 · Original Music &amp; Sound Assets</span>
       <h2>오리지널 노래 제작 &amp; 음원 판매 사업</h2>
       <p>
         말이나 글보다 강력한 브랜드의 청각적 시그니처. <strong>누적 1만 곡 이상의 AI 트랙 생성 및 선별 경험</strong>을 바탕으로,
@@ -1364,82 +1625,6 @@ footer {
         <li>용도 (매장 상시 BGM, 광고 CM송, 유튜브 인트로, 행사 주제가, 선물용 맞춤곡)</li>
         <li>기존 라이브러리 즉시 구매 또는 맞춤 기획 제작 중 선택 가능</li>
       </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 02. 멀티모달 전자책 제작 솔루션 섹션 (NEW) ============ -->
-<section class="sec" id="ebook" style="background: rgba(20,22,31,0.5);">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="sec-tag">02 · Multimodal eBook Studio</span>
-      <h2>멀티모달 전자책 제작 &amp; 출판 솔루션</h2>
-      <p>
-        단순히 글자만 읽는 전자책의 시대를 넘어섰습니다. 
-        <strong>음악을 만들 줄 알고, 영상을 만들 줄 알고, 직접 2권의 책을 출간해 보았기에</strong> 
-        세 가지 요소를 하나의 파일로 엮는 자체 개발 도구 <strong>「멀티모달 전자책 스튜디오(Multimodal eBook Studio)」</strong>를 완성했습니다.
-      </p>
-    </div>
-
-    <div class="jg reveal">
-      <div class="jg-box" style="border-color: rgba(212,175,55,0.35);">
-        <b class="grad-text" style="font-size:22px; display:block; margin-bottom:12px;">음악·영상·출판 세 축이 하나의 결과물로 수렴하는 차세대 출판</b>
-        <p>
-          텍스트에 <strong>자연스러운 AI TTS 음성 실시간 동기화(Media Overlays / SMIL)</strong>, 챕터별 고화질 일러스트 및 시네마틱 영상, 
-          인터랙티브 스크립트를 통합하여 '읽으면서 듣고 보는' 가장 진보된 형태의 전자책을 원스톱으로 제작하고 
-          교보문고, 예스24, Apple Books 등 주요 서점에 정식 유통합니다.
-        </p>
-      </div>
-
-      <ul class="jg-list">
-        <li>
-          <em class="grad-text">01</em>
-          <div>
-            <b>오디오-텍스트 실시간 동기화 (Media Overlays / SMIL)</b><br>
-            <span style="color:var(--text-muted);font-size:14px">자연스러운 AI 보이스(TTS)와 녹음 음성을 본문 문장 단위로 하이라이트 싱크 처리하여 몰입감 극대화.</span>
-          </div>
-        </li>
-        <li>
-          <em class="grad-text">02</em>
-          <div>
-            <b>국제 표준 EPUB3 &amp; 독립형 웹북(PWA) 동시 출력</b><br>
-            <span style="color:var(--text-muted);font-size:14px">교보문고·예스24·Apple Books 정식 유통용 EPUB3와 브라우저/오프라인에서 즉시 실행되는 웹북 동시 빌드.</span>
-          </div>
-        </li>
-        <li>
-          <em class="grad-text">03</em>
-          <div>
-            <b>시네마틱 영상 &amp; 인터랙티브 요소 내장</b><br>
-            <span style="color:var(--text-muted);font-size:14px">챕터별 설명 영상, 오디오 플레이어, 퀴즈, 애니메이션을 본문 내에 유기적으로 삽입.</span>
-          </div>
-        </li>
-        <li>
-          <em class="grad-text">04</em>
-          <div>
-            <b>전자책 + 종이책 동시 출간 원스톱 파이프라인</b><br>
-            <span style="color:var(--text-muted);font-size:14px">원고 집필·교정, 표지 디자인, ISBN 발급, 유페이퍼/부크크 등 주요 유통 플랫폼 입점까지 전 과정 대행.</span>
-          </div>
-        </li>
-      </ul>
-    </div>
-
-    <!-- 멀티모달 전자책 적용 추천 분야 -->
-    <div class="reveal" style="margin-top: 48px;">
-      <h3 style="font-family: var(--f-serif); font-size: 22px; font-weight: 700; margin-bottom: 20px; color: var(--primary-light);">멀티모달 전자책 추천 활용 분야</h3>
-      <div class="lec" style="margin-top: 0;">
-        <div class="lec-item">
-          <b>기업·소상공인 브랜드북</b>
-          <span>브랜드의 창업 스토리, 인터뷰 영상, 대표 로고송을 한 권의 살아있는 디지털 책으로 구성하여 고객에게 전달.</span>
-        </div>
-        <div class="lec-item">
-          <b>시니어·초보자 교육 교재</b>
-          <span>글씨 읽기가 부담스러운 학습자를 위해 음성 나레이션과 따라 하기 숏폼 영상이 결합된 눈높이 실습 교재 제작.</span>
-        </div>
-        <div class="lec-item">
-          <b>지자체·공공기관 정책 홍보서</b>
-          <span>지역 문화재, 관광 안내, 정책 백서를 오디오 가이드와 인터랙티브 지도가 포함된 첨단 디지털 북으로 발간.</span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -1661,8 +1846,8 @@ footer {
           <div class="mock-frame">
             <div class="mock-fake-nav"><span></span><span></span></div>
             <div class="mock-fake-row">
-              <div class="mock-fake-card">Music</div>
               <div class="mock-fake-card">eBook</div>
+              <div class="mock-fake-card">Music</div>
               <div class="mock-fake-card">Video</div>
             </div>
           </div>
@@ -1696,7 +1881,7 @@ footer {
               <li>· 비즈니스 모델(BM)의 뼈대와 기획 조율</li>
               <li>· 설득력을 더하는 공신력 있는 근거 자료 리서치</li>
               <li>· 깔끔한 시각 다이어그램 및 프레젠테이션 디자인</li>
-              <li>· 실물 증빙(웹·영상·음원) 연계 제작</li>
+              <li>· 실물 증빙(웹·영상·음원·전자책) 연계 제작</li>
             </ul>
           </div>
           <div class="bnd-c">
@@ -1772,7 +1957,7 @@ footer {
 
     </div>
 
-    <!-- 자체 개발 소프트웨어 라인업 (23종 중 주요 12종) -->
+    <!-- 자체 개발 소프트웨어 라인업 (23종 중 주요 솔루션) -->
     <div class="apps-showcase reveal">
       <div class="apps-header">
         <h3 class="apps-title">자체 개발 소프트웨어 라인업 (23종 중 주요 솔루션)</h3>
@@ -1781,16 +1966,17 @@ footer {
 
       <div class="apps-list">
         
-        <!-- App 1: 멀티모달 전자책 스튜디오 (NEW) -->
-        <div class="app-card" onclick="openAppModal(this)" data-service-type="멀티모달 전자책 제작 및 출판">
+        <!-- App 1: 멀티모달 전자책 제작 앱 (Multimodal eBook Studio PRO) [FEATURED APP #1] -->
+        <div class="app-card featured-app" onclick="openAppModal(this)" data-service-type="멀티모달 전자책 제작 및 출판">
+          <span class="app-badge-featured">★ 스튜디오 자체 핵심 제작 앱</span>
           <div class="app-icon">
             <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 6v6l4-2"/></svg>
           </div>
-          <h4>멀티모달 전자책 스튜디오</h4>
-          <p>텍스트에 실시간 TTS 음성 동기화, 이미지·영상을 결합하여 표준 EPUB3 및 독립형 웹북(PWA)으로 동시 빌드하는 전자책 제작 도구. (클릭 시 상세 정보 및 연동 상담)</p>
+          <h4>멀티모달 전자책 제작 앱 (eBook Studio PRO)</h4>
+          <p>원고 텍스트에 TTS 음성을 문장 단위로 자동 동기화(SMIL)하고 이미지·영상을 결합하여 표준 EPUB3 및 독립형 웹북(PWA)으로 원클릭 빌드하는 자체 개발 전자책 제작 소프트웨어. (클릭 시 상세 정보 및 연동 상담)</p>
         </div>
 
-        <!-- App 2: AI 뮤직 비주얼라이저 (Live Web App) (NEW) -->
+        <!-- App 2: AI 뮤직 비주얼라이저 (Live Web App) -->
         <div class="app-card" onclick="openAppModal(this)" data-service-type="오리지널 음원 판매 및 BGM 라이선스" data-live-url="https://music-app0520.netlify.app">
           <div class="app-icon">
             <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
@@ -1906,6 +2092,33 @@ footer {
     <div class="accordion-wrapper reveal">
       
       <!-- GROUP 1 -->
+      <div class="faq-group-title">멀티모달 전자책 &amp; 출판 관련 (핵심)</div>
+      
+      <div class="accordion-item active">
+        <button class="accordion-trigger">
+          <span>Q. 멀티모달 전자책은 시중 서점(교보, 예스24)에도 유통 가능한가요?</span>
+          <div class="accordion-icon"></div>
+        </button>
+        <div class="accordion-content" style="max-height: 300px;">
+          <div class="accordion-inner">
+            네, 가능합니다. 당사의 솔루션은 국제 표준 EPUB3 (Media Overlays / SMIL 규격)을 완벽 준수하여 교보문고, 예스24, 알라딘, Apple Books 등 주요 서점에 정식 유통 및 판매가 가능하며, 웹상에서 자유롭게 작동하는 독립형 PWA 웹북으로도 함께 빌드해 드립니다.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>Q. 원고만 있어도 종이책과 전자책 동시 출간이 가능한가요?</span>
+          <div class="accordion-icon"></div>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            네, 원고 텍스트만 전달해 주시면 표지 디자인, 본문 레이아웃 조판, TTS 오디오 싱크 작업, ISBN 발급 지원, 유페이퍼/부크크 등 유통 플랫폼 등록까지 원스톱으로 지원해 드립니다.
+          </div>
+        </div>
+      </div>
+
+      <!-- GROUP 2 -->
       <div class="faq-group-title">음악 &amp; 음원 판매 관련</div>
       
       <div class="accordion-item">
@@ -1928,33 +2141,6 @@ footer {
         <div class="accordion-content">
           <div class="accordion-inner">
             네, 가능합니다. 남성/여성 보컬의 음색(맑은, 허스키한, 힘찬 느낌) 및 추구하시는 팝, 락, 트로트 등 특정 장르 톤을 사전에 협의하여 완벽히 맞추어 기획해 드립니다.
-          </div>
-        </div>
-      </div>
-
-      <!-- GROUP 2 -->
-      <div class="faq-group-title">멀티모달 전자책 &amp; 출판 관련</div>
-      
-      <div class="accordion-item">
-        <button class="accordion-trigger">
-          <span>Q. 멀티모달 전자책은 시중 서점(교보, 예스24)에도 유통 가능한가요?</span>
-          <div class="accordion-icon"></div>
-        </button>
-        <div class="accordion-content">
-          <div class="accordion-inner">
-            네, 가능합니다. 당사의 솔루션은 국제 표준 EPUB3 (Media Overlays / SMIL 규격)을 완벽 준수하여 교보문고, 예스24, 알라딘, Apple Books 등 주요 서점에 정식 유통 및 판매가 가능하며, 웹상에서 자유롭게 작동하는 독립형 PWA 웹북으로도 함께 빌드해 드립니다.
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <button class="accordion-trigger">
-          <span>Q. 원고만 있어도 종이책과 전자책 동시 출간이 가능한가요?</span>
-          <div class="accordion-icon"></div>
-        </button>
-        <div class="accordion-content">
-          <div class="accordion-inner">
-            네, 원고 텍스트만 전달해 주시면 표지 디자인, 본문 레이아웃 조판, TTS 오디오 싱크 작업, ISBN 발급 지원, 유페이퍼/부크크 등 유통 플랫폼 등록까지 원스톱으로 지원해 드립니다.
           </div>
         </div>
       </div>
@@ -2053,8 +2239,8 @@ footer {
           <label for="type">필요하신 솔루션</label>
           <select id="type" name="문의종류" required>
             <option value="">원하시는 서비스를 선택하세요</option>
+            <option selected>멀티모달 전자책 제작 및 출판</option>
             <option>오리지널 음원 판매 및 BGM 라이선스</option>
-            <option>멀티모달 전자책 제작 및 출판</option>
             <option>오리지널 맞춤 노래 제작 (CM송·주제가)</option>
             <option>AI 시네마틱 영상 및 광고 제작</option>
             <option>AI 실무 강연 및 맞춤 워크숍</option>
@@ -2136,7 +2322,7 @@ function animateCursor() {
 }
 animateCursor();
 
-const hoverables = document.querySelectorAll('a, button, select, input, textarea, .youtube-facade, .accordion-trigger, .app-card, .promo-card');
+const hoverables = document.querySelectorAll('a, button, select, input, textarea, .youtube-facade, .accordion-trigger, .app-card, .promo-card, .c-chip');
 hoverables.forEach(item => {
   item.addEventListener('mouseenter', () => {
     document.body.classList.add('cursor-hover');
@@ -2217,9 +2403,15 @@ accordionItems.forEach(item => {
   const trigger = item.querySelector('.accordion-trigger');
   trigger.addEventListener('click', () => {
     const isActive = item.classList.contains('active');
-    accordionItems.forEach(i => i.classList.remove('active'));
+    accordionItems.forEach(i => {
+      i.classList.remove('active');
+      const content = i.querySelector('.accordion-content');
+      if (content) content.style.maxHeight = '0';
+    });
     if (!isActive) {
       item.classList.add('active');
+      const content = item.querySelector('.accordion-content');
+      if (content) content.style.maxHeight = '300px';
     }
   });
 });
