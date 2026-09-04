@@ -160,6 +160,7 @@ body {
 .topbar .wrap {
   display: flex; align-items: center; justify-content: space-between;
   height: 80px;
+  gap: 16px;
 }
 .brand {
   font-family: var(--f-serif);
@@ -173,9 +174,10 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 .brand span { font-family: var(--f-sans); font-size: 13px; font-weight: 400; opacity: 0.8; }
-.topbar nav { display: flex; gap: 20px; align-items: center; }
+.topbar nav { display: flex; gap: 18px; align-items: center; }
 .topbar nav a {
   font-size: 13.5px;
   font-weight: 600;
@@ -196,8 +198,57 @@ body {
 .topbar nav a:hover { color: var(--text); }
 .topbar nav a:hover::after { width: 100%; }
 
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Auth Buttons in Topbar */
+.btn-auth-top {
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--primary-light);
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s;
+}
+.btn-auth-top:hover {
+  background: rgba(212,175,55,0.15);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+.user-badge-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  background: rgba(212,175,55,0.12);
+  border: 1px solid var(--primary);
+  border-radius: 50px;
+  font-size: 12.5px;
+  color: var(--primary-light);
+  font-weight: 700;
+}
+.user-badge-wrap .btn-logout-small {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 11.5px;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: 4px;
+}
+.user-badge-wrap .btn-logout-small:hover { color: #f87171; }
+
 .topbar .cta-call {
-  font-size: 13.5px; font-weight: 700; padding: 10px 22px;
+  font-size: 13px; font-weight: 700; padding: 9px 20px;
   background: var(--grad); color: #0A0B0E; border-radius: 50px;
   text-decoration: none;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -227,7 +278,7 @@ body {
   position: fixed; inset: 0; z-index: 1050;
   background: rgba(10,11,14,0.98);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 24px; pointer-events: none;
+  gap: 20px; pointer-events: none;
   clip-path: circle(0px at 90% 10%);
   transition: clip-path 0.7s cubic-bezier(0.85, 0, 0.15, 1);
 }
@@ -236,13 +287,13 @@ body {
   clip-path: circle(150% at 90% 10%);
 }
 .mobile-menu a {
-  font-family: var(--f-serif); font-size: 23px; font-weight: 700;
+  font-family: var(--f-serif); font-size: 21px; font-weight: 700;
   color: var(--text-muted); text-decoration: none; transition: color 0.3s, transform 0.3s;
 }
 .mobile-menu a:hover { color: var(--secondary); transform: scale(1.05); }
 
-@media (max-width: 980px) {
-  .topbar nav, .topbar .cta-call { display: none; }
+@media (max-width: 1080px) {
+  .topbar nav { display: none; }
   .hamburger { display: flex; }
 }
 
@@ -1343,6 +1394,237 @@ footer {
   font-family: var(--f-sans); margin-bottom: 12px;
 }
 .app-modal-live:hover { background: rgba(212,175,55,0.1); transform: translateY(-2px); }
+
+/* ============================================================
+   NEW: Member Auth Modal (회원가입 & 로그인)
+   ============================================================ */
+.auth-modal {
+  position: fixed; inset: 0; z-index: 10001;
+  background: rgba(10,11,14,0.88); backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+}
+.auth-modal.open { opacity: 1; pointer-events: auto; }
+.auth-modal-card {
+  background: var(--bg-2); border: 2px solid var(--glass-border);
+  border-radius: var(--radius); padding: 36px 40px; max-width: 480px; width: 92%;
+  position: relative; box-shadow: var(--glow-hover), 0 20px 50px rgba(0,0,0,0.8);
+  transform: scale(0.92); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.auth-modal.open .auth-modal-card { transform: scale(1); }
+.auth-modal-close {
+  position: absolute; top: 16px; right: 20px; background: none; border: none;
+  color: var(--text-dim); font-size: 32px; cursor: pointer; transition: color 0.3s;
+}
+.auth-modal-close:hover { color: var(--secondary); }
+.auth-header { text-align: center; margin-bottom: 24px; }
+.auth-logo {
+  font-family: var(--f-serif); font-size: 22px; font-weight: 800;
+  background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  display: inline-block; margin-bottom: 6px;
+}
+.auth-logo span { font-family: var(--f-sans); font-size: 13px; font-weight: 400; opacity: 0.8; }
+.auth-sub { font-size: 13px; color: var(--text-muted); }
+
+.auth-tabs {
+  display: flex; background: rgba(0,0,0,0.4); border-radius: 8px;
+  padding: 4px; margin-bottom: 24px; border: 1px solid var(--glass-border);
+}
+.auth-tab {
+  flex: 1; padding: 10px; background: none; border: none;
+  color: var(--text-muted); font-size: 14px; font-weight: 700;
+  border-radius: 6px; cursor: pointer; transition: all 0.3s;
+}
+.auth-tab.active {
+  background: var(--grad); color: #0A0B0E; box-shadow: 0 4px 15px rgba(212,175,55,0.3);
+}
+
+.auth-form { display: none; flex-direction: column; gap: 16px; }
+.auth-form.active { display: flex; }
+.auth-options {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12.5px; color: var(--text-dim);
+}
+.check-wrap { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.check-wrap input { accent-color: var(--primary); }
+.auth-link { color: var(--secondary); text-decoration: none; }
+.auth-link:hover { text-decoration: underline; }
+
+.btn-auth-submit {
+  padding: 13px; border-radius: 8px; border: none; background: var(--grad);
+  color: #0A0B0E; font-size: 15px; font-weight: 800; cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.btn-auth-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212,175,55,0.35); }
+
+.auth-divider {
+  text-align: center; position: relative; margin: 6px 0;
+}
+.auth-divider::before {
+  content: ''; position: absolute; top: 50%; left: 0; right: 0;
+  height: 1px; background: rgba(255,255,255,0.08); z-index: 1;
+}
+.auth-divider span {
+  position: relative; z-index: 2; background: var(--bg-2);
+  padding: 0 12px; font-size: 12px; color: var(--text-dim);
+}
+
+.btn-demo-auth {
+  padding: 11px; border-radius: 8px; border: 1px dashed var(--primary);
+  background: rgba(212,175,55,0.08); color: var(--primary-light);
+  font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.3s;
+}
+.btn-demo-auth:hover {
+  background: rgba(212,175,55,0.18); border-style: solid;
+}
+.auth-notice {
+  margin-top: 14px; padding: 10px 14px; border-radius: 6px; font-size: 13px; text-align: center;
+}
+
+/* ============================================================
+   NEW: Live Chat Widget (스튜디오 실시간 상담 & AI 어시스턴트)
+   ============================================================ */
+.chat-launcher {
+  position: fixed; bottom: 30px; right: 30px; z-index: 9990;
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--grad); border: 2px solid var(--primary-light);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 25px rgba(212,175,55,0.4);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+}
+.chat-launcher:hover {
+  transform: scale(1.08) translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.8), 0 0 35px rgba(212,175,55,0.6);
+}
+.chat-launcher-pulse {
+  position: absolute; inset: -6px; border-radius: 50%;
+  border: 2px solid var(--primary); opacity: 0;
+  animation: chatPulse 2.5s infinite;
+}
+@keyframes chatPulse {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  70% { transform: scale(1.3); opacity: 0; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+.chat-launcher-badge {
+  position: absolute; top: -2px; right: -2px;
+  background: #ff3b30; color: #fff; font-size: 11px; font-weight: 800;
+  width: 22px; height: 22px; border-radius: 50%; border: 2px solid #0A0B0E;
+  display: flex; align-items: center; justify-content: center;
+}
+.chat-icon-svg { width: 28px; height: 28px; fill: #0A0B0E; }
+.chat-launcher-tooltip {
+  position: absolute; right: 74px; background: rgba(10,11,14,0.92);
+  border: 1px solid var(--primary); color: var(--primary-light);
+  padding: 6px 14px; border-radius: 50px; font-size: 12.5px; font-weight: 700;
+  white-space: nowrap; pointer-events: none; opacity: 0; transform: translateX(10px);
+  transition: all 0.3s; box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+.chat-launcher:hover .chat-launcher-tooltip { opacity: 1; transform: translateX(0); }
+
+/* Chat Box Drawer */
+.chat-drawer {
+  position: fixed; bottom: 105px; right: 30px; z-index: 9991;
+  width: 380px; max-width: calc(100vw - 40px); height: 560px; max-height: calc(100vh - 130px);
+  background: var(--bg-2); border: 2px solid var(--glass-border);
+  border-radius: var(--radius); box-shadow: var(--glow-hover), 0 20px 60px rgba(0,0,0,0.85);
+  display: flex; flex-direction: column; overflow: hidden;
+  opacity: 0; pointer-events: none; transform: translateY(20px) scale(0.95);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.chat-drawer.open {
+  opacity: 1; pointer-events: auto; transform: translateY(0) scale(1);
+}
+
+.chat-box-header {
+  padding: 16px 20px; background: var(--bg-3);
+  border-bottom: 1px solid rgba(212,175,55,0.2);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.chat-agent-info { display: flex; align-items: center; gap: 12px; }
+.chat-avatar-wrap {
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1.5px solid var(--primary); position: relative; overflow: visible;
+}
+.chat-avatar-wrap img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.online-indicator {
+  position: absolute; bottom: 0; right: 0; width: 11px; height: 11px;
+  background: #34c759; border-radius: 50%; border: 2px solid var(--bg-3);
+}
+.chat-agent-title { font-size: 14.5px; font-weight: 800; color: var(--text); }
+.chat-agent-status { font-size: 11.5px; color: var(--secondary); }
+.chat-box-close {
+  background: none; border: none; color: var(--text-dim); font-size: 26px;
+  cursor: pointer; transition: color 0.3s;
+}
+.chat-box-close:hover { color: var(--secondary); }
+
+.chat-messages-area {
+  flex: 1; padding: 18px; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 14px;
+  background: rgba(10,11,14,0.6);
+}
+.chat-msg {
+  display: flex; flex-direction: column; max-width: 84%;
+  font-size: 13.5px; line-height: 1.6; word-break: break-word;
+}
+.chat-msg.bot {
+  align-self: flex-start;
+}
+.chat-msg.bot .bubble {
+  background: var(--bg-3); border: 1px solid var(--glass-border);
+  color: var(--text); border-radius: 14px 14px 14px 2px; padding: 12px 16px;
+}
+.chat-msg.user {
+  align-self: flex-end;
+}
+.chat-msg.user .bubble {
+  background: var(--grad); color: #0A0B0E; font-weight: 600;
+  border-radius: 14px 14px 2px 14px; padding: 12px 16px;
+}
+.chat-time {
+  font-size: 10.5px; color: var(--text-dim); margin-top: 4px;
+}
+.chat-msg.bot .chat-time { align-self: flex-start; }
+.chat-msg.user .chat-time { align-self: flex-end; }
+
+.chat-quick-chips {
+  padding: 10px 16px; background: var(--bg-3);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex; gap: 8px; overflow-x: auto; white-space: nowrap;
+}
+.quick-chip-btn {
+  background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border);
+  color: var(--primary-light); font-size: 12px; font-weight: 600;
+  padding: 6px 12px; border-radius: 50px; cursor: pointer; transition: all 0.3s;
+  flex-shrink: 0;
+}
+.quick-chip-btn:hover {
+  background: rgba(212,175,55,0.2); border-color: var(--primary);
+  color: #fff; transform: translateY(-1px);
+}
+
+.chat-input-row {
+  padding: 12px 16px; background: var(--bg-2);
+  border-top: 1px solid rgba(212,175,55,0.2);
+  display: flex; gap: 10px; align-items: center;
+}
+.chat-input-row input {
+  flex: 1; background: rgba(10,11,14,0.7); border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 50px; padding: 10px 18px; color: var(--text);
+  font-size: 13.5px; outline: none; transition: border-color 0.3s;
+}
+.chat-input-row input:focus { border-color: var(--primary); }
+.chat-input-row button {
+  width: 40px; height: 40px; border-radius: 50%; border: none;
+  background: var(--grad); display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; flex-shrink: 0;
+}
+.chat-input-row button:hover {
+  transform: scale(1.06); box-shadow: 0 4px 15px rgba(212,175,55,0.4);
+}
+.chat-input-row button svg { width: 18px; height: 18px; fill: #0A0B0E; }
 </style>
 </head>
 <body class="cursor-hover-active">
@@ -1373,14 +1655,24 @@ footer {
       <a href="#creations">📚 출간 저서·앱</a>
       <a href="#contact">문의</a>
     </nav>
-    <a class="cta-call" href="#contact">상담 문의</a>
-    <div class="hamburger" id="hamburger" aria-label="메뉴 열기">
-      <span></span><span></span><span></span>
+    
+    <div class="topbar-right">
+      <!-- User Auth State Container -->
+      <div id="navAuthContainer">
+        <button class="btn-auth-top" id="openAuthBtn">
+          <span>👤</span> 로그인 / 회원가입
+        </button>
+      </div>
+      <a class="cta-call" href="#contact">상담 문의</a>
+      <div class="hamburger" id="hamburger" aria-label="메뉴 열기">
+        <span></span><span></span><span></span>
+      </div>
     </div>
   </div>
 </header>
 
 <div class="mobile-menu" id="mobile-menu">
+  <div id="mobileAuthSlot" style="margin-bottom: 10px;"></div>
   <a href="#ebook" class="mobile-link" style="color:var(--primary-light)">📖 멀티모달 전자책 (핵심)</a>
   <a href="#music" class="mobile-link">🎵 음악·음원 판매</a>
   <a href="#video" class="mobile-link">🎬 영상·홍보관</a>
@@ -1469,7 +1761,7 @@ footer {
         <button class="c-dot" data-index="3" aria-label="4번 영상"></button>
         <button class="c-dot" data-index="4" aria-label="5번 영상"></button>
         <button class="c-dot" data-index="5" aria-label="6번 영상"></button>
-        <button class="c-dot" data-index="6" aria-label="7번 영상"></button>
+        <button class="c-dot" data-index="7" aria-label="7번 영상"></button>
         <button class="c-dot" data-index="7" aria-label="8번 영상"></button>
         <button class="c-dot" data-index="8" aria-label="9번 영상"></button>
         <button class="c-dot" data-index="9" aria-label="10번 영상"></button>
@@ -1840,25 +2132,25 @@ footer {
       <p>
         음악과 비주얼을 동시에 내부에서 제어하므로 복잡한 외주 마진을 줄였습니다. 
         자체 개발 비트 동기화 도구(Music Video Sync)와 시네마틱 영상미를 결합한 통합 제작 서비스와 
-        <strong>스튜디오에서 직접 제작한 공식 홍보영상 및 마스터클래스 영상 라인업</strong>을 감상해 보세요.
+        <strong>스튜디오에서 직접 제작한 공식 홍보영상 및 소프트웨어 시연 영상 라인업</strong>을 감상해 보세요.
       </p>
     </div>
 
-    <!-- 공식 홍보 영상 그리드 -->
+    <!-- 공식 홍보 영상 그리드 (중복 제거 및 크롬 확장 프로그램 설명 영상 탑재) -->
     <div class="promo-grid reveal">
       
-      <!-- Video 0: 책 스튜디오 공식 마스터 홍보영상 (40초 FHD) -->
+      <!-- Video 0: 크롬 확장 프로그램 기능 시연 & 설명 (81초 FHD) [NEW] -->
       <div class="promo-card highlight-card">
         <div class="promo-video-wrap">
-          <span class="promo-badge">🌟 책 스튜디오 마스터 (40초 FHD)</span>
-          <video controls playsinline preload="metadata" poster="clips/bookstudio-promo-main-poster.jpg">
-            <source src="clips/bookstudio-promo-main.mp4" type="video/mp4">
+          <span class="promo-badge">🧩 크롬 확장 프로그램 솔루션</span>
+          <video controls playsinline preload="metadata" poster="clips/chrome-extension-guide-poster.jpg">
+            <source src="clips/chrome-extension-guide.mp4" type="video/mp4">
             브라우저가 비디오 재생을 지원하지 않습니다.
           </video>
         </div>
         <div class="promo-info">
-          <h4>책 스튜디오 종합 마스터 홍보영상 (40초 Full HD)</h4>
-          <p>멀티모달 전자책 스튜디오 솔루션과 출간 도서 2종의 제작 전 과정을 고화질로 집대성한 공식 마스터 영상.</p>
+          <h4>크롬 확장 프로그램 설명 &amp; 기능 시연 가이드 (81초 Full HD)</h4>
+          <p>스튜디오 자체 개발 크롬 확장 프로그램의 주요 기능과 직관적인 UI, 실무 자동화 활용법을 고화질로 시연하는 공식 안내 영상.</p>
         </div>
       </div>
 
@@ -2002,7 +2294,7 @@ footer {
       </div>
     </div>
 
-    <!-- 4개 유튜브 채널 바로가기 -->
+    <!-- 4개 유튜브 채널 바로가기 (좌충우돌 할배 AI 입문기 링크 정상 연결) -->
     <div class="reveal" style="margin-top: 50px;">
       <h4 style="font-family: var(--f-serif); font-size: 20px; font-weight: 700; color: var(--secondary); margin-bottom: 16px; text-align: center;">직접 운영 중인 유튜브 4대 채널 포트폴리오</h4>
       <div class="channel-grid">
@@ -2021,11 +2313,11 @@ footer {
           <h5>Silver Wings 실버윙스</h5>
           <span>영상 에세이 &amp; 시네마틱 숏폼</span>
         </a>
-        <div class="channel-card">
+        <a href="https://www.youtube.com/channel/UCu_SFup9FPydAm2pMzHanmg" target="_blank" class="channel-card">
           <div class="channel-icon"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></div>
           <h5>좌충우돌 할배 AI 입문기</h5>
           <span>시니어 맞춤 AI 입문 교육 채널</span>
-        </div>
+        </a>
       </div>
     </div>
   </div>
@@ -2153,7 +2445,7 @@ footer {
         </div>
       </div>
 
-      <!-- 도서 2: 프롬프트 마스터 PROMPT MASTER -->
+      <!-- 도서 2: 프롬프트 마스터 PROMPT MASTER (캐시 무효화 v2 적용) -->
       <div class="book-card">
         <div class="book-cover-wrap">
           <img src="book-cover-promptmaster-v2.jpg?v=2" alt="프롬프트 마스터 책 표지" loading="lazy">
@@ -2512,9 +2804,123 @@ footer {
   </div>
 </div>
 
+<!-- ============================================================
+     NEW: Member Auth Modal (회원가입 & 로그인)
+     ============================================================ -->
+<div class="auth-modal" id="authModal">
+  <div class="auth-modal-card">
+    <button class="auth-modal-close" id="closeAuthModalBtn">&times;</button>
+    <div class="auth-header">
+      <div class="auth-logo">JASON KINGDOM <span>STUDIO</span></div>
+      <p class="auth-sub">스튜디오 멤버십 회원 전용 상담 &amp; 혜택 안내</p>
+    </div>
+    
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLoginBtn" type="button">로그인</button>
+      <button class="auth-tab" id="tabSignupBtn" type="button">회원가입</button>
+    </div>
+    
+    <!-- Login Form -->
+    <form id="loginForm" class="auth-form active">
+      <div class="field">
+        <label for="loginEmail">이메일 또는 아이디</label>
+        <input type="text" id="loginEmail" required placeholder="이메일 입력 (예: user@studio.com)">
+      </div>
+      <div class="field">
+        <label for="loginPassword">비밀번호</label>
+        <input type="password" id="loginPassword" required placeholder="비밀번호 입력">
+      </div>
+      <div class="auth-options">
+        <label class="check-wrap"><input type="checkbox" id="rememberMe" checked> <span>로그인 상태 유지</span></label>
+        <a href="#contact" class="auth-link" onclick="closeAuthModal();">비밀번호 찾기</a>
+      </div>
+      <button type="submit" class="btn-auth-submit">로그인</button>
+      
+      <div class="auth-divider"><span>또는 간편 1초 빠른 체험</span></div>
+      <button type="button" class="btn-demo-auth" id="demoLoginBtn">👑 VIP 회원 체험 계정으로 즉시 로그인</button>
+    </form>
+
+    <!-- Signup Form -->
+    <form id="signupForm" class="auth-form">
+      <div class="field">
+        <label for="signupName">성함 / 닉네임</label>
+        <input type="text" id="signupName" required placeholder="성함을 입력하세요">
+      </div>
+      <div class="field">
+        <label for="signupEmail">이메일 주소</label>
+        <input type="email" id="signupEmail" required placeholder="example@domain.com">
+      </div>
+      <div class="field">
+        <label for="signupPassword">비밀번호</label>
+        <input type="password" id="signupPassword" required placeholder="6자 이상 비밀번호">
+      </div>
+      <div class="field">
+        <label for="signupInterest">관심 솔루션 영역</label>
+        <select id="signupInterest">
+          <option value="멀티모달 전자책">멀티모달 전자책 제작 &amp; 출판</option>
+          <option value="오리지널 음원">오리지널 음원 &amp; 매장 BGM</option>
+          <option value="시네마틱 영상">시네마틱 광고 영상</option>
+          <option value="AI 강연">기업 / 시니어 AI 강연</option>
+          <option value="웹 구축">반응형 웹 구축</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-auth-submit">회원가입 완료하기</button>
+    </form>
+    
+    <div id="authNotice" class="auth-notice" style="display:none;"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     NEW: Live Chat Widget (스튜디오 실시간 상담 & AI 어시스턴트)
+     ============================================================ -->
+<button class="chat-launcher" id="chatLauncher" aria-label="스튜디오 실시간 상담창 열기">
+  <div class="chat-launcher-pulse"></div>
+  <div class="chat-launcher-badge" id="chatUnreadBadge">1</div>
+  <svg class="chat-icon-svg" viewBox="0 0 24 24">
+    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/>
+  </svg>
+  <span class="chat-launcher-tooltip">💬 실시간 상담 &amp; 챗봇</span>
+</button>
+
+<div class="chat-drawer" id="chatDrawer">
+  <div class="chat-box-header">
+    <div class="chat-agent-info">
+      <div class="chat-avatar-wrap">
+        <img src="assets/jason-rep.jpg" alt="김재성 대표" onerror="this.src='hero-signage.jpg'">
+        <span class="online-indicator"></span>
+      </div>
+      <div>
+        <div class="chat-agent-title">JASON KINGDOM STUDIO</div>
+        <div class="chat-agent-status">🟢 실시간 어시스턴트 상담 대기 중</div>
+      </div>
+    </div>
+    <button class="chat-box-close" id="chatCloseBtn">&times;</button>
+  </div>
+  
+  <div class="chat-messages-area" id="chatMessagesArea">
+    <!-- Messages appended dynamically -->
+  </div>
+
+  <div class="chat-quick-chips" id="chatQuickChips">
+    <button class="quick-chip-btn" data-query="전자책 제작 비용과 기간이 궁금합니다.">📖 전자책 제작 문의</button>
+    <button class="quick-chip-btn" data-query="매장 BGM USB 패키지 구매 방법 알려주세요.">🎵 매장 BGM 구매</button>
+    <button class="quick-chip-btn" data-query="홍보영상 제작을 의뢰하고 싶습니다.">🎬 홍보영상 제작</button>
+    <button class="quick-chip-btn" data-query="기업 및 시니어 AI 강연 신청 안내해 주세요.">🎓 AI 실무 강연 신청</button>
+    <button class="quick-chip-btn" data-query="대표님과 직접 전화 상담하고 싶습니다.">📞 대표 직통 전화 연결</button>
+  </div>
+
+  <div class="chat-input-row">
+    <input type="text" id="chatInputText" placeholder="궁금하신 점을 입력해 주세요..." autocomplete="off">
+    <button id="chatSendBtn" aria-label="메시지 전송">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
 <script>
 /* ============================================================
-   JavaScript — Interactions & Animations
+   JavaScript — Interactions & Animations & Auth & Live Chat
    ============================================================ */
 
 // 1. Smooth Cursor Trail (황동색 잔상 포인터 효과)
@@ -2822,6 +3228,317 @@ appModalCta.addEventListener('click', () => {
       document.getElementById('msg').focus();
     }, 600);
   }
+});
+
+/* ============================================================
+   13. NEW: Member Auth (로그인 / 회원가입) System Logic
+   ============================================================ */
+const authModal = document.getElementById('authModal');
+const openAuthBtn = document.getElementById('openAuthBtn');
+const closeAuthModalBtn = document.getElementById('closeAuthModalBtn');
+const tabLoginBtn = document.getElementById('tabLoginBtn');
+const tabSignupBtn = document.getElementById('tabSignupBtn');
+const loginForm = document.getElementById('loginForm');
+const signupForm = document.getElementById('signupForm');
+const navAuthContainer = document.getElementById('navAuthContainer');
+const mobileAuthSlot = document.getElementById('mobileAuthSlot');
+const authNotice = document.getElementById('authNotice');
+const demoLoginBtn = document.getElementById('demoLoginBtn');
+
+function openAuthModal(mode = 'login') {
+  if (mode === 'login') {
+    tabLoginBtn.click();
+  } else {
+    tabSignupBtn.click();
+  }
+  authNotice.style.display = 'none';
+  authModal.classList.add('open');
+}
+
+function closeAuthModal() {
+  authModal.classList.remove('open');
+}
+
+if (openAuthBtn) openAuthBtn.addEventListener('click', () => openAuthModal('login'));
+if (closeAuthModalBtn) closeAuthModalBtn.addEventListener('click', closeAuthModal);
+if (authModal) {
+  authModal.addEventListener('click', (e) => {
+    if (e.target === authModal) closeAuthModal();
+  });
+}
+
+tabLoginBtn.addEventListener('click', () => {
+  tabLoginBtn.classList.add('active');
+  tabSignupBtn.classList.remove('active');
+  loginForm.classList.add('active');
+  signupForm.classList.remove('active');
+  authNotice.style.display = 'none';
+});
+
+tabSignupBtn.addEventListener('click', () => {
+  tabSignupBtn.classList.add('active');
+  tabLoginBtn.classList.remove('active');
+  signupForm.classList.add('active');
+  loginForm.classList.remove('active');
+  authNotice.style.display = 'none';
+});
+
+function showAuthNotice(msg, isSuccess = true) {
+  authNotice.style.display = 'block';
+  authNotice.style.background = isSuccess ? 'rgba(52,199,89,0.15)' : 'rgba(248,113,113,0.15)';
+  authNotice.style.border = `1px solid ${isSuccess ? '#34c759' : '#f87171'}`;
+  authNotice.style.color = isSuccess ? '#a3e635' : '#fca5a5';
+  authNotice.textContent = msg;
+}
+
+// User state render
+function renderAuthState() {
+  const userJson = localStorage.getItem('jk_studio_user');
+  if (userJson) {
+    try {
+      const user = JSON.parse(userJson);
+      navAuthContainer.innerHTML = `
+        <div class="user-badge-wrap">
+          <span>👑 ${user.name} 님</span>
+          <button class="btn-logout-small" id="userLogoutBtn">로그아웃</button>
+        </div>
+      `;
+      if (mobileAuthSlot) {
+        mobileAuthSlot.innerHTML = `
+          <div class="user-badge-wrap" style="justify-content:center; width:100%;">
+            <span>👑 ${user.name} 님</span>
+            <button class="btn-logout-small" id="mobileUserLogoutBtn">로그아웃</button>
+          </div>
+        `;
+      }
+      document.getElementById('userLogoutBtn')?.addEventListener('click', handleLogout);
+      document.getElementById('mobileUserLogoutBtn')?.addEventListener('click', handleLogout);
+      return;
+    } catch (e) {}
+  }
+  
+  // Default logged out state
+  navAuthContainer.innerHTML = `
+    <button class="btn-auth-top" id="openAuthBtn">
+      <span>👤</span> 로그인 / 회원가입
+    </button>
+  `;
+  if (mobileAuthSlot) {
+    mobileAuthSlot.innerHTML = `
+      <button class="btn-auth-top" id="mobileOpenAuthBtn" style="width:100%; justify-content:center;">
+        <span>👤</span> 로그인 / 회원가입
+      </button>
+    `;
+    document.getElementById('mobileOpenAuthBtn')?.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      openAuthModal('login');
+    });
+  }
+  document.getElementById('openAuthBtn')?.addEventListener('click', () => openAuthModal('login'));
+}
+
+function handleLoginSuccess(user) {
+  localStorage.setItem('jk_studio_user', JSON.stringify(user));
+  showAuthNotice(`환영합니다, ${user.name} 님! 로그인이 완료되었습니다.`, true);
+  renderAuthState();
+  setTimeout(() => {
+    closeAuthModal();
+    addBotMessage(`👑 <b>${user.name} 회원님</b>, 반갑습니다! 스튜디오 멤버십 회원 전용 1:1 상담 및 문의가 활성화되었습니다. 무엇을 도와드릴까요?`);
+  }, 900);
+}
+
+function handleLogout() {
+  localStorage.removeItem('jk_studio_user');
+  renderAuthState();
+  alert('로그아웃되었습니다.');
+}
+
+// Login form submit
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim();
+  const name = email.split('@')[0] || '회원';
+  handleLoginSuccess({ name: name, email: email, role: 'member' });
+});
+
+// Demo Login button
+demoLoginBtn.addEventListener('click', () => {
+  handleLoginSuccess({ name: 'VIP 체험회원', email: 'vip@jasonkingdom.com', role: 'vip' });
+});
+
+// Signup form submit
+signupForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const interest = document.getElementById('signupInterest').value;
+  handleLoginSuccess({ name: name, email: email, interest: interest, role: 'member' });
+});
+
+// Initial Auth State Render
+renderAuthState();
+
+
+/* ============================================================
+   14. NEW: Live Chat Widget Logic (스튜디오 실시간 상담 & AI 챗봇)
+   ============================================================ */
+const chatLauncher = document.getElementById('chatLauncher');
+const chatDrawer = document.getElementById('chatDrawer');
+const chatCloseBtn = document.getElementById('chatCloseBtn');
+const chatMessagesArea = document.getElementById('chatMessagesArea');
+const chatInputText = document.getElementById('chatInputText');
+const chatSendBtn = document.getElementById('chatSendBtn');
+const chatUnreadBadge = document.getElementById('chatUnreadBadge');
+const quickChips = document.querySelectorAll('.quick-chip-btn');
+
+function openChat() {
+  chatDrawer.classList.add('open');
+  if (chatUnreadBadge) chatUnreadBadge.style.display = 'none';
+  if (chatMessagesArea.children.length === 0) {
+    loadChatHistory();
+  }
+  setTimeout(() => chatInputText.focus(), 300);
+}
+
+function closeChat() {
+  chatDrawer.classList.remove('open');
+}
+
+if (chatLauncher) chatLauncher.addEventListener('click', () => {
+  if (chatDrawer.classList.contains('open')) {
+    closeChat();
+  } else {
+    openChat();
+  }
+});
+if (chatCloseBtn) chatCloseBtn.addEventListener('click', closeChat);
+
+function getCurrentTimeStr() {
+  const now = new Date();
+  let hrs = now.getHours();
+  let mins = now.getMinutes();
+  const ampm = hrs >= 12 ? '오후' : '오전';
+  hrs = hrs % 12 || 12;
+  mins = mins < 10 ? '0' + mins : mins;
+  return `${ampm} ${hrs}:${mins}`;
+}
+
+function addBotMessage(htmlContent) {
+  const msgEl = document.createElement('div');
+  msgEl.className = 'chat-msg bot';
+  msgEl.innerHTML = `
+    <div class="bubble">${htmlContent}</div>
+    <span class="chat-time">${getCurrentTimeStr()}</span>
+  `;
+  chatMessagesArea.appendChild(msgEl);
+  chatMessagesArea.scrollTop = chatMessagesArea.scrollHeight;
+}
+
+function addUserMessage(textContent) {
+  const msgEl = document.createElement('div');
+  msgEl.className = 'chat-msg user';
+  msgEl.innerHTML = `
+    <div class="bubble">${textContent}</div>
+    <span class="chat-time">${getCurrentTimeStr()}</span>
+  `;
+  chatMessagesArea.appendChild(msgEl);
+  chatMessagesArea.scrollTop = chatMessagesArea.scrollHeight;
+}
+
+// Pre-programmed Knowledge Base for Instant Studio Responses
+function getBotResponse(userText) {
+  const t = userText.toLowerCase();
+  
+  if (t.includes('전자책') || t.includes('출판') || t.includes('epub') || t.includes('웹북')) {
+    return `📖 <b>멀티모달 전자책(eBook Studio PRO) 안내</b><br><br>
+    · <b>특징</b>: 원고 텍스트에 TTS 음성을 문장 단위로 하이라이트 동기화(SMIL)하고 영상 및 인터랙티브 기능을 결합합니다.<br>
+    · <b>출판처</b>: 부크크 및 교보문고, 예스24, 알라딘 등 대형 서점 정식 등록 판매 &amp; 웹북 동시 빌드<br>
+    · <b>제작 기간</b>: 원고 수령 후 5~7일 내외 완성<br><br>
+    👉 상세 견적이나 샘플 열람을 원하시면 연락처를 남겨주시거나 <b>010-3407-1691</b>로 전화 주시면 즉시 상담해 드립니다.`;
+  }
+  
+  if (t.includes('음악') || t.includes('음원') || t.includes('bgm') || t.includes('노래') || t.includes('cm송') || t.includes('로고송')) {
+    return `🎵 <b>오리지널 음원 &amp; 매장 BGM 안내</b><br><br>
+    · <b>매장 BGM USB 패키지</b>: 카페, 베이커리, 미용실 등 분위기별 트랙 모음으로 외부 공연권료/저작권료 0원 영구 소장!<br>
+    · <b>맞춤 CM송·로고송</b>: 기업 슬로건과 멜로디를 결합한 브랜드 사운드 시그니처 제작<br>
+    · <b>제작 규모</b>: 1만 트랙 생성·선별 노하우로 최상위 상업 퀄리티 보장<br><br>
+    원하시는 장르나 무드를 말씀해 주시면 맞춤 샘플을 제안해 드립니다.`;
+  }
+  
+  if (t.includes('영상') || t.includes('홍보영상') || t.includes('쇼츠') || t.includes('광고') || t.includes('크롬')) {
+    return `🎬 <b>AI 시네마틱 홍보영상 &amp; 크롬 확장 솔루션</b><br><br>
+    · 음악과 비주얼을 스튜디오 내부에서 직접 원라인으로 제작하여 외주 거품을 제거했습니다.<br>
+    · <b>숏폼</b>: 2~3일 내외 신속 납품<br>
+    · <b>브랜드 메인 홍보영상</b>: 7일 내외 딜리버리<br>
+    · 자체 개발 비트 동기화(Music Video Sync) 및 크롬 확장 프로그램 솔루션까지 완비되어 있습니다.<br><br>
+    필요하신 영상 길이와 콘셉트를 남겨주시면 맞춤 기획안을 안내해 드립니다.`;
+  }
+
+  if (t.includes('강연') || t.includes('교육') || t.includes('특강') || t.includes('시니어') || t.includes('워크숍')) {
+    return `🎓 <b>실무 중심 AI 강연 &amp; 교육 프로그램</b><br><br>
+    · <b>기업 임직원 특강</b>: 출간 도서 《프롬프트 마스터》 기반, 현업 즉시 적용형 프롬프트 엔지니어링 &amp; 업무 자동화<br>
+    · <b>공공기관·시니어 교육</b>: 《할배 AI 생존기》 기반의 쉬운 눈높이 실습 강의<br>
+    · <b>1인 집중 워크숍</b>: 2시간 내에 누구나 음악 1곡, 숏폼 1편을 직접 완성하는 결과 도출형 실습`;
+  }
+
+  if (t.includes('전화') || t.includes('연락') || t.includes('번호') || t.includes('대표')) {
+    return `📞 <b>JASON KINGDOM STUDIO 대표 직통 상담</b><br><br>
+    · <b>대표 직통 전화</b>: <a href="tel:01034071691" style="color:var(--primary-light);font-weight:bold;text-decoration:underline;">010-3407-1691</a><br>
+    · <b>보조 번호</b>: 010-6534-1691<br>
+    · <b>이메일</b>: <a href="mailto:ilsimsung49@gmail.com" style="color:var(--primary-light);">ilsimsung49@gmail.com</a><br>
+    · <b>스튜디오</b>: 인천광역시 연수구 인권로9번길 51-2<br><br>
+    언제든 편안하게 전화 주시면 대표가 직접 친절히 상담해 드립니다!`;
+  }
+
+  return `💬 소중한 문의 감사합니다!<br><br>
+  남겨주신 내용(<i>"${userText}"</i>)에 대해 대표 김재성이 직접 확인 후 신속히 맞춤 솔루션을 안내해 드리겠습니다.<br>
+  빠른 상담을 원하시면 <b>010-3407-1691</b>로 전화 주시거나, 성함과 연락처를 남겨주시면 10분 내로 회신드리겠습니다.`;
+}
+
+function handleSendMessage(text) {
+  if (!text) return;
+  addUserMessage(text);
+  chatInputText.value = '';
+  
+  // Simulated Agent Typing Delay
+  setTimeout(() => {
+    const reply = getBotResponse(text);
+    addBotMessage(reply);
+  }, 500);
+}
+
+function loadChatHistory() {
+  const userJson = localStorage.getItem('jk_studio_user');
+  let userName = '방문자';
+  if (userJson) {
+    try { userName = JSON.parse(userJson).name; } catch(e) {}
+  }
+  
+  addBotMessage(`
+    안녕하세요, <b>${userName} 님</b>! 👋<br>
+    <b>JASON KINGDOM STUDIO</b> 실시간 상담실입니다.<br><br>
+    도구까지 직접 만들어 쓰는 스튜디오의 <b>멀티모달 전자책 제작</b>, <b>오리지널 음원 판매</b>, <b>시네마틱 영상</b>, <b>AI 실무 강연</b>에 대해 무엇이든 편하게 물어보세요!
+  `);
+}
+
+// Send on click or Enter
+chatSendBtn.addEventListener('click', () => {
+  handleSendMessage(chatInputText.value.trim());
+});
+chatInputText.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    handleSendMessage(chatInputText.value.trim());
+  }
+});
+
+// Quick Chips click
+quickChips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    const q = chip.getAttribute('data-query');
+    handleSendMessage(q);
+  });
 });
 </script>
 
