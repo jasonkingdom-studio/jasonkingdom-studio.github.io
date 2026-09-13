@@ -3261,11 +3261,36 @@ const mobileAuthSlot = document.getElementById('mobileAuthSlot');
 const authNotice = document.getElementById('authNotice');
 const demoLoginBtn = document.getElementById('demoLoginBtn');
 
+// ── Host (호스트/대표) 자동 감지 및 무제한 프리패스 ──
+function isHostUser() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('admin') === 'true' || urlParams.get('host') === 'true' || urlParams.get('pass') === 'jason') {
+    localStorage.setItem('jk_studio_host', 'true');
+    localStorage.setItem('jk_studio_user', JSON.stringify({ name: '대표 제이슨 (호스트)', email: 'host@jasonkingdom.com', role: 'host' }));
+    return true;
+  }
+  if (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    if (!localStorage.getItem('jk_studio_user')) {
+      localStorage.setItem('jk_studio_user', JSON.stringify({ name: '대표 제이슨 (호스트)', email: 'host@jasonkingdom.com', role: 'host' }));
+    }
+    return true;
+  }
+  return localStorage.getItem('jk_studio_host') === 'true';
+}
+
 function isUserLoggedIn() {
+  if (isHostUser()) return true;
   return !!localStorage.getItem('jk_studio_user');
 }
 
 function getLoggedInUser() {
+  if (isHostUser()) {
+    const existing = localStorage.getItem('jk_studio_user');
+    if (existing) {
+      try { return JSON.parse(existing); } catch(e) {}
+    }
+    return { name: '대표 제이슨 (호스트)', email: 'host@jasonkingdom.com', role: 'host' };
+  }
   const userJson = localStorage.getItem('jk_studio_user');
   if (userJson) {
     try { return JSON.parse(userJson); } catch (e) {}
