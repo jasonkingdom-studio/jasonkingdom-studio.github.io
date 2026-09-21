@@ -572,26 +572,45 @@ body {
 <div class="modal-overlay" id="saveGuideModal" onclick="closeSaveGuideModal(event)">
   <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 360px; text-align: left;">
     <div style="text-align: center; margin-bottom: 14px;">
-      <div style="font-size: 36px; margin-bottom: 6px;">📱</div>
-      <h3 style="font-size: 18px; color: var(--gold-light); margin-bottom: 4px; font-weight: 800;">스마트폰 연락처 저장</h3>
-      <p style="font-size: 12px; color: var(--text-muted);">김재성 대표 연락처가 휴대폰 주소록에 등록됩니다</p>
+      <div style="font-size: 36px; margin-bottom: 6px;" id="modalDeviceIcon">📱</div>
+      <h3 style="font-size: 18px; color: var(--gold-light); margin-bottom: 4px; font-weight: 800;" id="modalTitle">스마트폰 연락처 저장 안내</h3>
+      <p style="font-size: 12px; color: var(--text-muted);">김재성 대표 연락처를 휴대폰에 등록합니다</p>
     </div>
 
     <!-- KakaoTalk In-App Guidance -->
-    <div style="background: rgba(254, 229, 0, 0.12); border: 1px solid rgba(254, 229, 0, 0.4); border-radius: 12px; padding: 12px; margin-bottom: 14px;">
+    <div id="kakaoGuideBlock" style="display: none; background: rgba(254, 229, 0, 0.12); border: 1px solid rgba(254, 229, 0, 0.4); border-radius: 12px; padding: 12px; margin-bottom: 14px;">
       <div style="font-size: 13px; font-weight: 700; color: #FEE500; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
         <span>💬</span> 카카오톡 화면 안내
       </div>
       <p style="font-size: 12px; color: #E5E5E5; line-height: 1.5; margin: 0;">
-        카카오톡 내부 보안으로 연락처 앱이 바로 안 열릴 경우, <strong>우측 상단 [ ⋮ ]</strong> 누르고 <strong>[다른 브라우저로 열기]</strong>를 누르시면 1초 만에 등록됩니다.
+        카카오톡 내부에서는 보안상 주소록 저장이 제한되므로, <strong>우측 상단 [ ⋮ ]</strong> 누르고 <strong>[다른 브라우저로 열기]</strong>(Safari/Chrome)를 선택해 주세요.
       </p>
     </div>
 
-    <!-- Instructions -->
-    <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 14px; margin-bottom: 16px; font-size: 13px; line-height: 1.6; color: #DDD;">
+    <!-- iPhone Specific Step-by-Step Guide -->
+    <div id="iosGuideBlock" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 14px; margin-bottom: 16px; font-size: 13px; line-height: 1.6; color: #EEE;">
+      <div style="font-weight: 700; color: var(--gold-light); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+        <span>🍏</span> 아이폰 [새로운 연락처 등록] 방법:
+      </div>
+      <div style="display: flex; gap: 8px; margin-bottom: 6px;">
+        <span style="color: var(--gold-primary); font-weight: 800;">1.</span>
+        <span>화면에 뜬 <strong>[다운로드]</strong> 탭</span>
+      </div>
+      <div style="display: flex; gap: 8px; margin-bottom: 6px;">
+        <span style="color: var(--gold-primary); font-weight: 800;">2.</span>
+        <span>사파리 주소창의 파란색 다운로드 아이콘 <strong>[ ↓ ]</strong> 터치</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <span style="color: var(--gold-primary); font-weight: 800;">3.</span>
+        <span><strong>김재성대표.vcf</strong>를 누르면 <strong>[새로운 연락처 등록]</strong>이 바로 나타납니다!</span>
+      </div>
+    </div>
+
+    <!-- Android Specific Guide -->
+    <div id="androidGuideBlock" style="display: none; background: rgba(255,255,255,0.04); border-radius: 12px; padding: 14px; margin-bottom: 16px; font-size: 13px; line-height: 1.6; color: #DDD;">
       <div style="display: flex; gap: 8px; margin-bottom: 8px;">
         <span style="color: var(--gold-primary); font-weight: 800;">✓</span>
-        <span>휴대폰 화면에 열린 주소록 창에서 <strong>[저장]</strong> 또는 <strong>[완료]</strong>를 누르면 바로 전화번호부에 등록됩니다.</span>
+        <span>휴대폰 화면에 열린 주소록 창에서 <strong>[저장]</strong>을 누르면 등록됩니다.</span>
       </div>
       <div style="display: flex; gap: 8px;">
         <span style="color: var(--gold-primary); font-weight: 800;">✓</span>
@@ -601,6 +620,9 @@ body {
 
     <!-- Quick Action Buttons -->
     <div style="display: flex; flex-direction: column; gap: 8px;">
+      <a href="https://jasonkingdom.com/jason_kim.vcf" class="btn-action btn-primary-vcf" style="font-size: 13px; padding: 10px; text-decoration: none; text-align: center;">
+        <span>📥</span> 연락처 파일 열기 / 다시 받기
+      </a>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
         <button type="button" class="btn-action btn-secondary" onclick="copyPhone()" style="font-size: 12px; padding: 10px;">
           <span>📋</span> 번호 복사
@@ -639,40 +661,59 @@ function initPlatform() {
   const ua = navigator.userAgent || '';
   const isKakao = /KAKAOTALK/i.test(ua);
   const isAndroid = /Android/i.test(ua);
+  const isIOS = /iPhone|iPad|iPod/i.test(ua);
   const banner = document.getElementById('kakaoTopBanner');
   const btn = document.getElementById('btnSaveContact');
+  const iosGuide = document.getElementById('iosGuideBlock');
+  const androidGuide = document.getElementById('androidGuideBlock');
+  const kakaoGuide = document.getElementById('kakaoGuideBlock');
+  const icon = document.getElementById('modalDeviceIcon');
 
-  if (isKakao && banner) {
-    banner.style.display = 'flex';
+  if (isKakao) {
+    if (banner) banner.style.display = 'flex';
+    if (kakaoGuide) kakaoGuide.style.display = 'block';
   }
 
-  if (btn && isAndroid) {
-    const name = encodeURIComponent("김재성 대표");
-    const phone = "01034071691";
-    const email = encodeURIComponent("contact@jasonkingdom.com");
-    const company = encodeURIComponent("JASON KINGDOM STUDIO");
-    const title = encodeURIComponent("CEO / AI Creative Director");
-    const postal = encodeURIComponent("인천광역시 연수구 인권로9번길 51-2");
-    const notes = encodeURIComponent("https://jasonkingdom.com");
+  if (isIOS) {
+    if (iosGuide) iosGuide.style.display = 'block';
+    if (androidGuide) androidGuide.style.display = 'none';
+    if (icon) icon.textContent = '🍏';
+  } else if (isAndroid) {
+    if (iosGuide) iosGuide.style.display = 'none';
+    if (androidGuide) androidGuide.style.display = 'block';
+    if (icon) icon.textContent = '🤖';
 
-    const intentUrl = `intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.name=${name};S.phone=${phone};S.email=${email};S.company=${company};S.job_title=${title};S.postal=${postal};S.notes=${notes};end`;
-    btn.setAttribute('href', intentUrl);
+    if (btn) {
+      const name = encodeURIComponent("김재성 대표");
+      const phone = "01034071691";
+      const email = encodeURIComponent("contact@jasonkingdom.com");
+      const company = encodeURIComponent("JASON KINGDOM STUDIO");
+      const title = encodeURIComponent("CEO / AI Creative Director");
+      const postal = encodeURIComponent("인천광역시 연수구 인권로9번길 51-2");
+      const notes = encodeURIComponent("https://jasonkingdom.com");
+
+      const intentUrl = `intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.name=${name};S.phone=${phone};S.email=${email};S.company=${company};S.job_title=${title};S.postal=${postal};S.notes=${notes};end`;
+      btn.setAttribute('href', intentUrl);
+    }
   }
 }
 
 function handleSaveContact(event) {
   const ua = navigator.userAgent || '';
   const isKakao = /KAKAOTALK/i.test(ua);
-  const isAndroid = /Android/i.test(ua);
+  const isIOS = /iPhone|iPad|iPod/i.test(ua);
   const modal = document.getElementById('saveGuideModal');
 
   if (isKakao) {
     if (modal) modal.classList.add('active');
     showToast('📱 우측 상단 [⋮] → [다른 브라우저로 열기]를 눌러주세요');
-  } else if (isAndroid) {
-    showToast('📱 휴대폰 연락처 앱이 열립니다. [저장]을 눌러주세요!');
+  } else if (isIOS) {
+    showToast('📱 [다운로드] 후 주소창의 [↓]를 눌러 등록하세요!');
+    setTimeout(() => {
+      if (modal) modal.classList.add('active');
+    }, 800);
   } else {
-    showToast('📱 [새로운 연락처 등록] 창이 열립니다.');
+    showToast('📱 휴대폰 연락처 앱이 열립니다. [저장]을 눌러주세요!');
   }
 }
 
