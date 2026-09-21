@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>김재성 대표 스마트 전자명함 | JASON KINGDOM STUDIO</title>
+
+<!-- Open Graph / KakaoTalk & Social Sharing -->
+<meta property="og:type" content="profile">
+<meta property="og:title" content="김재성 대표 스마트 전자명함 | JASON KINGDOM STUDIO">
+<meta property="og:description" content="CEO / AI Creative Director · 010-3407-1691 · contact@jasonkingdom.com · 공식 스튜디오 바로가기">
+<meta property="og:image" content="https://jasonkingdom.com/card-business-updated.png">
+<meta property="og:url" content="https://jasonkingdom.com/card.html">
+
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Pretendard:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- QRCode.js for instant dynamic QR code generation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+:root {
+  --bg-deep: #070709;
+  --bg-card: #0e0e12;
+  --gold-light: #F7E7B4;
+  --gold-primary: #E5C158;
+  --gold-mid: #D4AF37;
+  --gold-dark: #9A7B1C;
+  --gold-glow: rgba(229, 193, 88, 0.25);
+  
+  --text-main: #FFFFFF;
+  --text-muted: #A3A3A8;
+  --text-dim: #6B6B73;
+  
+  --border-gold: rgba(212, 175, 55, 0.3);
+  --border-gold-hover: rgba(247, 231, 180, 0.8);
+  
+  --radius-card: 24px;
+  --radius-btn: 14px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-deep);
+  background-image: 
+    radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.12), transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(154, 123, 28, 0.08), transparent 40%);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px 40px;
+  overflow-x: hidden;
+}
+
+/* Container */
+.card-wrapper {
+  width: 100%;
+  max-width: 440px;
+  perspective: 1200px;
+}
+
+/* 3D Physical Card Simulation */
+.business-card {
+  position: relative;
+  background: linear-gradient(145deg, #16161c 0%, #0c0c10 100%);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-card);
+  padding: 32px 28px;
+  box-shadow: 
+    0 20px 50px -10px rgba(0,0,0,0.8),
+    0 0 35px -5px var(--gold-glow),
+    inset 0 1px 1px rgba(255,255,255,0.1);
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+/* Foil Shimmer Overlay */
+.business-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 50% 50%, rgba(247, 231, 180, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+  transform: rotate(25deg);
+  opacity: 0.7;
+}
+
+/* Top Branding Header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.studio-badge {
+  font-family: 'Fraunces', serif;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  color: var(--gold-primary);
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.studio-badge::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  box-shadow: 0 0 8px var(--gold-primary);
+}
+
+/* Gold Crown Emblem */
+.logo-emblem {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.crown-icon {
+  font-size: 26px;
+  line-height: 1;
+  color: var(--gold-light);
+  filter: drop-shadow(0 2px 6px rgba(212, 175, 55, 0.6));
+}
+
+.jk-monogram {
+  font-family: 'Fraunces', serif;
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  background: linear-gradient(135deg, #FFF1C5 0%, #D4AF37 50%, #9A7B1C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 12px rgba(212, 175, 55, 0.4));
+}
+
+/* Profile Block */
+.profile-block {
+  margin-bottom: 24px;
+}
+
+.rep-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gold-primary);
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.rep-name {
+  font-size: 24px;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.rep-name span {
+  font-size: 18px;
+  color: var(--gold-light);
+  font-weight: 600;
+}
+
+.rep-title {
+  font-size: 14px;
+  color: var(--gold-primary);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-top: 4px;
+}
+
+/* Contact Details Info List */
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 20px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  transition: all 0.2s ease;
+  padding: 6px 8px;
+  border-radius: 8px;
+}
+
+.info-item:hover {
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--gold-light);
+  transform: translateX(3px);
+}
+
+.info-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(229, 193, 88, 0.1);
+  border: 1px solid rgba(229, 193, 88, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: var(--gold-light);
+  flex-shrink: 0;
+}
+
+.info-text {
+  flex: 1;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.info-text strong {
+  color: #FFF;
+}
+
+/* Action Buttons Grid */
+.actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: var(--radius-btn);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary-vcf {
+  grid-column: span 2;
+  background: linear-gradient(135deg, #F7E7B4 0%, #D4AF37 50%, #B89222 100%);
+  color: #0c0c10;
+  box-shadow: 0 8px 24px -4px rgba(212, 175, 55, 0.4);
+}
+
+.btn-primary-vcf:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -4px rgba(212, 175, 55, 0.6);
+  filter: brightness(1.06);
+}
+
+.btn-secondary {
+  background: #181820;
+  color: var(--gold-light);
+  border: 1px solid var(--border-gold);
+}
+
+.btn-secondary:hover {
+  background: #22222c;
+  border-color: var(--gold-primary);
+  transform: translateY(-2px);
+}
+
+/* QR & Share Section */
+.footer-tools {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.tool-chip {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text-muted);
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.tool-chip:hover {
+  border-color: var(--gold-primary);
+  color: var(--gold-light);
+  background: rgba(229, 193, 88, 0.08);
+}
+
+/* Modal for QR Code */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content {
+  background: #14141a;
+  border: 1px solid var(--gold-primary);
+  border-radius: 24px;
+  padding: 32px 24px;
+  text-align: center;
+  max-width: 340px;
+  width: 100%;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px var(--gold-glow);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+  transform: scale(1);
+}
+
+.qr-box {
+  background: #FFFFFF;
+  padding: 16px;
+  border-radius: 16px;
+  display: inline-block;
+  margin: 20px 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.btn-close-modal {
+  background: #252530;
+  color: #FFF;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  transition: background 0.2s;
+}
+
+.btn-close-modal:hover {
+  background: #353545;
+}
+
+/* Toast Message */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #1a1a24;
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-light);
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 200;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Copyright footer */
+.studio-footer {
+  margin-top: 24px;
+  font-size: 11px;
+  color: var(--text-dim);
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card-wrapper" id="cardWrapper">
+  <!-- Interactive Business Card Component -->
+  <div class="business-card" id="businessCard">
+    
+    <!-- Top Header & Logo -->
+    <div class="card-header">
+      <div class="studio-badge">JASON KINGDOM STUDIO</div>
+      <div class="logo-emblem">
+        <div class="crown-icon">👑</div>
+        <div class="jk-monogram">JK</div>
+      </div>
+    </div>
+
+    <!-- Representative Info -->
+    <div class="profile-block">
+      <div class="rep-label">Representative</div>
+      <div class="rep-name">Jae-sung Kim <span>(김재성)</span></div>
+      <div class="rep-title">CEO / AI Creative Director</div>
+    </div>
+
+    <!-- Contact Details -->
+    <div class="info-list">
+      <!-- Tel -->
+      <a href="tel:01034071691" class="info-item">
+        <div class="info-icon">📞</div>
+        <div class="info-text">
+          <span>Tel:</span> <strong>010-3407-1691</strong>
+        </div>
+      </a>
+
+      <!-- Email -->
+      <a href="mailto:contact@jasonkingdom.com" class="info-item">
+        <div class="info-icon">✉️</div>
+        <div class="info-text">
+          <span>Email:</span> <strong>contact@jasonkingdom.com</strong>
+        </div>
+      </a>
+
+      <!-- Web -->
+      <a href="https://jasonkingdom.com" target="_blank" class="info-item">
+        <div class="info-icon">🌐</div>
+        <div class="info-text">
+          <span>Web:</span> <strong>jasonkingdom.com</strong>
+        </div>
+      </a>
+
+      <!-- Address (Maps) -->
+      <a href="https://map.kakao.com/?q=인천광역시+연수구+인권로9번길+51-2" target="_blank" class="info-item">
+        <div class="info-icon">📍</div>
+        <div class="info-text">
+          <span>Add:</span> 인천광역시 연수구 인권로9번길 51-2
+        </div>
+      </a>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="actions-grid">
+      <!-- 1-Click Save vCard to Smartphone -->
+      <button class="btn-action btn-primary-vcf" onclick="downloadVCard()">
+        <span>📲</span> 스마트폰 연락처에 저장 (.vcf)
+      </button>
+
+      <!-- Direct Call -->
+      <a href="tel:01034071691" class="btn-action btn-secondary">
+        <span>📞</span> 전화 걸기
+      </a>
+
+      <!-- Visit Studio Website -->
+      <a href="https://jasonkingdom.com" target="_blank" class="btn-action btn-secondary">
+        <span>👑</span> 스튜디오 방문
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Bottom Utilities (QR & Share) -->
+  <div class="footer-tools">
+    <button class="tool-chip" onclick="openQrModal()">
+      <span>🔳</span> 명함 QR코드 열기
+    </button>
+    <button class="tool-chip" onclick="shareCard()">
+      <span>📤</span> 명함 카톡/링크 공유
+    </button>
+  </div>
+
+  <div class="studio-footer">
+    © 2026 JASON KINGDOM STUDIO. All Rights Reserved.
+  </div>
+</div>
+
+<!-- QR Code Modal -->
+<div class="modal-overlay" id="qrModal" onclick="closeQrModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <h3 style="font-size: 18px; color: var(--gold-light); margin-bottom: 6px;">스마트폰으로 스캔하세요</h3>
+    <p style="font-size: 12px; color: var(--text-muted);">상대방 카메라 앱으로 비추면 즉시 전자명함이 열립니다.</p>
+    
+    <div class="qr-box" id="qrcode"></div>
+    
+    <button class="btn-close-modal" onclick="closeQrModal()">닫기</button>
+  </div>
+</div>
+
+<!-- Toast Message -->
+<div class="toast" id="toast">링크가 복사되었습니다!</div>
+
+<script>
+// 1. Dynamic vCard (.vcf) Generator
+function downloadVCard() {
+  const vcardData = 
+`BEGIN:VCARD
+VERSION:3.0
+N:김;재성;;대표;
+FN:김재성 대표 (Jae-sung Kim)
+ORG:JASON KINGDOM STUDIO
+TITLE:CEO / AI Creative Director
+TEL;TYPE=CELL,VOICE:010-3407-1691
+EMAIL;TYPE=WORK,INTERNET:contact@jasonkingdom.com
+URL:https://jasonkingdom.com
+ADR;TYPE=WORK:;;인천광역시 연수구 인권로9번길 51-2;인천;;21943;대한민국
+NOTE:도구까지 직접 만들어 쓰는 AI 크리에이티브 종합 스튜디오 (전자책·음원·영상·웹)
+END:VCARD`;
+
+  const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = '김재성대표_JASON_KINGDOM.vcf';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('📱 연락처 파일이 다운로드되었습니다. 바로 열어 저장하세요!');
+}
+
+// 2. Dynamic QR Code Generator
+let qrGenerated = false;
+function openQrModal() {
+  const modal = document.getElementById('qrModal');
+  modal.classList.add('active');
+  if (!qrGenerated) {
+    new QRCode(document.getElementById("qrcode"), {
+      text: "https://jasonkingdom.com/card.html",
+      width: 180,
+      height: 180,
+      colorDark : "#000000",
+      colorLight : "#ffffff",
+      correctLevel : QRCode.CorrectLevel.H
+    });
+    qrGenerated = true;
+  }
+}
+
+function closeQrModal(e) {
+  document.getElementById('qrModal').classList.remove('active');
+}
+
+// 3. Native Share API & Clipboard Fallback
+function shareCard() {
+  const shareData = {
+    title: '김재성 대표 스마트 전자명함 | JASON KINGDOM STUDIO',
+    text: 'JASON KINGDOM STUDIO 대표 김재성의 모바일 스마트 전자명함입니다.',
+    url: 'https://jasonkingdom.com/card.html'
+  };
+
+  if (navigator.share) {
+    navigator.share(shareData).catch((err) => console.log('Share error:', err));
+  } else {
+    navigator.clipboard.writeText('https://jasonkingdom.com/card.html')
+      .then(() => showToast('📋 전자명함 링크가 복사되었습니다! 카톡에 붙여넣으세요.'))
+      .catch(() => showToast('링크: https://jasonkingdom.com/card.html'));
+  }
+}
+
+// 4. Toast Notification
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// 5. 3D Tilt Effect on Desktop
+const card = document.getElementById('businessCard');
+const wrapper = document.getElementById('cardWrapper');
+
+wrapper.addEventListener('mousemove', (e) => {
+  const rect = wrapper.getBoundingClientRect();
+  const x = e.clientX - rect.left - rect.width / 2;
+  const y = e.clientY - rect.top - rect.height / 2;
+  
+  const rotateX = -(y / rect.height) * 14;
+  const rotateY = (x / rect.width) * 14;
+  
+  card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+});
+
+wrapper.addEventListener('mouseleave', () => {
+  card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+});
+</script>
+
+</body>
+</html>
