@@ -481,21 +481,31 @@ body {
       </a>
     </div>
 
-    <!-- Action Buttons -->
+    <!-- Action Buttons Grid -->
     <div class="actions-grid">
-      <!-- 1-Click Save vCard to Smartphone -->
-      <button class="btn-action btn-primary-vcf" onclick="downloadVCard()">
+      <!-- 1-Click Save vCard to Smartphone (Direct File + Smart Handler) -->
+      <a href="jason_kim.vcf" download="김재성대표_JASON_KINGDOM.vcf" class="btn-action btn-primary-vcf" id="btnSaveContact" onclick="handleSaveContact(event)">
         <span>📲</span> 스마트폰 연락처에 저장 (.vcf)
-      </button>
+      </a>
 
       <!-- Direct Call -->
       <a href="tel:01034071691" class="btn-action btn-secondary">
         <span>📞</span> 전화 걸기
       </a>
 
+      <!-- Copy Phone Number -->
+      <button type="button" class="btn-action btn-secondary" onclick="copyPhone()">
+        <span>📋</span> 번호 복사
+      </button>
+
+      <!-- Direct SMS -->
+      <a href="sms:01034071691" class="btn-action btn-secondary">
+        <span>💬</span> 문자 보내기
+      </a>
+
       <!-- Visit Studio Website -->
-      <a href="https://jasonkingdom.com" target="_blank" class="btn-action btn-secondary">
-        <span>👑</span> 스튜디오 방문
+      <a href="https://jasonkingdom.com" target="_blank" class="btn-action btn-secondary" style="grid-column: span 2;">
+        <span>👑</span> JASON KINGDOM STUDIO 공식 방문 →
       </a>
     </div>
 
@@ -532,32 +542,35 @@ body {
 <div class="toast" id="toast">링크가 복사되었습니다!</div>
 
 <script>
-// 1. Dynamic vCard (.vcf) Generator
-function downloadVCard() {
-  const vcardData = 
-`BEGIN:VCARD
-VERSION:3.0
-N:김;재성;;대표;
-FN:김재성 대표 (Jae-sung Kim)
-ORG:JASON KINGDOM STUDIO
-TITLE:CEO / AI Creative Director
-TEL;TYPE=CELL,VOICE:010-3407-1691
-EMAIL;TYPE=WORK,INTERNET:contact@jasonkingdom.com
-URL:https://jasonkingdom.com
-ADR;TYPE=WORK:;;인천광역시 연수구 인권로9번길 51-2;인천;;21943;대한민국
-NOTE:도구까지 직접 만들어 쓰는 AI 크리에이티브 종합 스튜디오 (전자책·음원·영상·웹)
-END:VCARD`;
+// 1. Ultra-Robust vCard (.vcf) Contact Saver (KakaoTalk / iOS / Android 100% Support)
+function handleSaveContact(event) {
+  const ua = navigator.userAgent || '';
+  const isKakao = /KAKAOTALK/i.test(ua);
+  const isIOS = /iPhone|iPad|iPod/i.test(ua);
+  
+  if (isKakao) {
+    // In KakaoTalk in-app browser
+    showToast('📱 주소록 저장창이 열립니다! (미작동 시 우측 상단 [⋮] → [다른 브라우저로 열기])');
+  } else if (isIOS) {
+    showToast('📱 [새로운 연락처 등록] 또는 [저장]을 눌러주세요!');
+  } else {
+    showToast('📱 연락처(.vcf) 파일이 저장되었습니다. 열어서 등록하세요!');
+  }
 
-  const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = '김재성대표_JASON_KINGDOM.vcf';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-  showToast('📱 연락처 파일이 다운로드되었습니다. 바로 열어 저장하세요!');
+  // Direct navigation to physical static vCard on server
+  // This guarantees native iOS Safari Contacts sheet & Android Contacts prompt
+  window.location.href = 'jason_kim.vcf';
+}
+
+function copyPhone() {
+  const phone = '010-3407-1691';
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(phone)
+      .then(() => showToast('📋 대표 전화번호(010-3407-1691)가 복사되었습니다!'))
+      .catch(() => showToast('전화번호: 010-3407-1691'));
+  } else {
+    showToast('전화번호: 010-3407-1691');
+  }
 }
 
 // 2. Dynamic QR Code Generator
