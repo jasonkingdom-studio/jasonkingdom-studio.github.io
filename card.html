@@ -387,6 +387,37 @@ body {
   background: #353545;
 }
 
+/* KakaoTalk In-App Top Banner */
+.kakao-top-banner {
+  background: linear-gradient(135deg, rgba(254, 229, 0, 0.15) 0%, rgba(212, 175, 55, 0.2) 100%);
+  border: 1px solid rgba(254, 229, 0, 0.4);
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+.kakao-banner-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kakao-banner-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #FEE500;
+}
+
+.kakao-banner-desc {
+  font-size: 12px;
+  color: #E2E2E8;
+  line-height: 1.45;
+}
+
 /* Toast Message */
 .toast {
   position: fixed;
@@ -427,6 +458,17 @@ body {
 <body>
 
 <div class="card-wrapper" id="cardWrapper">
+  <!-- KakaoTalk In-App Top Notification Banner -->
+  <div id="kakaoTopBanner" class="kakao-top-banner" style="display: none;">
+    <div class="kakao-banner-header">
+      <span style="font-size: 18px;">💬</span>
+      <span class="kakao-banner-title">카카오톡으로 열렸습니다</span>
+    </div>
+    <div class="kakao-banner-desc">
+      연락처를 휴대폰에 바로 저장하시려면 우측 상단 <strong>[⋮]</strong> 누르고 <strong>[다른 브라우저로 열기]</strong>를 선택해 주세요.
+    </div>
+  </div>
+
   <!-- Interactive Business Card Component -->
   <div class="business-card" id="businessCard">
     
@@ -481,274 +523,270 @@ body {
       </a>
     </div>
 
-      <!-- Action Buttons Grid -->
-      <div class="actions-grid">
-        <!-- 1-Click Direct Save to Smartphone Contacts App -->
-        <button type="button" class="btn-action btn-primary-vcf" id="btnSaveContact" onclick="handleSaveContact()">
-          <span>📲</span> 스마트폰 연락처에 바로 저장
-        </button>
+    <!-- Action Buttons Grid -->
+    <div class="actions-grid">
+      <!-- 1-Click Direct Save to Smartphone Contacts App -->
+      <a href="https://jasonkingdom.com/jason_kim.vcf" class="btn-action btn-primary-vcf" id="btnSaveContact" onclick="handleSaveContact(event)">
+        <span>📲</span> 스마트폰 연락처에 바로 저장
+      </a>
 
-        <!-- Direct Call -->
-        <a href="tel:01034071691" class="btn-action btn-secondary">
-          <span>📞</span> 전화 걸기
-        </a>
+      <!-- Direct Call -->
+      <a href="tel:01034071691" class="btn-action btn-secondary">
+        <span>📞</span> 전화 걸기
+      </a>
 
-        <!-- Copy Phone Number -->
-        <button type="button" class="btn-action btn-secondary" onclick="copyPhone()">
+      <!-- Copy Phone Number -->
+      <button type="button" class="btn-action btn-secondary" onclick="copyPhone()">
+        <span>📋</span> 번호 복사
+      </button>
+
+      <!-- Direct SMS -->
+      <a href="sms:01034071691" class="btn-action btn-secondary">
+        <span>💬</span> 문자 보내기
+      </a>
+
+      <!-- Visit Studio Website -->
+      <a href="https://jasonkingdom.com" target="_blank" class="btn-action btn-secondary" style="grid-column: span 2;">
+        <span>👑</span> JASON KINGDOM STUDIO 공식 방문 →
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Bottom Utilities (QR & Share) -->
+  <div class="footer-tools">
+    <button class="tool-chip" onclick="openQrModal()">
+      <span>🔳</span> 명함 QR코드 열기
+    </button>
+    <button class="tool-chip" onclick="shareCard()">
+      <span>📤</span> 명함 카톡/링크 공유
+    </button>
+  </div>
+
+  <div class="studio-footer">
+    © 2026 JASON KINGDOM STUDIO. All Rights Reserved.
+  </div>
+</div>
+
+<!-- Contact Save Assistant Modal -->
+<div class="modal-overlay" id="saveGuideModal" onclick="closeSaveGuideModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 360px; text-align: left;">
+    <div style="text-align: center; margin-bottom: 14px;">
+      <div style="font-size: 36px; margin-bottom: 6px;">📱</div>
+      <h3 style="font-size: 18px; color: var(--gold-light); margin-bottom: 4px; font-weight: 800;">스마트폰 연락처 저장</h3>
+      <p style="font-size: 12px; color: var(--text-muted);">김재성 대표 연락처가 휴대폰 주소록에 등록됩니다</p>
+    </div>
+
+    <!-- KakaoTalk In-App Guidance -->
+    <div style="background: rgba(254, 229, 0, 0.12); border: 1px solid rgba(254, 229, 0, 0.4); border-radius: 12px; padding: 12px; margin-bottom: 14px;">
+      <div style="font-size: 13px; font-weight: 700; color: #FEE500; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+        <span>💬</span> 카카오톡 화면 안내
+      </div>
+      <p style="font-size: 12px; color: #E5E5E5; line-height: 1.5; margin: 0;">
+        카카오톡 내부 보안으로 연락처 앱이 바로 안 열릴 경우, <strong>우측 상단 [ ⋮ ]</strong> 누르고 <strong>[다른 브라우저로 열기]</strong>를 누르시면 1초 만에 등록됩니다.
+      </p>
+    </div>
+
+    <!-- Instructions -->
+    <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 14px; margin-bottom: 16px; font-size: 13px; line-height: 1.6; color: #DDD;">
+      <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+        <span style="color: var(--gold-primary); font-weight: 800;">✓</span>
+        <span>휴대폰 화면에 열린 주소록 창에서 <strong>[저장]</strong> 또는 <strong>[완료]</strong>를 누르면 바로 전화번호부에 등록됩니다.</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <span style="color: var(--gold-primary); font-weight: 800;">✓</span>
+        <span>대표 번호, 이메일, 회사명, 주소가 자동으로 입력됩니다.</span>
+      </div>
+    </div>
+
+    <!-- Quick Action Buttons -->
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+        <button type="button" class="btn-action btn-secondary" onclick="copyPhone()" style="font-size: 12px; padding: 10px;">
           <span>📋</span> 번호 복사
         </button>
-
-        <!-- Direct SMS -->
-        <a href="sms:01034071691" class="btn-action btn-secondary">
-          <span>💬</span> 문자 보내기
-        </a>
-
-        <!-- Visit Studio Website -->
-        <a href="https://jasonkingdom.com" target="_blank" class="btn-action btn-secondary" style="grid-column: span 2;">
-          <span>👑</span> JASON KINGDOM STUDIO 공식 방문 →
+        <a href="tel:01034071691" class="btn-action btn-secondary" style="font-size: 12px; padding: 10px; text-decoration: none;">
+          <span>📞</span> 바로 전화
         </a>
       </div>
-
+      <a href="sms:01034071691" class="btn-action btn-secondary" style="font-size: 12px; padding: 10px; text-decoration: none; text-align: center;">
+        <span>💬</span> 문자 메시지 보내기
+      </a>
     </div>
 
-    <!-- Bottom Utilities (QR & Share) -->
-    <div class="footer-tools">
-      <button class="tool-chip" onclick="openQrModal()">
-        <span>🔳</span> 명함 QR코드 열기
-      </button>
-      <button class="tool-chip" onclick="shareCard()">
-        <span>📤</span> 명함 카톡/링크 공유
-      </button>
-    </div>
-
-    <div class="studio-footer">
-      © 2026 JASON KINGDOM STUDIO. All Rights Reserved.
-    </div>
+    <button class="btn-close-modal" onclick="closeSaveGuideModal()" style="margin-top: 14px;">닫기</button>
   </div>
+</div>
 
-  <!-- Contact Save Assistant Modal -->
-  <div class="modal-overlay" id="saveGuideModal" onclick="closeSaveGuideModal(event)">
-    <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 360px; text-align: left;">
-      <div style="text-align: center; margin-bottom: 14px;">
-        <div style="font-size: 36px; margin-bottom: 6px;">📱</div>
-        <h3 style="font-size: 18px; color: var(--gold-light); margin-bottom: 4px; font-weight: 800;">스마트폰 연락처 저장</h3>
-        <p style="font-size: 12px; color: var(--text-muted);">김재성 대표 연락처가 휴대폰 주소록에 등록됩니다</p>
-      </div>
-
-      <!-- KakaoTalk In-App Guidance (Shown if in KakaoTalk) -->
-      <div id="kakaoGuideBox" style="display: none; background: rgba(254, 229, 0, 0.1); border: 1px solid rgba(254, 229, 0, 0.35); border-radius: 12px; padding: 12px; margin-bottom: 14px;">
-        <div style="font-size: 13px; font-weight: 700; color: #FEE500; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
-          <span>💬</span> 카카오톡으로 보고 계신 경우
-        </div>
-        <p style="font-size: 12px; color: #E5E5E5; line-height: 1.5; margin: 0;">
-          카카오톡 내부 보안 정책으로 저장이 안 될 경우, <strong>우측 상단 [ ⋮ ]</strong> 누르고 <strong>[다른 브라우저로 열기]</strong>(또는 Safari로 열기)를 선택하시면 주소록 앱이 즉시 열립니다.
-        </p>
-      </div>
-
-      <!-- Instructions -->
-      <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 14px; margin-bottom: 16px; font-size: 13px; line-height: 1.6; color: #DDD;">
-        <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-          <span style="color: var(--gold-primary); font-weight: 800;">✓</span>
-          <span>휴대폰 화면에 열린 주소록 창에서 <strong>[저장]</strong> 또는 <strong>[완료]</strong>를 누르면 바로 전화번호부에 등록됩니다.</span>
-        </div>
-        <div style="display: flex; gap: 8px;">
-          <span style="color: var(--gold-primary); font-weight: 800;">✓</span>
-          <span>대표 번호, 이메일, 회사명, 주소가 자동으로 입력됩니다.</span>
-        </div>
-      </div>
-
-      <!-- Quick Action Buttons -->
-      <div style="display: flex; flex-direction: column; gap: 8px;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-          <button type="button" class="btn-action btn-secondary" onclick="copyPhone()" style="font-size: 12px; padding: 10px;">
-            <span>📋</span> 번호 복사
-          </button>
-          <a href="tel:01034071691" class="btn-action btn-secondary" style="font-size: 12px; padding: 10px; text-decoration: none;">
-            <span>📞</span> 바로 전화
-          </a>
-        </div>
-        <a href="sms:01034071691" class="btn-action btn-secondary" style="font-size: 12px; padding: 10px; text-decoration: none; text-align: center;">
-          <span>💬</span> 문자 메시지 보내기
-        </a>
-      </div>
-
-      <button class="btn-close-modal" onclick="closeSaveGuideModal()" style="margin-top: 14px;">닫기</button>
-    </div>
+<!-- QR Code Modal -->
+<div class="modal-overlay" id="qrModal" onclick="closeQrModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <h3 style="font-size: 18px; color: var(--gold-light); margin-bottom: 6px;">스마트폰으로 스캔하세요</h3>
+    <p style="font-size: 12px; color: var(--text-muted);">상대방 카메라 앱으로 비추면 즉시 전자명함이 열립니다.</p>
+    
+    <div class="qr-box" id="qrcode"></div>
+    
+    <button class="btn-close-modal" onclick="closeQrModal()">닫기</button>
   </div>
+</div>
 
-  <!-- QR Code Modal -->
-  <div class="modal-overlay" id="qrModal" onclick="closeQrModal(event)">
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <h3 style="font-size: 18px; color: var(--gold-light); margin-bottom: 6px;">스마트폰으로 스캔하세요</h3>
-      <p style="font-size: 12px; color: var(--text-muted);">상대방 카메라 앱으로 비추면 즉시 전자명함이 열립니다.</p>
-      
-      <div class="qr-box" id="qrcode"></div>
-      
-      <button class="btn-close-modal" onclick="closeQrModal()">닫기</button>
-    </div>
-  </div>
+<!-- Toast Message -->
+<div class="toast" id="toast">링크가 복사되었습니다!</div>
 
-  <!-- Toast Message -->
-  <div class="toast" id="toast">링크가 복사되었습니다!</div>
+<script>
+// 1. Direct Smartphone Contacts App Launcher (Android Native Intent + iOS Direct Card)
+function initPlatform() {
+  const ua = navigator.userAgent || '';
+  const isKakao = /KAKAOTALK/i.test(ua);
+  const isAndroid = /Android/i.test(ua);
+  const banner = document.getElementById('kakaoTopBanner');
+  const btn = document.getElementById('btnSaveContact');
 
-  <script>
-  // 1. Direct Smartphone Contacts App Launcher (Android Native Intent + iOS Direct Card)
-  function handleSaveContact() {
-    const ua = navigator.userAgent || '';
-    const isKakao = /KAKAOTALK/i.test(ua);
-    const isAndroid = /Android/i.test(ua);
-    const isIOS = /iPhone|iPad|iPod/i.test(ua);
-
-    // Dynamic KakaoTalk handling
-    const modal = document.getElementById('saveGuideModal');
-    const kakaoBox = document.getElementById('kakaoGuideBox');
-    if (kakaoBox) kakaoBox.style.display = isKakao ? 'block' : 'none';
-
-    if (isAndroid) {
-      // Direct Native Android Contacts App Launch (Opens Samsung / Google Contacts directly - NO file download!)
-      const name = encodeURIComponent("김재성 대표");
-      const phone = "01034071691";
-      const email = encodeURIComponent("contact@jasonkingdom.com");
-      const company = encodeURIComponent("JASON KINGDOM STUDIO");
-      const title = encodeURIComponent("CEO / AI Creative Director");
-      const postal = encodeURIComponent("인천광역시 연수구 인권로9번길 51-2");
-      const notes = encodeURIComponent("https://jasonkingdom.com");
-
-      const intentUrl = `intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.name=${name};S.phone=${phone};S.email=${email};S.company=${company};S.job_title=${title};S.postal=${postal};S.notes=${notes};end;`;
-
-      showToast('📱 휴대폰 연락처 앱이 열립니다. [저장]을 눌러주세요!');
-      window.location.href = intentUrl;
-
-      // Fallback popup in case intent doesn't switch out (e.g. some webviews)
-      setTimeout(() => {
-        if (modal && !document.hidden) modal.classList.add('active');
-      }, 1000);
-
-    } else if (isIOS) {
-      // Native iOS Safari Contacts Sheet
-      showToast('📱 [새로운 연락처 등록] 창이 열립니다.');
-      window.location.href = 'https://jasonkingdom.com/jason_kim.vcf';
-
-      if (isKakao) {
-        setTimeout(() => {
-          if (modal) modal.classList.add('active');
-        }, 800);
-      }
-    } else {
-      // Desktop / Other fallback: Download vCard
-      showToast('📱 연락처가 다운로드됩니다. 클릭하여 저장하세요.');
-      const link = document.createElement('a');
-      link.href = 'https://jasonkingdom.com/jason_kim.vcf';
-      link.setAttribute('download', '김재성대표_JASON_KINGDOM.vcf');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
+  if (isKakao && banner) {
+    banner.style.display = 'flex';
   }
 
-  function copyPhone() {
-    const phone = '010-3407-1691';
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(phone)
-        .then(() => showToast('📋 전화번호(010-3407-1691)가 복사되었습니다!'))
-        .catch(() => {
-          fallbackCopyText(phone);
-          showToast('📋 전화번호: 010-3407-1691');
-        });
-    } else {
-      fallbackCopyText(phone);
-      showToast('📋 전화번호: 010-3407-1691');
-    }
-  }
+  if (btn && isAndroid) {
+    const name = encodeURIComponent("김재성 대표");
+    const phone = "01034071691";
+    const email = encodeURIComponent("contact@jasonkingdom.com");
+    const company = encodeURIComponent("JASON KINGDOM STUDIO");
+    const title = encodeURIComponent("CEO / AI Creative Director");
+    const postal = encodeURIComponent("인천광역시 연수구 인권로9번길 51-2");
+    const notes = encodeURIComponent("https://jasonkingdom.com");
 
-  function fallbackCopyText(text) {
-    const textArea = document.createElement("textarea");
-    textArea.value = text;
-    textArea.style.position = "fixed";
-    textArea.style.left = "-999999px";
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    try {
-      document.execCommand('copy');
-    } catch (err) {}
-    document.body.removeChild(textArea);
+    const intentUrl = `intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.name=${name};S.phone=${phone};S.email=${email};S.company=${company};S.job_title=${title};S.postal=${postal};S.notes=${notes};end`;
+    btn.setAttribute('href', intentUrl);
   }
+}
 
-  // 2. Dynamic QR Code Generator
-  let qrGenerated = false;
-  function openQrModal() {
-    const modal = document.getElementById('qrModal');
-    modal.classList.add('active');
-    if (!qrGenerated) {
-      new QRCode(document.getElementById("qrcode"), {
-        text: "https://jasonkingdom.com/card.html",
-        width: 180,
-        height: 180,
-        colorDark : "#000000",
-        colorLight : "#ffffff",
-        correctLevel : QRCode.CorrectLevel.H
+function handleSaveContact(event) {
+  const ua = navigator.userAgent || '';
+  const isKakao = /KAKAOTALK/i.test(ua);
+  const isAndroid = /Android/i.test(ua);
+  const modal = document.getElementById('saveGuideModal');
+
+  if (isKakao) {
+    if (modal) modal.classList.add('active');
+    showToast('📱 우측 상단 [⋮] → [다른 브라우저로 열기]를 눌러주세요');
+  } else if (isAndroid) {
+    showToast('📱 휴대폰 연락처 앱이 열립니다. [저장]을 눌러주세요!');
+  } else {
+    showToast('📱 [새로운 연락처 등록] 창이 열립니다.');
+  }
+}
+
+function closeSaveGuideModal(e) {
+  const modal = document.getElementById('saveGuideModal');
+  if (modal) modal.classList.remove('active');
+}
+
+function copyPhone() {
+  const phone = '010-3407-1691';
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(phone)
+      .then(() => showToast('📋 전화번호(010-3407-1691)가 복사되었습니다!'))
+      .catch(() => {
+        fallbackCopyText(phone);
+        showToast('📋 전화번호: 010-3407-1691');
       });
-      qrGenerated = true;
-    }
+  } else {
+    fallbackCopyText(phone);
+    showToast('📋 전화번호: 010-3407-1691');
   }
+}
 
-  function closeQrModal(e) {
-    document.getElementById('qrModal').classList.remove('active');
+function fallbackCopyText(text) {
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
+  textArea.style.position = "fixed";
+  textArea.style.left = "-999999px";
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  try {
+    document.execCommand('copy');
+  } catch (err) {}
+  document.body.removeChild(textArea);
+}
+
+// 2. Dynamic QR Code Generator
+let qrGenerated = false;
+function openQrModal() {
+  const modal = document.getElementById('qrModal');
+  modal.classList.add('active');
+  if (!qrGenerated) {
+    new QRCode(document.getElementById("qrcode"), {
+      text: "https://jasonkingdom.com/card.html",
+      width: 180,
+      height: 180,
+      colorDark : "#000000",
+      colorLight : "#ffffff",
+      correctLevel : QRCode.CorrectLevel.H
+    });
+    qrGenerated = true;
   }
+}
 
-  // 3. Native Share API & Clipboard Fallback
-  function shareCard() {
-    const shareData = {
-      title: '김재성 대표 스마트 전자명함 | JASON KINGDOM STUDIO',
-      text: 'JASON KINGDOM STUDIO 대표 김재성의 모바일 스마트 전자명함입니다.',
-      url: 'https://jasonkingdom.com/card.html'
-    };
+function closeQrModal(e) {
+  document.getElementById('qrModal').classList.remove('active');
+}
 
-    if (navigator.share) {
-      navigator.share(shareData).catch((err) => console.log('Share error:', err));
+// 3. Native Share API & Clipboard Fallback
+function shareCard() {
+  const shareData = {
+    title: '김재성 대표 스마트 전자명함 | JASON KINGDOM STUDIO',
+    text: 'JASON KINGDOM STUDIO 대표 김재성의 모바일 스마트 전자명함입니다.',
+    url: 'https://jasonkingdom.com/card.html'
+  };
+
+  if (navigator.share) {
+    navigator.share(shareData).catch((err) => console.log('Share error:', err));
+  } else {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText('https://jasonkingdom.com/card.html')
+        .then(() => showToast('📋 전자명함 링크가 복사되었습니다!'))
+        .catch(() => showToast('링크: https://jasonkingdom.com/card.html'));
     } else {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText('https://jasonkingdom.com/card.html')
-          .then(() => showToast('📋 전자명함 링크가 복사되었습니다!'))
-          .catch(() => showToast('링크: https://jasonkingdom.com/card.html'));
-      } else {
-        fallbackCopyText('https://jasonkingdom.com/card.html');
-        showToast('📋 전자명함 링크가 복사되었습니다!');
-      }
+      fallbackCopyText('https://jasonkingdom.com/card.html');
+      showToast('📋 전자명함 링크가 복사되었습니다!');
     }
   }
+}
 
-  // 4. Toast Notification
-  function showToast(msg) {
-    const toast = document.getElementById('toast');
-    if (!toast) return;
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3000);
-  }
+// 4. Toast Notification
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
 
-  // 5. 3D Tilt Effect on Desktop
-  const card = document.getElementById('businessCard');
-  const wrapper = document.getElementById('cardWrapper');
+// 5. 3D Tilt Effect on Desktop
+const card = document.getElementById('businessCard');
+const wrapper = document.getElementById('cardWrapper');
 
-  if (card && wrapper) {
-    wrapper.addEventListener('mousemove', (e) => {
-      const rect = wrapper.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      
-      const rotateX = -(y / rect.height) * 14;
-      const rotateY = (x / rect.width) * 14;
-      
-      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
+if (card && wrapper) {
+  wrapper.addEventListener('mousemove', (e) => {
+    const rect = wrapper.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    
+    const rotateX = -(y / rect.height) * 14;
+    const rotateY = (x / rect.width) * 14;
+    
+    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
 
-    wrapper.addEventListener('mouseleave', () => {
-      card.style.transform = 'rotateX(0deg) rotateY(0deg)';
-    });
-  }
-  </script>
+  wrapper.addEventListener('mouseleave', () => {
+    card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+  });
+}
+
+// Run init
+initPlatform();
+</script>
 
 </body>
 </html>
