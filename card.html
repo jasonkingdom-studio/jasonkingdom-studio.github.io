@@ -412,32 +412,115 @@ body {
   color: #FEE500;
 }
 
-.kakao-banner-desc {
-  font-size: 12px;
-  color: #E2E2E8;
-  line-height: 1.45;
+.kakao-banner-btn:active {
+  transform: scale(0.97);
 }
 
-.kakao-banner-btn {
-  background: #FEE500;
-  color: #191919;
-  border: none;
+/* Guide Modal & Trigger Styling */
+.btn-guide-trigger {
+  grid-column: span 2;
+  background: rgba(229, 193, 88, 0.08);
+  border: 1px dashed rgba(229, 193, 88, 0.45);
+  color: var(--gold-light);
   padding: 10px 14px;
-  border-radius: 10px;
+  border-radius: var(--radius-btn);
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  margin-top: 6px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  transition: transform 0.15s ease;
+  transition: all 0.2s ease;
+  margin-top: -4px;
+  margin-bottom: 2px;
 }
 
-.kakao-banner-btn:active {
-  transform: scale(0.97);
+.btn-guide-trigger:hover {
+  background: rgba(229, 193, 88, 0.16);
+  border-color: var(--gold-primary);
+  transform: translateY(-1px);
+}
+
+.guide-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 4px;
+  border-radius: 12px;
+}
+
+.guide-tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.guide-tab-btn.active {
+  background: var(--gold-primary);
+  color: #0E0E12;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.guide-panel {
+  display: none;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #EEE;
+  text-align: left;
+}
+
+.guide-panel.active {
+  display: block;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.guide-step {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: flex-start;
+}
+
+.guide-step:last-child {
+  margin-bottom: 0;
+}
+
+.step-num {
+  background: var(--gold-primary);
+  color: #0E0E12;
+  font-weight: 900;
+  font-size: 11px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 /* Toast Message */
@@ -555,6 +638,11 @@ body {
         <span>📲</span> 스마트폰 연락처에 바로 저장
       </a>
 
+      <!-- Direct Guide Trigger Button -->
+      <button type="button" class="btn-guide-trigger" onclick="openSaveGuideModal()">
+        <span>💡</span> 아이폰 & 갤럭시 연락처 저장 방법 안내
+      </button>
+
       <!-- Direct Call -->
       <a href="tel:01034071691" class="btn-action btn-secondary">
         <span>📞</span> 전화 걸기
@@ -593,64 +681,93 @@ body {
   </div>
 </div>
 
-<!-- Contact Save Assistant Modal -->
+<!-- Interactive Tabbed Save Guide Modal (iPhone & Android) -->
 <div class="modal-overlay" id="saveGuideModal" onclick="closeSaveGuideModal(event)">
-  <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 360px; text-align: left;">
+  <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 390px; text-align: left;">
     <div style="text-align: center; margin-bottom: 14px;">
-      <div style="font-size: 36px; margin-bottom: 6px;" id="modalDeviceIcon">📱</div>
-      <h3 style="font-size: 18px; color: var(--gold-light); margin-bottom: 4px; font-weight: 800;" id="modalTitle">스마트폰 연락처 저장 안내</h3>
-      <p style="font-size: 12px; color: var(--text-muted);">김재성 대표 연락처를 휴대폰에 등록합니다</p>
+      <h3 style="font-size: 18px; color: var(--gold-light); margin-bottom: 4px; font-weight: 800;">스마트폰 연락처 저장 안내</h3>
+      <p style="font-size: 12px; color: var(--text-muted);">사용 중이신 스마트폰 기종을 선택하세요</p>
     </div>
 
-    <!-- KakaoTalk In-App Guidance -->
-    <div id="kakaoGuideBlock" style="display: none; background: rgba(254, 229, 0, 0.12); border: 1px solid rgba(254, 229, 0, 0.4); border-radius: 12px; padding: 12px; margin-bottom: 14px;">
-      <div style="font-size: 13px; font-weight: 700; color: #FEE500; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
-        <span>💬</span> 카카오톡 화면 안내
-      </div>
-      <p style="font-size: 12px; color: #E5E5E5; line-height: 1.5; margin: 0;">
-        카카오톡 내부에서는 보안상 주소록 저장이 제한되므로, <strong>우측 상단 [ ⋮ ]</strong> 누르고 <strong>[다른 브라우저로 열기]</strong>(Safari/Chrome)를 선택해 주세요.
-      </p>
+    <!-- Device Tabs -->
+    <div class="guide-tabs">
+      <button type="button" class="guide-tab-btn active" id="tabIos" onclick="switchGuideTab('ios')">
+        <span>🍏</span> 아이폰 (iOS)
+      </button>
+      <button type="button" class="guide-tab-btn" id="tabAndroid" onclick="switchGuideTab('android')">
+        <span>🤖</span> 갤럭시 (삼성)
+      </button>
     </div>
 
-    <!-- iPhone Specific Step-by-Step Guide -->
-    <div id="iosGuideBlock" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 14px; margin-bottom: 16px; font-size: 13px; line-height: 1.6; color: #EEE;">
-      <div style="font-weight: 700; color: var(--gold-light); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-        <span>🍏</span> 아이폰 [새로운 연락처 등록] 방법:
+    <!-- iPhone Guide Panel -->
+    <div class="guide-panel active" id="panelIos">
+      <div style="font-weight: 800; color: var(--gold-light); margin-bottom: 10px; font-size: 13px;">
+        🍏 아이폰 연락처 등록 3단계
       </div>
-      <div style="display: flex; gap: 8px; margin-bottom: 6px;">
-        <span style="color: var(--gold-primary); font-weight: 800;">1.</span>
-        <span>화면에 뜬 <strong>[다운로드]</strong> 탭</span>
+      
+      <div class="guide-step">
+        <div class="step-num">1</div>
+        <div>
+          <strong>카톡으로 보고 계신 경우:</strong><br>
+          화면 오른쪽 맨 아래 <strong>[ ··· ]</strong> (점 3개) 또는 <strong>[ ↑ ]</strong> 터치 $\rightarrow$ <strong>[Safari로 열기]</strong> 선택
+        </div>
       </div>
-      <div style="display: flex; gap: 8px; margin-bottom: 6px;">
-        <span style="color: var(--gold-primary); font-weight: 800;">2.</span>
-        <span>사파리 주소창의 파란색 다운로드 아이콘 <strong>[ ↓ ]</strong> 터치</span>
+
+      <div class="guide-step">
+        <div class="step-num">2</div>
+        <div>
+          사파리에서 <strong>[스마트폰 연락처에 바로 저장]</strong> 누른 후 <strong>[다운로드]</strong> 탭
+        </div>
       </div>
-      <div style="display: flex; gap: 8px;">
-        <span style="color: var(--gold-primary); font-weight: 800;">3.</span>
-        <span><strong>김재성대표.vcf</strong>를 누르면 <strong>[새로운 연락처 등록]</strong>이 바로 나타납니다!</span>
+
+      <div class="guide-step">
+        <div class="step-num">3</div>
+        <div>
+          주소창의 파란색 <strong>[ ↓ ]</strong> 아이콘 터치 $\rightarrow$ <strong>jason_kim.vcf</strong>를 누르면 <strong>[새로운 연락처 등록]</strong> 창이 열리며 우측 상단 <strong>[저장]</strong> 클릭!
+        </div>
       </div>
     </div>
 
-    <!-- Android Specific Guide -->
-    <div id="androidGuideBlock" style="display: none; background: rgba(255,255,255,0.04); border-radius: 12px; padding: 14px; margin-bottom: 16px; font-size: 13px; line-height: 1.6; color: #DDD;">
-      <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-        <span style="color: var(--gold-primary); font-weight: 800;">✓</span>
-        <span>휴대폰 화면에 열린 주소록 창에서 <strong>[저장]</strong>을 누르면 등록됩니다.</span>
+    <!-- Android Guide Panel -->
+    <div class="guide-panel" id="panelAndroid">
+      <div style="font-weight: 800; color: var(--gold-light); margin-bottom: 10px; font-size: 13px;">
+        🤖 갤럭시(삼성 안드로이드) 연락처 등록
       </div>
-      <div style="display: flex; gap: 8px;">
-        <span style="color: var(--gold-primary); font-weight: 800;">✓</span>
-        <span>대표 번호, 이메일, 회사명, 주소가 자동으로 입력됩니다.</span>
+      
+      <div class="guide-step">
+        <div class="step-num">1</div>
+        <div>
+          <strong>[스마트폰 연락처에 바로 저장]</strong> 황금색 버튼을 터치합니다.
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="step-num">2</div>
+        <div>
+          스마트폰의 <strong>[삼성 연락처/주소록 앱]</strong>이 이름, 번호, 회사 정보가 자동 입력된 상태로 즉시 팝업됩니다.
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="step-num">3</div>
+        <div>
+          화면의 <strong>[저장]</strong> 버튼을 누르면 1초 만에 등록 완료!
+        </div>
+      </div>
+
+      <div style="margin-top: 10px; font-size: 11px; color: #FEE500; background: rgba(254, 229, 0, 0.08); padding: 8px 10px; border-radius: 8px; line-height: 1.4;">
+        💡 카카오톡에서 안 열릴 땐: 카톡 우측 상단 [ ⋮ ] $\rightarrow$ [다른 브라우저로 열기]
       </div>
     </div>
 
     <!-- Quick Action Buttons -->
     <div style="display: flex; flex-direction: column; gap: 8px;">
-      <a href="https://jasonkingdom.com/jason_kim.vcf" class="btn-action btn-primary-vcf" style="font-size: 13px; padding: 10px; text-decoration: none; text-align: center;">
-        <span>📥</span> 연락처 파일 열기 / 다시 받기
+      <a href="https://jasonkingdom.com/jason_kim.vcf" class="btn-action btn-primary-vcf" style="font-size: 13px; padding: 11px; text-decoration: none; text-align: center;">
+        <span>📥</span> 연락처 파일(.vcf) 바로 다운받기
       </a>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
         <button type="button" class="btn-action btn-secondary" onclick="copyPhone()" style="font-size: 12px; padding: 10px;">
-          <span>📋</span> 번호 복사
+          <span>📋</span> 번호 1초 복사
         </button>
         <a href="tel:01034071691" class="btn-action btn-secondary" style="font-size: 12px; padding: 10px; text-decoration: none;">
           <span>📞</span> 바로 전화
@@ -689,25 +806,14 @@ function initPlatform() {
   const isIOS = /iPhone|iPad|iPod/i.test(ua);
   const banner = document.getElementById('kakaoTopBanner');
   const btn = document.getElementById('btnSaveContact');
-  const iosGuide = document.getElementById('iosGuideBlock');
-  const androidGuide = document.getElementById('androidGuideBlock');
-  const kakaoGuide = document.getElementById('kakaoGuideBlock');
-  const icon = document.getElementById('modalDeviceIcon');
 
-  if (isKakao) {
-    if (banner) banner.style.display = 'flex';
-    if (kakaoGuide) kakaoGuide.style.display = 'block';
+  if (isKakao && banner) {
+    banner.style.display = 'flex';
   }
 
-  if (isIOS) {
-    if (iosGuide) iosGuide.style.display = 'block';
-    if (androidGuide) androidGuide.style.display = 'none';
-    if (icon) icon.textContent = '🍏';
-  } else if (isAndroid) {
-    if (iosGuide) iosGuide.style.display = 'none';
-    if (androidGuide) androidGuide.style.display = 'block';
-    if (icon) icon.textContent = '🤖';
-
+  // Pre-select appropriate tab
+  if (isAndroid) {
+    switchGuideTab('android');
     if (btn) {
       const name = encodeURIComponent("김재성 대표");
       const phone = "01034071691";
@@ -720,6 +826,8 @@ function initPlatform() {
       const intentUrl = `intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.name=${name};S.phone=${phone};S.email=${email};S.company=${company};S.job_title=${title};S.postal=${postal};S.notes=${notes};end`;
       btn.setAttribute('href', intentUrl);
     }
+  } else {
+    switchGuideTab('ios');
   }
 }
 
@@ -731,6 +839,32 @@ function openKakaoExternal() {
   } else {
     window.location.href = "kakaotalk://web/openExternal?url=" + encodeURIComponent(target);
   }
+}
+
+function switchGuideTab(tab) {
+  const tabIos = document.getElementById('tabIos');
+  const tabAndroid = document.getElementById('tabAndroid');
+  const panelIos = document.getElementById('panelIos');
+  const panelAndroid = document.getElementById('panelAndroid');
+
+  if (!tabIos || !tabAndroid || !panelIos || !panelAndroid) return;
+
+  if (tab === 'android') {
+    tabAndroid.classList.add('active');
+    tabIos.classList.remove('active');
+    panelAndroid.classList.add('active');
+    panelIos.classList.remove('active');
+  } else {
+    tabIos.classList.add('active');
+    tabAndroid.classList.remove('active');
+    panelIos.classList.add('active');
+    panelAndroid.classList.remove('active');
+  }
+}
+
+function openSaveGuideModal() {
+  const modal = document.getElementById('saveGuideModal');
+  if (modal) modal.classList.add('active');
 }
 
 function handleSaveContact(event) {
