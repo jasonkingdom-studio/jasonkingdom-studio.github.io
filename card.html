@@ -483,9 +483,9 @@ body {
 
       <!-- Action Buttons Grid -->
       <div class="actions-grid">
-        <!-- 1-Click Save vCard to Smartphone (Smart Multi-Platform Handler) -->
+        <!-- 1-Click Direct Save to Smartphone Contacts App -->
         <button type="button" class="btn-action btn-primary-vcf" id="btnSaveContact" onclick="handleSaveContact()">
-          <span>📲</span> 스마트폰 연락처에 저장 (.vcf)
+          <span>📲</span> 스마트폰 연락처에 바로 저장
         </button>
 
         <!-- Direct Call -->
@@ -526,50 +526,50 @@ body {
     </div>
   </div>
 
-  <!-- Contact Save Assistant Modal (100% Mobile & KakaoTalk Friendly) -->
+  <!-- Contact Save Assistant Modal -->
   <div class="modal-overlay" id="saveGuideModal" onclick="closeSaveGuideModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 360px; text-align: left;">
       <div style="text-align: center; margin-bottom: 14px;">
         <div style="font-size: 36px; margin-bottom: 6px;">📱</div>
-        <h3 style="font-size: 18px; color: var(--gold-light); margin-bottom: 4px; font-weight: 800;">연락처 저장 안내</h3>
-        <p style="font-size: 12px; color: var(--text-muted);">김재성 대표 연락처를 휴대폰에 저장합니다</p>
+        <h3 style="font-size: 18px; color: var(--gold-light); margin-bottom: 4px; font-weight: 800;">스마트폰 연락처 저장</h3>
+        <p style="font-size: 12px; color: var(--text-muted);">김재성 대표 연락처가 휴대폰 주소록에 등록됩니다</p>
       </div>
 
-      <!-- KakaoTalk In-App Guidance (Dynamic) -->
+      <!-- KakaoTalk In-App Guidance (Shown if in KakaoTalk) -->
       <div id="kakaoGuideBox" style="display: none; background: rgba(254, 229, 0, 0.1); border: 1px solid rgba(254, 229, 0, 0.35); border-radius: 12px; padding: 12px; margin-bottom: 14px;">
         <div style="font-size: 13px; font-weight: 700; color: #FEE500; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
           <span>💬</span> 카카오톡으로 보고 계신 경우
         </div>
         <p style="font-size: 12px; color: #E5E5E5; line-height: 1.5; margin: 0;">
-          카카오톡 내부 보안 정책으로 인해 저장이 바로 안 될 경우, <strong>우측 상단 [ ⋮ ]</strong> 또는 하단 메뉴에서 <strong>[다른 브라우저로 열기]</strong>를 누르시면 스마트폰 주소록에 1초 만에 저장됩니다.
+          카카오톡 내부 보안 정책으로 저장이 안 될 경우, <strong>우측 상단 [ ⋮ ]</strong> 누르고 <strong>[다른 브라우저로 열기]</strong>(또는 Safari로 열기)를 선택하시면 주소록 앱이 즉시 열립니다.
         </p>
       </div>
 
-      <!-- Step Guidance -->
+      <!-- Instructions -->
       <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 14px; margin-bottom: 16px; font-size: 13px; line-height: 1.6; color: #DDD;">
         <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-          <span style="color: var(--gold-primary); font-weight: 800;">1.</span>
-          <span>화면에 뜬 <strong>[새로운 연락처 등록]</strong> 또는 <strong>[열기/저장]</strong>을 누르면 대표님 번호가 등록됩니다.</span>
+          <span style="color: var(--gold-primary); font-weight: 800;">✓</span>
+          <span>휴대폰 화면에 열린 주소록 창에서 <strong>[저장]</strong> 또는 <strong>[완료]</strong>를 누르면 바로 전화번호부에 등록됩니다.</span>
         </div>
         <div style="display: flex; gap: 8px;">
-          <span style="color: var(--gold-primary); font-weight: 800;">2.</span>
-          <span>안드로이드(갤럭시)는 다운로드 완료 알림창의 <strong>[jason_kim.vcf]</strong> 파일을 터치해주세요.</span>
+          <span style="color: var(--gold-primary); font-weight: 800;">✓</span>
+          <span>대표 번호, 이메일, 회사명, 주소가 자동으로 입력됩니다.</span>
         </div>
       </div>
 
       <!-- Quick Action Buttons -->
       <div style="display: flex; flex-direction: column; gap: 8px;">
-        <button type="button" class="btn-action btn-primary-vcf" onclick="forceDownloadVCard()" style="font-size: 13px; padding: 10px;">
-          <span>📥</span> 연락처 파일(.vcf) 다시 다운로드
-        </button>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-          <button type="button" class="btn-action btn-secondary" onclick="copyPhone()" style="font-size: 12px; padding: 8px;">
+          <button type="button" class="btn-action btn-secondary" onclick="copyPhone()" style="font-size: 12px; padding: 10px;">
             <span>📋</span> 번호 복사
           </button>
-          <a href="tel:01034071691" class="btn-action btn-secondary" style="font-size: 12px; padding: 8px; text-decoration: none;">
+          <a href="tel:01034071691" class="btn-action btn-secondary" style="font-size: 12px; padding: 10px; text-decoration: none;">
             <span>📞</span> 바로 전화
           </a>
         </div>
+        <a href="sms:01034071691" class="btn-action btn-secondary" style="font-size: 12px; padding: 10px; text-decoration: none; text-align: center;">
+          <span>💬</span> 문자 메시지 보내기
+        </a>
       </div>
 
       <button class="btn-close-modal" onclick="closeSaveGuideModal()" style="margin-top: 14px;">닫기</button>
@@ -592,63 +592,58 @@ body {
   <div class="toast" id="toast">링크가 복사되었습니다!</div>
 
   <script>
-  // 1. Ultra-Robust Multi-Platform Contact Saver
+  // 1. Direct Smartphone Contacts App Launcher (Android Native Intent + iOS Direct Card)
   function handleSaveContact() {
     const ua = navigator.userAgent || '';
     const isKakao = /KAKAOTALK/i.test(ua);
     const isAndroid = /Android/i.test(ua);
     const isIOS = /iPhone|iPad|iPod/i.test(ua);
 
-    // Show Guide Modal
+    // Dynamic KakaoTalk handling
     const modal = document.getElementById('saveGuideModal');
     const kakaoBox = document.getElementById('kakaoGuideBox');
-    
-    if (isKakao) {
-      if (kakaoBox) kakaoBox.style.display = 'block';
-    } else {
-      if (kakaoBox) kakaoBox.style.display = 'none';
-    }
-    
-    if (modal) modal.classList.add('active');
+    if (kakaoBox) kakaoBox.style.display = isKakao ? 'block' : 'none';
 
-    // Execute save trigger based on environment
-    if (isKakao && isAndroid) {
-      // For Android KakaoTalk: Launch Chrome intent to bypass in-app download block
-      const vcfDirect = "https://jasonkingdom.com/jason_kim.vcf";
-      window.location.href = "intent://" + vcfDirect.replace(/https?:\/\//i, "") + "#Intent;scheme=https;package=com.android.chrome;end;";
-      showToast('📱 크롬/외부 브라우저로 연락처 저장창을 엽니다.');
+    if (isAndroid) {
+      // Direct Native Android Contacts App Launch (Opens Samsung / Google Contacts directly - NO file download!)
+      const name = encodeURIComponent("김재성 대표");
+      const phone = "01034071691";
+      const email = encodeURIComponent("contact@jasonkingdom.com");
+      const company = encodeURIComponent("JASON KINGDOM STUDIO");
+      const title = encodeURIComponent("CEO / AI Creative Director");
+      const postal = encodeURIComponent("인천광역시 연수구 인권로9번길 51-2");
+      const notes = encodeURIComponent("https://jasonkingdom.com");
+
+      const intentUrl = `intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.name=${name};S.phone=${phone};S.email=${email};S.company=${company};S.job_title=${title};S.postal=${postal};S.notes=${notes};end;`;
+
+      showToast('📱 휴대폰 연락처 앱이 열립니다. [저장]을 눌러주세요!');
+      window.location.href = intentUrl;
+
+      // Fallback popup in case intent doesn't switch out (e.g. some webviews)
+      setTimeout(() => {
+        if (modal && !document.hidden) modal.classList.add('active');
+      }, 1000);
+
     } else if (isIOS) {
-      // iOS Safari handles direct .vcf navigation directly with native Contacts sheet
+      // Native iOS Safari Contacts Sheet
       showToast('📱 [새로운 연락처 등록] 창이 열립니다.');
-      setTimeout(() => {
-        window.location.href = 'https://jasonkingdom.com/jason_kim.vcf';
-      }, 300);
+      window.location.href = 'https://jasonkingdom.com/jason_kim.vcf';
+
+      if (isKakao) {
+        setTimeout(() => {
+          if (modal) modal.classList.add('active');
+        }, 800);
+      }
     } else {
-      // Android / PC standard download
-      showToast('📱 연락처(.vcf) 파일이 다운로드됩니다.');
-      setTimeout(() => {
-        triggerVcfDownload();
-      }, 300);
+      // Desktop / Other fallback: Download vCard
+      showToast('📱 연락처가 다운로드됩니다. 클릭하여 저장하세요.');
+      const link = document.createElement('a');
+      link.href = 'https://jasonkingdom.com/jason_kim.vcf';
+      link.setAttribute('download', '김재성대표_JASON_KINGDOM.vcf');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
-  }
-
-  function triggerVcfDownload() {
-    const link = document.createElement('a');
-    link.href = 'https://jasonkingdom.com/jason_kim.vcf?v=' + Date.now();
-    link.setAttribute('download', '김재성대표_JASON_KINGDOM.vcf');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
-
-  function forceDownloadVCard() {
-    triggerVcfDownload();
-    showToast('📥 연락처 파일을 다시 받았습니다.');
-  }
-
-  function closeSaveGuideModal(e) {
-    const modal = document.getElementById('saveGuideModal');
-    if (modal) modal.classList.remove('active');
   }
 
   function copyPhone() {
