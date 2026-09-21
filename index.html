@@ -1450,6 +1450,76 @@ footer {
 .app-modal-live:hover { background: var(--grad); color: #0A0B0E; transform: translateY(-2px); }
 
 /* ============================================================
+   JK MUSIC Studio PRO Preview Modal (상용화 사전 안내 & 폼 미리보기)
+   ============================================================ */
+.jk-music-modal {
+  position: fixed; inset: 0; z-index: 10003;
+  background: rgba(10,11,14,0.92); backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+}
+.jk-music-modal.open {
+  display: flex !important; opacity: 1; pointer-events: auto;
+}
+.jk-music-modal-card {
+  background: linear-gradient(180deg, #141624 0%, #0c0d14 100%);
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+  max-width: 800px; width: 100%; max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 0 50px rgba(212,175,55,0.3), 0 25px 60px rgba(0,0,0,0.9);
+  padding: 36px 40px;
+  transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.jk-music-modal.open .jk-music-modal-card {
+  transform: scale(1);
+}
+.jk-music-modal-close {
+  position: absolute; top: 18px; right: 24px;
+  background: none; border: none; color: var(--text-dim);
+  font-size: 32px; cursor: pointer; transition: color 0.3s;
+}
+.jk-music-modal-close:hover { color: var(--secondary); }
+
+.jk-daw-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;
+}
+@media (max-width: 680px) {
+  .jk-daw-grid { grid-template-columns: 1fr; }
+  .jk-music-modal-card { padding: 24px 20px; }
+}
+.jk-daw-field {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.jk-daw-field label {
+  font-size: 13px; font-weight: 700; color: var(--primary-light);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.jk-daw-field select, .jk-daw-field input, .jk-daw-field textarea {
+  background: rgba(10,11,14,0.8); border: 1px solid rgba(212,175,55,0.3);
+  border-radius: 8px; padding: 10px 14px; color: var(--text);
+  font-family: var(--f-sans); font-size: 13.5px; outline: none;
+}
+.jk-daw-field select:focus, .jk-daw-field input:focus, .jk-daw-field textarea:focus {
+  border-color: var(--primary); box-shadow: 0 0 10px rgba(212,175,55,0.3);
+}
+.jk-stem-toggles {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 4px;
+}
+@media (max-width: 500px) {
+  .jk-stem-toggles { grid-template-columns: 1fr 1fr; }
+}
+.jk-stem-chip {
+  background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border);
+  border-radius: 6px; padding: 8px 10px; font-size: 12px; font-weight: 600;
+  display: flex; align-items: center; gap: 6px; color: var(--text-muted);
+}
+.jk-stem-chip input { accent-color: var(--primary); }
+
+/* ============================================================
    Member Auth Modal (회원가입 & 로그인)
    ============================================================ */
 .auth-modal {
@@ -2226,7 +2296,7 @@ footer {
 
         <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
           <button onclick="handleJkMusicLaunch()" style="background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; padding: 12px 26px; border-radius: 10px; font-size: 15px; font-weight: 800; text-decoration: none; box-shadow: 0 4px 18px rgba(99,102,241,0.4); display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer;">
-            <span>⚡</span> JK MUSIC Studio 실행 / 체험 →
+            <span>⚡</span> JK MUSIC Studio 폼 미리보기 (회원 전용) →
           </button>
           <a href="https://music-app0520.netlify.app" target="_blank" style="background: rgba(99,102,241,0.15); border: 1.5px solid #818cf8; color: #c7d2fe; padding: 12px 22px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
             <span>🎵</span> 웹 AI 비주얼라이저 체험
@@ -3027,6 +3097,132 @@ footer {
   </div>
 </footer>
 
+<!-- JK MUSIC Studio PRO Preview Modal (Member Gate & Commercial Release Notice) -->
+<div class="jk-music-modal" id="jkMusicModal">
+  <div class="jk-music-modal-card">
+    <button class="jk-music-modal-close" onclick="closeJkMusicModal()" aria-label="닫기">&times;</button>
+    
+    <!-- Modal Header -->
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; border-bottom:1px solid rgba(212,175,55,0.2); padding-bottom:16px;">
+      <img src="jk_music_logo.jpg" alt="JK MUSIC Studio PRO Logo" style="width:52px; height:52px; border-radius:12px; border:1.5px solid var(--primary); object-fit:cover;">
+      <div>
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <h3 style="font-family:var(--f-serif); font-size:22px; font-weight:800; color:#fff; margin:0;">JK MUSIC Studio PRO</h3>
+          <span style="background:var(--grad); color:#0A0B0E; padding:2px 8px; border-radius:12px; font-size:10.5px; font-weight:900;">STANDALONE AI DAW</span>
+        </div>
+        <p style="font-size:12.5px; color:var(--secondary); margin:4px 0 0;">48kHz 풀 보컬 완곡 엔진 · 11종 보컬 음색 분류 · Demucs 4-Stem 분리</p>
+      </div>
+    </div>
+
+    <!-- 🔒 상용화 패키지 출시 준비 중 및 리소스 보호 안내 (핵심 공지) -->
+    <div style="background:rgba(212,175,55,0.08); border:1.5px dashed var(--primary); border-radius:12px; padding:16px 20px; margin-bottom:22px; text-align:left;">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+        <span style="font-size:20px;">🔒</span>
+        <strong style="color:var(--primary-light); font-size:15px;">상용화 패키지 출시 준비 중 안내 (인터페이스 폼 미리보기)</strong>
+      </div>
+      <p style="font-size:13.5px; color:var(--text-muted); line-height:1.75; margin:0;">
+        본 <strong>JK MUSIC Studio PRO</strong>는 고사양 로컬 GPU 기반 독립형 AI 음악 작곡 소프트웨어로 현재 <strong>정식 상용화 패키지 출시를 준비 중</strong>입니다.<br>
+        무분별한 리소스 남발 및 AI 토큰 소모를 방지하기 위해 <strong>현재는 정식 회원 대상 인터페이스 폼 미리보기만 제공</strong>되며, 실제 완곡 작곡 및 4-Stem 실시간 렌더링 기능은 <strong>향후 정식 상용화 패키지 출시 시 오픈</strong>됩니다.<br>
+        현재 즉시 매장 BGM이 필요하시거나 맞춤형 로고송·음원 제작을 원하시는 고객님께서는 하단의 <strong>[상용 BGM 패키지 &amp; 맞춤 음원 제작 문의]</strong>를 이용해 주시기 바랍니다.
+      </p>
+    </div>
+
+    <!-- Interactive DAW Form Simulator (인터페이스 폼 미리보기) -->
+    <div style="background:rgba(10,11,14,0.6); border:1px solid var(--glass-border); border-radius:14px; padding:20px 24px; margin-bottom:22px;">
+      <h4 style="font-size:15px; font-weight:700; color:var(--primary-light); margin-bottom:16px; display:flex; align-items:center; gap:8px;">
+        <span>🎛️</span> AI 작곡 &amp; 사운드 파라미터 제어 폼 (미리보기)
+      </h4>
+
+      <div class="jk-daw-grid">
+        <!-- Genre Selection -->
+        <div class="jk-daw-field">
+          <label for="dawGenre">장르 / 무드 스타일</label>
+          <select id="dawGenre">
+            <option value="pop_ballad">감성 피아노 팝 발라드 (Emotional Ballad)</option>
+            <option value="gukak_fusion">전통 국악 퓨전 &amp; 크로스오버 (Gukak Fusion)</option>
+            <option value="kpop_dance">K-Pop / 신나는 댄스 비트 (K-Pop Dance)</option>
+            <option value="acoustic_folk">따뜻한 어쿠스틱 포크 / 인디 (Acoustic Folk)</option>
+            <option value="blues_jazz">블루스 &amp; 소울 / 시티팝 (Blues &amp; Soul)</option>
+            <option value="cinematic_ost">시네마틱 웅장한 오케스트라 (Cinematic OST)</option>
+            <option value="trot">정통 뉴트로 트로트 (Retro Trot)</option>
+            <option value="rock">파워풀 로큰롤 &amp; 모던 록 (Modern Rock)</option>
+          </select>
+        </div>
+
+        <!-- Vocal Selection (11 Vocal Styles) -->
+        <div class="jk-daw-field">
+          <label for="dawVocal">11종 보컬 음색 &amp; 성별 분류</label>
+          <select id="dawVocal">
+            <option value="f_lyric">🎤 맑고 서정적인 여성 보컬 (Lyric Soprano)</option>
+            <option value="f_diva">🎤 파워풀 디바 여성 보컬 (Belting Diva)</option>
+            <option value="f_indie">🎤 감성 어쿠스틱 인디 여성 (Indie Folk)</option>
+            <option value="m_rnb">🎙️ 호소력 짙은 R&amp;B 남성 보컬 (Emotional Male)</option>
+            <option value="m_baritone">🎙️ 중후하고 따뜻한 바리톤 남성 (Warm Baritone)</option>
+            <option value="m_rock">🎙️ 시원한 고음 록 남성 보컬 (High Rocker)</option>
+            <option value="duet">👥 혼성 감성 듀엣 (Male + Female Duet)</option>
+            <option value="choir">⛪ 웅장한 혼성 대합창단 (Epic Choir)</option>
+            <option value="f_trot">💃 트로트 꺾기 전문 여성 보컬</option>
+            <option value="m_trot">🕺 트로트 구수한 남성 보컬</option>
+            <option value="inst">🎹 순수 연주곡 (Instrumental / No Vocal)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="jk-daw-grid">
+        <!-- Tempo BPM -->
+        <div class="jk-daw-field">
+          <label for="dawBpm">템포 설정: <span id="dawBpmVal" style="color:var(--secondary);">92 BPM (Adagio)</span></label>
+          <input type="range" id="dawBpm" min="60" max="180" value="92" oninput="document.getElementById('dawBpmVal').textContent = this.value + ' BPM'">
+        </div>
+
+        <!-- Master Sample Rate -->
+        <div class="jk-daw-field">
+          <label>출력 마스터링 품질</label>
+          <input type="text" value="48,000Hz 32-bit Float FLAC / 320kbps MP3 Master" readonly style="background:rgba(255,255,255,0.03); color:var(--text-dim); cursor:not-allowed;">
+        </div>
+      </div>
+
+      <!-- Prompt Input -->
+      <div class="jk-daw-field" style="margin-bottom:14px;">
+        <label for="dawPrompt">곡 주제 / 스토리 / 가사 프롬프트</label>
+        <textarea id="dawPrompt" rows="3" placeholder="예: 비 내리는 서울 밤거리, 오랜 친구와의 우연한 재회와 아련한 추억을 담은 따뜻한 멜로디">비 내리는 서울 밤거리, 오랜 친구와의 우연한 재회와 아련한 추억</textarea>
+      </div>
+
+      <!-- 4-Stem Separation -->
+      <div class="jk-daw-field">
+        <label>Demucs 4-Stem 음원 분리 트랙 활성화 (MR/멀티트랙 추출)</label>
+        <div class="jk-stem-toggles">
+          <label class="jk-stem-chip"><input type="checkbox" checked disabled> 🎤 보컬 (Vocal)</label>
+          <label class="jk-stem-chip"><input type="checkbox" checked disabled> 🥁 드럼 (Drums)</label>
+          <label class="jk-stem-chip"><input type="checkbox" checked disabled> 🎸 베이스 (Bass)</label>
+          <label class="jk-stem-chip"><input type="checkbox" checked disabled> 🎹 악기 (Instruments)</label>
+        </div>
+      </div>
+
+      <!-- Generate Button with Notice Trigger -->
+      <div style="margin-top:20px;">
+        <button type="button" onclick="triggerMusicGenerateNotice()" style="width:100%; padding:14px; border:none; border-radius:10px; background:linear-gradient(135deg, #6366f1, #4f46e5); color:#fff; font-size:15px; font-weight:800; cursor:pointer; box-shadow:0 6px 20px rgba(99,102,241,0.35); transition:transform 0.2s;">
+          ⚡ [미리보기] AI 48kHz 완곡 작곡 &amp; 마스터링 시작하기
+        </button>
+      </div>
+    </div>
+
+    <!-- Action CTA Group -->
+    <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-end;">
+      <button type="button" onclick="closeJkMusicModal(); scrollToSection('#contact');" style="background:var(--grad); color:#0A0B0E; padding:12px 24px; border-radius:8px; border:none; font-size:14px; font-weight:800; cursor:pointer;">
+        💼 상용 BGM 패키지 &amp; 맞춤 음원 제작 상담하기 →
+      </button>
+      <button type="button" onclick="closeJkMusicModal(); scrollToSection('#music');" style="background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); color:var(--text); padding:12px 20px; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer;">
+        🎧 공식 쇼케이스 음원 듣기
+      </button>
+      <button type="button" onclick="closeJkMusicModal()" style="background:none; border:1px solid rgba(255,255,255,0.2); color:var(--text-dim); padding:12px 18px; border-radius:8px; font-size:14px; cursor:pointer;">
+        닫기
+      </button>
+    </div>
+
+  </div>
+</div>
+
 <!-- App Detail Modal HTML (with Member Access Gate) -->
 <div class="app-modal" id="appModal">
   <div class="app-modal-content">
@@ -3609,17 +3805,42 @@ const appModalLockNotice = document.getElementById('appModalLockNotice');
 let selectedServiceType = '';
 let selectedLiveUrl = '';
 
-
 function handleJkMusicLaunch() {
-  if (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    window.open('http://127.0.0.1:7860', '_blank');
-  } else {
-    document.getElementById('jkMusicModal').style.display = 'flex';
+  if (!isUserLoggedIn()) {
+    openAuthModal('signup', '🔒 JK MUSIC Studio PRO 인터페이스 열람을 위해 먼저 무료 회원가입 또는 로그인을 진행해 주세요.');
+    return;
+  }
+  const modal = document.getElementById('jkMusicModal');
+  if (modal) {
+    modal.classList.add('open');
   }
 }
 
 function closeJkMusicModal() {
-  document.getElementById('jkMusicModal').style.display = 'none';
+  const modal = document.getElementById('jkMusicModal');
+  if (modal) {
+    modal.classList.remove('open');
+  }
+}
+
+function triggerMusicGenerateNotice() {
+  alert('🔒 [상용화 패키지 출시 준비 중]\n\n무분별한 리소스 남발 및 AI 토큰 소모를 방지하기 위해 현재는 인터페이스 폼 미리보기만 제공됩니다.\n\n실시간 완곡 작곡 및 4-Stem 분리 기능은 향후 상용화 패키지 출시 시 정식 오픈됩니다.\n\n매장 BGM USB 패키지 구매 및 맞춤형 오리지널 음원 제작은 [상담 문의]를 이용해 주시기 바랍니다.');
+}
+
+function scrollToSection(targetId) {
+  const targetEl = document.querySelector(targetId);
+  if (targetEl) {
+    const headerOffset = 80;
+    const top = targetEl.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+}
+
+const jkMusicModalEl = document.getElementById('jkMusicModal');
+if (jkMusicModalEl) {
+  jkMusicModalEl.addEventListener('click', (e) => {
+    if (e.target === jkMusicModalEl) closeJkMusicModal();
+  });
 }
 
 function openAppModal(cardEl) {
