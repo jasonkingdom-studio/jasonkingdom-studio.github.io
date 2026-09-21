@@ -418,6 +418,28 @@ body {
   line-height: 1.45;
 }
 
+.kakao-banner-btn {
+  background: #FEE500;
+  color: #191919;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 6px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.15s ease;
+}
+
+.kakao-banner-btn:active {
+  transform: scale(0.97);
+}
+
 /* Toast Message */
 .toast {
   position: fixed;
@@ -465,8 +487,11 @@ body {
       <span class="kakao-banner-title">카카오톡으로 열렸습니다</span>
     </div>
     <div class="kakao-banner-desc">
-      연락처를 휴대폰에 바로 저장하시려면 우측 상단 <strong>[⋮]</strong> 누르고 <strong>[다른 브라우저로 열기]</strong>를 선택해 주세요.
+      카카오톡에서는 보안상 연락처 저장이 차단됩니다. 아래 노란색 버튼을 누르시면 <strong>사파리(Safari)</strong>로 바로 전환되어 저장이 가능합니다.
     </div>
+    <button type="button" class="kakao-banner-btn" onclick="openKakaoExternal()">
+      <span>🌐</span> Safari(정식 브라우저)로 열기 →
+    </button>
   </div>
 
   <!-- Interactive Business Card Component -->
@@ -698,6 +723,16 @@ function initPlatform() {
   }
 }
 
+function openKakaoExternal() {
+  const target = "https://jasonkingdom.com/card.html";
+  const ua = navigator.userAgent || '';
+  if (/Android/i.test(ua)) {
+    window.location.href = "intent://" + target.replace(/https?:\/\//i, "") + "#Intent;scheme=https;package=com.android.chrome;end";
+  } else {
+    window.location.href = "kakaotalk://web/openExternal?url=" + encodeURIComponent(target);
+  }
+}
+
 function handleSaveContact(event) {
   const ua = navigator.userAgent || '';
   const isKakao = /KAKAOTALK/i.test(ua);
@@ -706,7 +741,7 @@ function handleSaveContact(event) {
 
   if (isKakao) {
     if (modal) modal.classList.add('active');
-    showToast('📱 우측 상단 [⋮] → [다른 브라우저로 열기]를 눌러주세요');
+    showToast('📱 [Safari로 열기] 버튼을 누르시면 바로 저장됩니다');
   } else if (isIOS) {
     showToast('📱 [다운로드] 후 주소창의 [↓]를 눌러 등록하세요!');
     setTimeout(() => {
