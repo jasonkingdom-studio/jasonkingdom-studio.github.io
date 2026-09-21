@@ -2194,8 +2194,8 @@ footer {
               <a href="jk_song.mp3" download="JK_MUSIC_FirstSong_320k.mp3" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; text-decoration: none;">💾 320k MP3</a>
             </div>
           </div>
-          <audio controls preload="none" style="width: 100%; height: 42px; border-radius: 8px;">
-            <source src="jk_song.mp3" type="audio/mp3">
+          <audio controls preload="metadata" style="width: 100%; height: 46px; border-radius: 10px; margin-top: 6px; accent-color: var(--primary);">
+            <source src="jk_song.mp3" type="audio/mpeg">
             브라우저가 오디오 재생을 지원하지 않습니다.
           </audio>
         </div>
@@ -2225,11 +2225,14 @@ footer {
         </div>
 
         <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap;">
-          <a href="http://127.0.0.1:7860" target="_blank" style="background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; padding: 12px 28px; border-radius: 10px; font-size: 15px; font-weight: 800; text-decoration: none; box-shadow: 0 4px 18px rgba(99,102,241,0.4); display: flex; align-items: center; gap: 8px;">
-            <span>⚡</span> JK MUSIC Studio 로컬 실행 (127.0.0.1:7860) →
+          <button onclick="handleJkMusicLaunch()" style="background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; padding: 12px 26px; border-radius: 10px; font-size: 15px; font-weight: 800; text-decoration: none; box-shadow: 0 4px 18px rgba(99,102,241,0.4); display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer;">
+            <span>⚡</span> JK MUSIC Studio 실행 / 체험 →
+          </button>
+          <a href="https://music-app0520.netlify.app" target="_blank" style="background: rgba(99,102,241,0.15); border: 1.5px solid #818cf8; color: #c7d2fe; padding: 12px 22px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+            <span>🎵</span> 웹 AI 비주얼라이저 체험
           </a>
-          <a href="#contact" style="background: rgba(212,175,55,0.1); border: 1.5px solid var(--primary); color: var(--primary-light); padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none;">
-            💼 상용 라이선스 도입 &amp; 맞춤 음원 문의
+          <a href="#contact" style="background: rgba(212,175,55,0.1); border: 1.5px solid var(--primary); color: var(--primary-light); padding: 12px 22px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none;">
+            💼 상용 BGM 패키지 문의
           </a>
         </div>
       </div>
@@ -3605,6 +3608,19 @@ const appModalLiveBtn = document.getElementById('appModalLiveBtn');
 const appModalLockNotice = document.getElementById('appModalLockNotice');
 let selectedServiceType = '';
 let selectedLiveUrl = '';
+
+
+function handleJkMusicLaunch() {
+  if (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    window.open('http://127.0.0.1:7860', '_blank');
+  } else {
+    document.getElementById('jkMusicModal').style.display = 'flex';
+  }
+}
+
+function closeJkMusicModal() {
+  document.getElementById('jkMusicModal').style.display = 'none';
+}
 
 function openAppModal(cardEl) {
   const card = cardEl.closest('.app-card') || cardEl;
