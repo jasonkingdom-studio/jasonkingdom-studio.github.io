@@ -3424,7 +3424,7 @@ footer {
           <h3 style="font-family:var(--f-serif); font-size:22px; font-weight:800; color:#fff; margin:0;">JK MUSIC Studio PRO</h3>
           <span style="background:var(--grad); color:#0A0B0E; padding:2px 8px; border-radius:12px; font-size:10.5px; font-weight:900;">STANDALONE AI DAW</span>
         </div>
-        <p style="font-size:12.5px; color:var(--secondary); margin:4px 0 0;">48kHz 풀 보컬 완곡 엔진 · 11종 보컬 음색 분류 · Demucs 4-Stem 분리</p>
+        <p style="font-size:12.5px; color:var(--secondary); margin:4px 0 0;">48kHz 풀 보컬 완곡 엔진 · 45개 장르 · 31종 보컬 · 보컬 자동 밸런싱 · Demucs 4-Stem 분리</p>
       </div>
     </div>
 
@@ -3450,7 +3450,7 @@ footer {
       <div class="jk-daw-grid">
         <!-- Genre Selection -->
         <div class="jk-daw-field">
-          <label for="dawGenre">장르 / 무드 스타일</label>
+          <label for="dawGenre">장르 (전체 45개 중 대표 장르)</label>
           <select id="dawGenre">
             <option value="pop_ballad">감성 피아노 팝 발라드 (Emotional Ballad)</option>
             <option value="gukak_fusion">전통 국악 퓨전 &amp; 크로스오버 (Gukak Fusion)</option>
@@ -3463,9 +3463,9 @@ footer {
           </select>
         </div>
 
-        <!-- Vocal Selection (11 Vocal Styles) -->
+        <!-- Vocal Selection (전체 31종 중 대표) -->
         <div class="jk-daw-field">
-          <label for="dawVocal">11종 보컬 음색 &amp; 성별 분류</label>
+          <label for="dawVocal">보컬 음색 (전체 31종 중 대표)</label>
           <select id="dawVocal">
             <option value="f_lyric">🎤 맑고 서정적인 여성 보컬 (Lyric Soprano)</option>
             <option value="f_diva">🎤 파워풀 디바 여성 보컬 (Belting Diva)</option>
@@ -3492,13 +3492,18 @@ footer {
         <!-- Master Sample Rate -->
         <div class="jk-daw-field">
           <label>출력 마스터링 품질</label>
-          <input type="text" value="48,000Hz 32-bit Float FLAC / 320kbps MP3 Master" readonly style="background:rgba(255,255,255,0.03); color:var(--text-dim); cursor:not-allowed;">
+          <input type="text" value="48kHz 무손실 FLAC / 320kbps MP3 · 보컬 자동 밸런싱 + 스튜디오 마스터링" readonly style="background:rgba(255,255,255,0.03); color:var(--text-dim); cursor:not-allowed;">
         </div>
       </div>
 
-      <!-- Prompt Input -->
+      <!-- Title Input (제목 중심 AI 작사) -->
+            <div class="jk-daw-field" style="margin-bottom:14px;">
+              <label for="dawTitle">🎼 곡 제목 (가사 후렴과 트랙 이름이 이 제목을 따릅니다)</label>
+              <input type="text" id="dawTitle" value="비 내린 거리 위에" placeholder="예: 고향 가는 기차">
+            </div>
+            <!-- Prompt Input -->
       <div class="jk-daw-field" style="margin-bottom:14px;">
-        <label for="dawPrompt">곡 주제 / 스토리 / 가사 프롬프트</label>
+        <label for="dawPrompt">스토리 / 주제 (선택 — 비우면 제목에서 이야기를 설계)</label>
         <textarea id="dawPrompt" rows="3" placeholder="예: 비 내리는 서울 밤거리, 오랜 친구와의 우연한 재회와 아련한 추억을 담은 따뜻한 멜로디">비 내리는 서울 밤거리, 오랜 친구와의 우연한 재회와 아련한 추억</textarea>
       </div>
 
