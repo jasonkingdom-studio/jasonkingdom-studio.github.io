@@ -3917,10 +3917,56 @@ accordionItems.forEach(item => {
   });
 });
 
-// 8. YouTube Video Facade click load
+// ============================================================
+// 8. Universal Single-Media Playback Coordinator (소리 중복 방지)
+//    - 사이트 내 어떤 오디오/비디오/유튜브든 재생 시 다른 모든 소리 즉시 일시정지
+// ============================================================
+function stopAllOtherMedia(currentSource) {
+  // 1. 모든 <audio> 정지
+  document.querySelectorAll('audio').forEach(audio => {
+    if (audio !== currentSource && !audio.paused) {
+      audio.pause();
+    }
+  });
+
+  // 2. 소리가 있는 모든 <video> 정지 (음소거된 배경 루프 영상은 제외)
+  document.querySelectorAll('video').forEach(video => {
+    if (video !== currentSource && !video.muted && !video.paused) {
+      video.pause();
+    }
+  });
+
+  // 3. 실행 중인 모든 YouTube iframe 일시정지 (postMessage API)
+  document.querySelectorAll('.youtube-facade').forEach(facade => {
+    if (facade !== currentSource) {
+      const iframe = facade.querySelector('iframe');
+      if (iframe) {
+        try {
+          iframe.contentWindow?.postMessage(JSON.stringify({ event: 'command', func: 'pauseVideo', args: '' }), '*');
+        } catch (e) {}
+      }
+    }
+  });
+}
+
+// 모든 <audio> 및 <video> 재생 시 전역 이벤트 캡처로 다른 소리 차단
+document.addEventListener('play', (e) => {
+  const target = e.target;
+  if (!target) return;
+  // 음소거된 배경 영상(heroSlideVideo 등)은 소리를 내지 않으므로 무시
+  if (target.tagName === 'VIDEO' && target.muted) return;
+  if (target.tagName === 'AUDIO' || target.tagName === 'VIDEO') {
+    stopAllOtherMedia(target);
+  }
+}, true);
+
+// YouTube Video Facade 클릭 시 로드 & 다른 미디어 즉시 정지
 const facades = document.querySelectorAll('.youtube-facade');
 facades.forEach(facade => {
   facade.addEventListener('click', () => {
+    // 클릭 즉시 다른 모든 오디오, 비디오, 유튜브 소리 정지
+    stopAllOtherMedia(facade);
+
     const videoId = facade.dataset.videoId;
     const title = facade.dataset.title;
     
@@ -3928,9 +3974,11 @@ facades.forEach(facade => {
       window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
       return;
     }
+
+    if (facade.querySelector('iframe')) return;
     
     const iframe = document.createElement('iframe');
-    iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`);
+    iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&enablejsapi=1&rel=0`);
     iframe.setAttribute('title', title);
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
