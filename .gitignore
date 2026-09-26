@@ -2,3 +2,4 @@ node_modules/
 .netlify/
 jasonkingdom-preview.html
 index.html.bak
+.agents/
