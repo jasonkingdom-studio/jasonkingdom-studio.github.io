@@ -412,6 +412,29 @@ body {
   color: #FEE500;
 }
 
+.kakao-banner-desc {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #EEE;
+}
+
+.kakao-banner-btn {
+  margin-top: 4px;
+  width: 100%;
+  background: #FEE500;
+  color: #191919;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
 .kakao-banner-btn:active {
   transform: scale(0.97);
 }
@@ -541,12 +564,23 @@ body {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 200;
   pointer-events: none;
-  white-space: nowrap;
+  white-space: normal;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  text-align: center;
+  line-height: 1.45;
 }
 
 .toast.show {
   transform: translateX(-50%) translateY(0);
   opacity: 1;
+}
+
+/* 좁은 화면(갤럭시 등)에서 버튼 글자 줄바꿈 방지 */
+.btn-action { white-space: nowrap; }
+@media (max-width: 380px) {
+  .business-card { padding: 26px 18px; }
+  .btn-action { padding: 13px 10px; font-size: 13px; gap: 6px; }
 }
 
 /* Copyright footer */
@@ -607,12 +641,12 @@ body {
       </a>
 
       <!-- Email -->
-      <a href="mailto:contact@jasonkingdom.com" class="info-item">
+      <!--email_off--><a href="mailto:contact@jasonkingdom.com" class="info-item">
         <div class="info-icon">✉️</div>
         <div class="info-text">
           <span>Email:</span> <strong>contact@jasonkingdom.com</strong>
         </div>
-      </a>
+      </a><!--/email_off-->
 
       <!-- Web -->
       <a href="https://jasonkingdom.com" target="_blank" class="info-item">
@@ -709,7 +743,7 @@ body {
         <div class="step-num">1</div>
         <div>
           <strong>카톡으로 보고 계신 경우:</strong><br>
-          화면 오른쪽 맨 아래 <strong>[ ··· ]</strong> (점 3개) 또는 <strong>[ ↑ ]</strong> 터치 $\rightarrow$ <strong>[Safari로 열기]</strong> 선택
+          화면 오른쪽 맨 아래 <strong>[ ··· ]</strong> (점 3개) 또는 <strong>[ ↑ ]</strong> 터치 → <strong>[Safari로 열기]</strong> 선택
         </div>
       </div>
 
@@ -723,7 +757,7 @@ body {
       <div class="guide-step">
         <div class="step-num">3</div>
         <div>
-          주소창의 파란색 <strong>[ ↓ ]</strong> 아이콘 터치 $\rightarrow$ <strong>jason_kim.vcf</strong>를 누르면 <strong>[새로운 연락처 등록]</strong> 창이 열리며 우측 상단 <strong>[저장]</strong> 클릭!
+          주소창의 파란색 <strong>[ ↓ ]</strong> 아이콘 터치 → <strong>jason_kim.vcf</strong>를 누르면 <strong>[새로운 연락처 등록]</strong> 창이 열리며 우측 상단 <strong>[저장]</strong> 클릭!
         </div>
       </div>
     </div>
@@ -756,7 +790,7 @@ body {
       </div>
 
       <div style="margin-top: 10px; font-size: 11px; color: #FEE500; background: rgba(254, 229, 0, 0.08); padding: 8px 10px; border-radius: 8px; line-height: 1.4;">
-        💡 카카오톡에서 안 열릴 땐: 카톡 우측 상단 [ ⋮ ] $\rightarrow$ [다른 브라우저로 열기]
+        💡 카카오톡에서 안 열릴 땐: 카톡 우측 상단 [ ⋮ ] → [다른 브라우저로 열기]
       </div>
     </div>
 
@@ -809,6 +843,13 @@ function initPlatform() {
 
   if (isKakao && banner) {
     banner.style.display = 'flex';
+    // 갤럭시는 Safari가 아니라 Chrome으로 안내
+    if (isAndroid) {
+      const d = banner.querySelector('.kakao-banner-desc');
+      const b = banner.querySelector('.kakao-banner-btn');
+      if (d) d.innerHTML = '카카오톡에서는 보안상 연락처 저장이 차단됩니다. 아래 노란색 버튼을 누르시면 <strong>크롬(Chrome)</strong>으로 바로 전환되어 저장이 가능합니다.';
+      if (b) b.innerHTML = '<span>🌐</span> Chrome(정식 브라우저)으로 열기 →';
+    }
   }
 
   // Pre-select appropriate tab
@@ -823,7 +864,7 @@ function initPlatform() {
       const postal = encodeURIComponent("인천광역시 연수구 인권로9번길 51-2");
       const notes = encodeURIComponent("https://jasonkingdom.com");
 
-      const intentUrl = `intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.name=${name};S.phone=${phone};S.email=${email};S.company=${company};S.job_title=${title};S.postal=${postal};S.notes=${notes};end`;
+      const intentUrl = `intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.name=${name};S.phone=${phone};S.email=${email};S.company=${company};S.job_title=${title};S.postal=${postal};S.notes=${notes};S.browser_fallback_url=${encodeURIComponent('https://jasonkingdom.com/jason_kim.vcf')};end`;
       btn.setAttribute('href', intentUrl);
     }
   } else {
@@ -925,6 +966,10 @@ let qrGenerated = false;
 function openQrModal() {
   const modal = document.getElementById('qrModal');
   modal.classList.add('active');
+  if (!qrGenerated && typeof QRCode === 'undefined') {
+    document.getElementById("qrcode").innerHTML = '<img alt="명함 QR코드" width="180" height="180" src="https://api.qrserver.com/v1/create-qr-code/?size=360x360&data=' + encodeURIComponent('https://jasonkingdom.com/card.html') + '">';
+    qrGenerated = true;
+  }
   if (!qrGenerated) {
     new QRCode(document.getElementById("qrcode"), {
       text: "https://jasonkingdom.com/card.html",
