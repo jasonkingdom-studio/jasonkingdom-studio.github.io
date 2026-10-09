@@ -1948,7 +1948,7 @@ footer {
 <!-- ========== HERO SECTION ========== -->
 <section class="hero" id="hero">
   <div class="hero-video-container" id="heroVideoContainer">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline preload="auto" poster="hero-video-poster.jpg">
       <source src="hero-video.mp4" type="video/mp4">
     </video>
   </div>
@@ -4239,6 +4239,8 @@ function playClip(idx) {
   dots.forEach((dot, i) => {
     dot.classList.toggle('active', i === currentClipIndex);
   });
+  // 영상이 바뀔 때 해당 장면 포스터도 함께 교체 (자동재생이 막힌 휴대폰에서도 빈 검은 칸 방지)
+  slideVideo.poster = clips[currentClipIndex].replace('.mp4', '-poster.jpg');
   slideVideo.src = clips[currentClipIndex];
   slideVideo.play().catch(() => {});
 }
