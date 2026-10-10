@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<script>if(location.protocol==='http:'&&!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)){location.replace('https://'+location.host+location.pathname+location.search+location.hash);}</script>
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -3610,9 +3611,7 @@ footer {
         </dl>
       </div>
       
-      <form class="reveal reveal-delay-1" id="jkform" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="contact">
-        <p style="display:none"><label>이 칸은 비워두세요 <input name="bot-field"></label></p>
+      <form class="reveal reveal-delay-1" id="jkform" name="contact" novalidate>
         <div class="f2">
           <div class="field"><label for="name">성함</label><input id="name" name="성함" type="text" required placeholder="성함을 입력하세요"></div>
           <div class="field"><label for="phone">연락처</label><input id="phone" name="연락처" type="tel" required placeholder="010-0000-0000"></div>
@@ -4259,42 +4258,37 @@ if (slideVideo) {
   });
 }
 
-// 10. Netlify Form AJAX Submit
+// 10. 상담 문의 전송 (보안 수정 2026-10)
+// GitHub Pages는 폼 접수 서버가 없어 기존 방식은 문의가 사라졌음(405 오류).
+// → 휴대폰은 문자 앱, PC는 메일 앱을 내용이 채워진 상태로 열어 대표에게 직접 전달
 const form = document.getElementById('jkform');
 const msgBox = document.getElementById('jkmsg');
+const JK_PHONE = '01034071691';
+const JK_MAIL = 'contact@jasonkingdom.com';
 if (form) {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const btn = form.querySelector('button.submit');
-    const oldText = btn.textContent;
-    btn.disabled = true;
-    btn.textContent = '문의 제출 중...';
-    
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(new FormData(form)).toString()
-    })
-    .then(res => {
-      if (!res.ok) throw new Error();
-      form.reset();
-      msgBox.style.display = 'block';
-      msgBox.style.background = 'rgba(212, 175, 55, 0.1)';
-      msgBox.style.border = '1px solid var(--primary)';
-      msgBox.style.color = 'var(--primary-light)';
-      msgBox.textContent = '문의 접수가 성공적으로 완료되었습니다. 빠른 시일 내에 연락드리겠습니다.';
-    })
-    .catch(() => {
-      msgBox.style.display = 'block';
-      msgBox.style.background = 'rgba(248, 113, 113, 0.1)';
-      msgBox.style.border = '1px solid #f87171';
-      msgBox.style.color = '#fca5a5';
-      msgBox.textContent = '전송 오류가 발생했습니다. 잠시 후 다시 시도해 주시거나 010-3407-1691로 유선 문의 바랍니다.';
-    })
-    .finally(() => {
-      btn.disabled = false;
-      btn.textContent = oldText;
-    });
+    if (!form.reportValidity()) return;
+    const v = (id) => (document.getElementById(id)?.value || '').trim().slice(0, 1500);
+    const text =
+      '[제이슨킹덤 상담 문의]\n' +
+      '성함: ' + v('name') + '\n' +
+      '연락처: ' + v('phone') + '\n' +
+      (v('company') ? '회사: ' + v('company') + '\n' : '') +
+      '문의 종류: ' + v('type') + '\n' +
+      '내용: ' + v('msg');
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const url = isMobile
+      ? 'sms:' + JK_PHONE + '?&body=' + encodeURIComponent(text)
+      : 'mailto:' + JK_MAIL + '?subject=' + encodeURIComponent('[상담 문의] ' + v('name') + ' / ' + v('type')) + '&body=' + encodeURIComponent(text);
+    msgBox.style.display = 'block';
+    msgBox.style.background = 'rgba(212, 175, 55, 0.1)';
+    msgBox.style.border = '1px solid var(--primary)';
+    msgBox.style.color = 'var(--primary-light)';
+    msgBox.textContent = isMobile
+      ? '문자 앱이 열렸습니다. 내용 확인 후 [전송]을 눌러 주시면 접수됩니다. 열리지 않으면 010-3407-1691로 연락 주세요.'
+      : '메일 앱이 열렸습니다. 내용 확인 후 [보내기]를 눌러 주시면 접수됩니다. 열리지 않으면 contact@jasonkingdom.com 또는 010-3407-1691로 연락 주세요.';
+    window.location.href = url;
   });
 }
 
